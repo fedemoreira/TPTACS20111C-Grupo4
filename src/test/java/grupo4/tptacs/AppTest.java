@@ -1,4 +1,4 @@
-package grupo4.tptacs;
+package test.java.grupo4.tptacs;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

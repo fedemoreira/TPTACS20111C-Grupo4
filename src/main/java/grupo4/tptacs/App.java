@@ -1,4 +1,4 @@
-package grupo4.tptacs;
+package main.java.grupo4.tptacs;
 
 /**
  * Hello world!
