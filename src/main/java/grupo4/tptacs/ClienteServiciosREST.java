@@ -16,10 +16,8 @@ public class ClienteServiciosREST {
 	{
 		try
 		{
-		HttpClient httpclient = new DefaultHttpClient();
-		HttpGet httpget = new HttpGet("https://api.mercadolibre.com/sites/MLA/search?q=ipod");
-		HttpResponse response = httpclient.execute(httpget);
-		return response.getEntity().getContent().toString();
+			HttpResponse response = obtenerRespuesta("https://api.mercadolibre.com/sites/MLA/search?q=ipod");
+			return obtenerTextoDeRespuesta(response);
 		}
 		catch(ClientProtocolException c)
 		{
@@ -28,9 +26,17 @@ public class ClienteServiciosREST {
 		{
 		}
 		return "";
+	}
+
+	private static String obtenerTextoDeRespuesta(HttpResponse response) throws IOException {
+		return response.getEntity().getContent().toString();
+	}
+
+	private static HttpResponse obtenerRespuesta(String URL) throws IOException, ClientProtocolException {
+		return new DefaultHttpClient().execute(new HttpGet(URL));
 	}	
-	
+
 	public static void main(String [ ] args)	{
-			System.out.println(ClienteServiciosREST.pedir());
+		System.out.println(ClienteServiciosREST.pedir());
 	}
 }
