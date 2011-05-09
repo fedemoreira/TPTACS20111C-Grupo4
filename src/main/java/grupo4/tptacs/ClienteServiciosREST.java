@@ -1,13 +1,12 @@
 package main.java.grupo4.tptacs;
 
 import java.io.IOException;
-import java.io.InputStream;
 
-import org.apache.http.*;
+import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.util.EntityUtils;
 
 
 public class ClienteServiciosREST {
@@ -29,8 +28,16 @@ public class ClienteServiciosREST {
 	}
 
 	private static String obtenerTextoDeRespuesta(HttpResponse response) throws IOException {
-		return response.getEntity().getContent().toString();
+		if (response.getEntity() != null) {
+			if (response.getEntity().getContentLength() != -1) {
+				return(EntityUtils.toString(response.getEntity()));
+			}
+			
+		}
+		return "";
 	}
+		    
+		    
 
 	private static HttpResponse obtenerRespuesta(String URL) throws IOException, ClientProtocolException {
 		return new DefaultHttpClient().execute(new HttpGet(URL));
