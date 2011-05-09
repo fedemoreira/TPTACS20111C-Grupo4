@@ -1,4 +1,4 @@
-package main.java.grupo4.tests;
+package test.java.grupo4;
 
 import java.io.IOException;
 
@@ -10,7 +10,7 @@ import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.message.BasicStatusLine;
 import org.junit.Test;
 
-public class HttpClient {
+public class TestHttpClient {
 	@Test(expected=ImposibleConsumirException.class)
 	public void testBasico() throws IOException
 	{
