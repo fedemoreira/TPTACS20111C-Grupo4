@@ -2,15 +2,9 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>tptacs2</groupId>
   <artifactId>tptacs2</artifactId>
+  <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
   <dependencies>
-  	<dependency>
-  		<groupId>org.apache.tomcat</groupId>
-  		<artifactId>tomcat-servlet-api</artifactId>
-  		<version>7.0.12</version>
-  		<type>jar</type>
-  		<scope>compile</scope>
-  	</dependency>
   	<dependency>
   		<groupId>org.apache.httpcomponents</groupId>
   		<artifactId>httpclient</artifactId>
@@ -30,6 +24,27 @@
   		<artifactId>junit</artifactId>
   		<version>4.7-201002241900</version>
   		<type>nbm</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>javax.servlet</groupId>
+  		<artifactId>servlet-api</artifactId>
+  		<version>2.5</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>javax.servlet.jsp</groupId>
+  		<artifactId>jsp-api</artifactId>
+  		<version>2.1</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>org.apache.maven.plugins</groupId>
+  		<artifactId>maven-compiler-plugin</artifactId>
+  		<version>2.3.2</version>
+  		<type>maven-plugin</type>
   		<scope>compile</scope>
   	</dependency>
   </dependencies>
