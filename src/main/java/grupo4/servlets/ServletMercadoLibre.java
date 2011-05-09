@@ -40,7 +40,7 @@ public class ServletMercadoLibre extends HttpServlet implements Servlet {
         out.println("</head>");
         out.println("<body>");
 
-        out.println(ClienteServiciosREST.pedir());
+        out.println(new ClienteServiciosREST().pedir());
         out.println("Test");
         out.println("</body>");
         out.println("</html>");
