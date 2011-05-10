@@ -1,27 +1,23 @@
 package test.java.grupo4;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
-
-import javax.swing.text.html.parser.Entity;
 
 import main.java.grupo4.clientes.ClienteServiciosREST;
 import main.java.grupo4.exceptions.ImposibleConsumirException;
 
-import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.ProtocolVersion;
-import org.apache.http.entity.BasicHttpEntity;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.message.BasicStatusLine;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestHttpClient {
+public class TestClienteRest {
 	
 	private HttpResponse Respuesta404;
 	private BasicHttpResponse RespuestaValida;
@@ -31,26 +27,39 @@ public class TestHttpClient {
 	{
 		this.Respuesta404 = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("", 0, 0), 404, "Mock"));
 		this.RespuestaValida = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Mock", 3, 2), 200, "Mock"));
+		this.RespuestaValida.setEntity(new StringEntity("Mock") );
 	}
 	
 	@Test(expected=ImposibleConsumirException.class)
-	public void Respuesta404TiraExcepción() throws IOException
+	public void Respuesta404TiraExcepcion() throws IOException
 	{
 		new ClienteServiciosREST().obtenerTextoDeRespuesta(this.Respuesta404);
 	}
+
 	
-/*	@Test
-	public void Largo() throws IOException
+	@Test
+	public void DetectaRespuestaValida() throws IOException
 	{
-		assertTrue(RespuestaValida.getEntity().getContentLength() != -1);
+		String textoObtenido = new ClienteServiciosREST().obtenerTextoDeRespuesta(this.RespuestaValida);
+		assertEquals(textoObtenido, "Mock");
 	}
-	*/
-	/*@Test
+	
+	@Test
+	public void DetectaLargoDeRespuestaValida()
+	{
+		assertEquals(new ClienteServiciosREST().obtenerLargoDeRespuesta(RespuestaValida), 4);
+	}
+	
+	@Test
+	public void DetectaRespuestaInvalida() throws IOException
+	{
+		assertTrue(new ClienteServiciosREST().esRespuestaOK(RespuestaValida));
+	}
+
+	@Test
 	public void ExtraeTextoDeRespuestaDeMock() throws IOException
 	{
 		String textoObtenido = new ClienteServiciosREST().obtenerTextoDeRespuesta(this.RespuestaValida);
 		assertEquals(textoObtenido, "Mock");
-	}*/
-	
-	
+	}
 }
