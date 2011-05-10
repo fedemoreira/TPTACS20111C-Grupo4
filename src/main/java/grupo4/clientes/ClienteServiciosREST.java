@@ -40,9 +40,9 @@ public class ClienteServiciosREST {
 
 	public HttpResponse obtenerRespuesta(String URL) throws IOException, ClientProtocolException {
 		HttpResponse respuesta = new DefaultHttpClient().execute(new HttpGet(URL));
-		if (respuesta.getStatusLine().getStatusCode() == 404)
+		if (respuesta.getStatusLine().getStatusCode() != 200)
 		{
-			throw new ImposibleConsumirException("404");
+			throw new ImposibleConsumirException("" + respuesta.getStatusLine().getStatusCode());
 		}
 		return respuesta;
 	}	
