@@ -21,45 +21,57 @@ public class TestClienteRest {
 	
 	private HttpResponse Respuesta404;
 	private BasicHttpResponse RespuestaValida;
-	
+	private ClienteServiciosREST CSRest;
 	@Before
 	public void condicionesIniciales() throws UnsupportedEncodingException
 	{
 		this.Respuesta404 = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("", 0, 0), 404, "Mock"));
 		this.RespuestaValida = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Mock", 3, 2), 200, "Mock"));
 		this.RespuestaValida.setEntity(new StringEntity("Mock") );
+		this.CSRest = new ClienteServiciosREST();
 	}
 	
 	@Test(expected=ImposibleConsumirException.class)
 	public void Respuesta404TiraExcepcion() throws IOException
 	{
-		new ClienteServiciosREST().obtenerTextoDeRespuesta(this.Respuesta404);
+		this.CSRest.obtenerTextoDeRespuesta(this.Respuesta404);
 	}
 
+	@Test
+	public void ObtieneCodigoDeEstadoValido()
+	{
+		assertEquals(this.CSRest.obtenerCodigoDeEstado(RespuestaValida), 200);
+	}
+	
+	@Test
+	public void ObtieneCodigoDeEstadoInvalido()
+	{
+		assertEquals(this.CSRest.obtenerCodigoDeEstado(Respuesta404), 404);
+	}
 	
 	@Test
 	public void DetectaRespuestaValida() throws IOException
 	{
-		String textoObtenido = new ClienteServiciosREST().obtenerTextoDeRespuesta(this.RespuestaValida);
+		String textoObtenido = this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida);
 		assertEquals(textoObtenido, "Mock");
 	}
 	
 	@Test
 	public void DetectaLargoDeRespuestaValida()
 	{
-		assertEquals(new ClienteServiciosREST().obtenerLargoDeRespuesta(RespuestaValida), 4);
+		assertEquals(this.CSRest.obtenerLargoDeRespuesta(RespuestaValida), 4);
 	}
 	
 	@Test
 	public void DetectaRespuestaInvalida() throws IOException
 	{
-		assertTrue(new ClienteServiciosREST().esRespuestaOK(RespuestaValida));
+		assertTrue(this.CSRest.esRespuestaOK(RespuestaValida));
 	}
 
 	@Test
 	public void ExtraeTextoDeRespuestaDeMock() throws IOException
 	{
-		String textoObtenido = new ClienteServiciosREST().obtenerTextoDeRespuesta(this.RespuestaValida);
+		String textoObtenido = this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida);
 		assertEquals(textoObtenido, "Mock");
 	}
 }
