@@ -17,7 +17,7 @@ import org.apache.http.message.BasicStatusLine;
 import org.junit.Before;
 import org.junit.Test;
 
-public class TestClienteRest {
+public class ClienteServiciosRestTest {
 	
 	private HttpResponse Respuesta404;
 	private BasicHttpResponse RespuestaValida;
@@ -38,40 +38,40 @@ public class TestClienteRest {
 	}
 
 	@Test
-	public void ObtieneCodigoDeEstadoValido()
+	public void obtieneCodigoDeEstadoValido()
 	{
-		assertEquals(this.CSRest.obtenerCodigoDeEstado(RespuestaValida), 200);
+		assertEquals(200, this.CSRest.obtenerCodigoDeEstado(RespuestaValida));
 	}
 	
 	@Test
-	public void ObtieneCodigoDeEstadoInvalido()
+	public void obtieneCodigoDeEstadoInvalido()
 	{
-		assertEquals(this.CSRest.obtenerCodigoDeEstado(Respuesta404), 404);
+		assertEquals(404, this.CSRest.obtenerCodigoDeEstado(Respuesta404));
 	}
 	
 	@Test
-	public void DetectaRespuestaValida() throws IOException
+	public void detectaRespuestaValida() throws IOException
 	{
 		String textoObtenido = this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida);
-		assertEquals(textoObtenido, "Mock");
+		assertEquals("Mock", textoObtenido);
 	}
 	
 	@Test
-	public void DetectaLargoDeRespuestaValida()
+	public void detectaLargoDeRespuestaValida()
 	{
-		assertEquals(this.CSRest.obtenerLargoDeRespuesta(RespuestaValida), 4);
+		assertEquals(4, this.CSRest.obtenerLargoDeRespuesta(RespuestaValida));
 	}
 	
 	@Test
-	public void DetectaRespuestaInvalida() throws IOException
+	public void detectaRespuestaInvalida() throws IOException
 	{
 		assertTrue(this.CSRest.esRespuestaOK(RespuestaValida));
 	}
 
 	@Test
-	public void ExtraeTextoDeRespuestaDeMock() throws IOException
+	public void extraeTextoDeRespuestaDeMock() throws IOException
 	{
 		String textoObtenido = this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida);
-		assertEquals(textoObtenido, "Mock");
+		assertEquals("Mock", textoObtenido);
 	}
 }
