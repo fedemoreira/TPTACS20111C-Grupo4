@@ -4,6 +4,20 @@
   <artifactId>TPTACS</artifactId>
   <packaging>war</packaging>
   <version>0.0.1-SNAPSHOT</version>
+  <build>
+  	<plugins>
+  		<plugin>
+  			<groupId>org.apache.maven.plugins</groupId>
+  			<artifactId>maven-compiler-plugin</artifactId>
+  			<version>2.3.2</version>
+  		</plugin>
+  		<plugin>
+  			<groupId>org.codehaus.mojo</groupId>
+  			<artifactId>tomcat-maven-plugin</artifactId>
+  			<version>1.1</version>
+  		</plugin>
+  	</plugins>
+  </build>
   <dependencies>
   	<dependency>
   		<groupId>org.apache.httpcomponents</groupId>
@@ -13,31 +27,11 @@
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
-  		<groupId>org.codehaus.mojo</groupId>
-  		<artifactId>tomcat-maven-plugin</artifactId>
-  		<version>1.1</version>
-  		<type>maven-plugin</type>
-  		<scope>compile</scope>
-  		<exclusions>
-  			<exclusion>
-  				<artifactId>servlet-api</artifactId>
-  				<groupId>org.apache.tomcat</groupId>
-  			</exclusion>
-  		</exclusions>
-  	</dependency>
-  	<dependency>
   		<groupId>com.kenai.nbpwr</groupId>
   		<artifactId>junit</artifactId>
   		<version>4.7-201002241900</version>
   		<type>nbm</type>
-  		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.maven.plugins</groupId>
-  		<artifactId>maven-compiler-plugin</artifactId>
-  		<version>2.3.2</version>
-  		<type>maven-plugin</type>
-  		<scope>compile</scope>
+  		<scope>test</scope>
   	</dependency>
   	<dependency>
   		<groupId>javax</groupId>
