@@ -15,16 +15,16 @@ import main.java.grupo4.clientes.ClienteServiciosREST;
 /**
  * Servlet implementation class ServletMercadoLibre
  */
-@WebServlet("/ServletMercadoLibre")
 public class ServletMercadoLibre extends HttpServlet implements Servlet {
 	private static final long serialVersionUID = 1L;
+	private ClienteServiciosREST clienteRest;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
     public ServletMercadoLibre() {
         super();
-        // TODO Auto-generated constructor stub
+        this.clienteRest = new ClienteServiciosREST();
     }
 
 	/**
@@ -39,7 +39,7 @@ public class ServletMercadoLibre extends HttpServlet implements Servlet {
         out.println("<title>Grupo 4</title>");
         out.println("</head>");
         out.println("<body>");
-        out.println(new ClienteServiciosREST().pedir("https://api.mercadolibre.com/sites/MLA/search?q=cafetera"));
+        out.println(this.clienteRest.pedir("https://api.mercadolibre.com/sites/MLA/search?q=cafetera"));
         out.println("</body>");
         out.println("</html>");
 
