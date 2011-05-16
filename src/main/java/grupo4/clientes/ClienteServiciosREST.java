@@ -6,6 +6,7 @@ import main.java.grupo4.exceptions.ImposibleConsumirException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
+import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicHttpResponse;
@@ -14,6 +15,12 @@ import org.apache.http.util.EntityUtils;
 
 public class ClienteServiciosREST {
 
+	private DefaultHttpClient clienteHTTP;
+
+	public ClienteServiciosREST()
+	{
+		this.clienteHTTP= new DefaultHttpClient();
+	}
 	public String pedir(String URL) throws IOException
 	{
 		try
@@ -60,7 +67,7 @@ public class ClienteServiciosREST {
 
 	private HttpResponse ejecutarGet(String URL) throws IOException,
 			ClientProtocolException {
-		return new DefaultHttpClient().execute(new HttpGet(URL));
+		return this.clienteHTTP.execute(new HttpGet(URL));
 	}
 
 	public boolean esRespuestaOK(HttpResponse respuesta) {
