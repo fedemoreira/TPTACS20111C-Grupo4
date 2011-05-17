@@ -6,7 +6,7 @@ public class ImposibleParsearJSONException extends RuntimeException {
 	 */
 	private static final long serialVersionUID = -5068290185557975617L;
 
-	public ImposibleParsearJSONException(String string) {
+	public ImposibleParsearJSONException() {
 		// TODO Auto-generated constructor stub
 	}
 

@@ -22,7 +22,6 @@ public class ClienteServiciosRestTest {
 	private HttpResponse Respuesta404;
 	private BasicHttpResponse RespuestaValida;
 	private ClienteServiciosREST CSRest;
-	private String jsonstring;
 
 	@Before
 	public void condicionesIniciales() throws UnsupportedEncodingException

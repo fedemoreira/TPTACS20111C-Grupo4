@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import main.java.grupo4.clientes.ParserJSON;
 import main.java.grupo4.exceptions.ImposibleParsearJSONException;
 
-import org.json.simple.parser.JSONParser;
 import org.junit.Before;
 import org.junit.Test;
 

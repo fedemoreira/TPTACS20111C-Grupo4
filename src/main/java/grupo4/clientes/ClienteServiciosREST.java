@@ -39,7 +39,7 @@ public class ClienteServiciosREST {
 		if (tieneEntidadValida(response)) {
 				return(extraerTextoDeRespuestaValida(response));
 		}
-		throw new ImposibleConsumirException("Error al obtener texto");
+		throw new ImposibleConsumirException();
 	}
 
 	private boolean tieneEntidadValida(HttpResponse response) {
@@ -54,7 +54,7 @@ public class ClienteServiciosREST {
 		HttpResponse respuesta = ejecutarGet(URL);
 		if (!esRespuestaOK(respuesta))
 		{
-			throw new ImposibleConsumirException("" + obtenerCodigoDeEstado(respuesta));
+			throw new ImposibleConsumirException();
 		}
 		return respuesta;
 	}

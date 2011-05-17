@@ -24,7 +24,7 @@ public class ParserJSON {
 		}
 		catch(NullPointerException e)
 		{
-			throw new ImposibleParsearJSONException(e.getMessage());
+			throw new ImposibleParsearJSONException();
 		}
 	}
 	

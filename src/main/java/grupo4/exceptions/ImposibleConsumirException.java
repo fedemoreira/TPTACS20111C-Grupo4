@@ -1,7 +1,7 @@
 package main.java.grupo4.exceptions;
 
 public class ImposibleConsumirException extends RuntimeException {
-	public ImposibleConsumirException(String string) {
+	public ImposibleConsumirException() {
 		// TODO Auto-generated constructor stub
 	}
 
