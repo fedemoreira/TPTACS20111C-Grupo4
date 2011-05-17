@@ -1,21 +1,15 @@
 package main.java.grupo4.servlets;
 
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.io.StringReader;
 
-import javax.servlet.Servlet;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.ParseException;
-
 import main.java.grupo4.clientes.ClienteServiciosREST;
+import main.java.grupo4.clientes.ParserJSON;
 
 /**
  * Servlet implementation class ServletMercadoLibre
@@ -23,6 +17,7 @@ import main.java.grupo4.clientes.ClienteServiciosREST;
 public class ServletMercadoLibre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ClienteServiciosREST clienteRest;
+	private ParserJSON JSONParser;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -30,6 +25,7 @@ public class ServletMercadoLibre extends HttpServlet {
 	public ServletMercadoLibre() {
 		super();
 		this.clienteRest = new ClienteServiciosREST();
+		this.JSONParser = new ParserJSON();
 	}
 
 	/**
@@ -46,9 +42,7 @@ public class ServletMercadoLibre extends HttpServlet {
 		out.println("</head>");
 		out.println("<body>");
 
-
-		for(Object jso :  this.clienteRest.obtenerArrayJSON("[" + this.clienteRest.pedir("https://api.mercadolibre.com/sites/MLA/categories") + "]"))
-			out.println("Categoría: " + jso + "\n\n");
+		out.println(this.clienteRest.pedir("https://api.mercadolibre.com/sites/MLA/categories"));
 			
 		out.println("</body>");
 		out.println("</html>");

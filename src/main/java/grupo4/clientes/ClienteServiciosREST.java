@@ -1,34 +1,23 @@
 package main.java.grupo4.clientes;
 
 import java.io.IOException;
-import java.lang.reflect.WildcardType;
-import java.text.ParseException;
-import java.util.ArrayList;
 
 import main.java.grupo4.exceptions.ImposibleConsumirException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.message.BasicHttpResponse;
 import org.apache.http.util.EntityUtils;
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.JSONValue;
-import org.json.simple.parser.JSONParser;
 
 
 public class ClienteServiciosREST {
 
 	private DefaultHttpClient clienteHTTP;
-	private JSONParser parser;
 
 	public ClienteServiciosREST()
 	{
 		this.clienteHTTP= new DefaultHttpClient();
-		this.parser = new JSONParser();
 	}
 	public String pedir(String URL) throws IOException
 	{
@@ -70,7 +59,7 @@ public class ClienteServiciosREST {
 		return respuesta;
 	}
 
-	public int obtenerCodigoDeEstado(HttpResponse respuesta) {
+	private int obtenerCodigoDeEstado(HttpResponse respuesta) {
 		return respuesta.getStatusLine().getStatusCode();
 	}
 
@@ -83,21 +72,8 @@ public class ClienteServiciosREST {
 		return obtenerCodigoDeEstado(respuesta) == 200;
 	}	
 
-	public long obtenerLargoDeRespuesta(HttpResponse response) {
+	private long obtenerLargoDeRespuesta(HttpResponse response) {
 		return response.getEntity().getContentLength();
-	}
-
-	public String obtenerValorDeCampoJSON(String respuesta, String campo) throws org.json.simple.parser.ParseException
-	{
-		return obtenerJSONObject(respuesta).get(campo).toString();           
-	}
-	
-	private JSONObject obtenerJSONObject(String respuesta)
-	throws org.json.simple.parser.ParseException {
-		return (JSONObject) this.parser.parse(respuesta);
-	}
-	public JSONArray obtenerArrayJSON(String respuesta) {
-		return (JSONArray)JSONValue.parse(respuesta);
 	}
 }
 

@@ -23,6 +23,7 @@ public class ClienteServiciosRestTest {
 	private BasicHttpResponse RespuestaValida;
 	private ClienteServiciosREST CSRest;
 	private String jsonstring;
+
 	@Before
 	public void condicionesIniciales() throws UnsupportedEncodingException
 	{
@@ -30,56 +31,24 @@ public class ClienteServiciosRestTest {
 		this.RespuestaValida = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Mock", 3, 2), 200, "Mock"));
 		this.RespuestaValida.setEntity(new StringEntity("Mock") );
 		this.CSRest = new ClienteServiciosREST();
-		this.jsonstring = "{\"id\":36484980,\"power_seller_status\":\"platinum\",\"car_dealer\":false,\"real_estate_agency\":false}";
 	}
 	
 	@Test(expected=ImposibleConsumirException.class)
-	public void Respuesta404TiraExcepcion() throws IOException
+	public void respuesta404TiraExcepcion() throws IOException
 	{
 		this.CSRest.obtenerTextoDeRespuesta(this.Respuesta404);
 	}
 
 	@Test
-	public void obtieneCodigoDeEstadoValido()
+	public void detectaRespuestaInvalida()
 	{
-		assertEquals(200, this.CSRest.obtenerCodigoDeEstado(RespuestaValida));
-	}
-	
-	@Test
-	public void obtieneCodigoDeEstadoInvalido()
-	{
-		assertEquals(404, this.CSRest.obtenerCodigoDeEstado(Respuesta404));
-	}
-	
-	@Test
-	public void detectaRespuestaValida() throws IOException
-	{
-		String textoObtenido = this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida);
-		assertEquals("Mock", textoObtenido);
-	}
-	
-	@Test
-	public void detectaLargoDeRespuestaValida()
-	{
-		assertEquals(4, this.CSRest.obtenerLargoDeRespuesta(RespuestaValida));
-	}
-	
-	@Test
-	public void detectaRespuestaInvalida() throws IOException
-	{
-		assertTrue(this.CSRest.esRespuestaOK(RespuestaValida));
+		assertTrue(this.CSRest.esRespuestaOK(this.RespuestaValida));
 	}
 
 	@Test
 	public void extraeTextoDeRespuestaDeMock() throws IOException
 	{
-		String textoObtenido = this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida);
-		assertEquals("Mock", textoObtenido);
+		assertEquals("Mock", this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida));
 	}
 	
-	@Test
-	public void testObtenerCampoJson() throws IOException, org.json.simple.parser.ParseException
-	{
-		assertEquals("36484980", this.CSRest.obtenerValorDeCampoJSON(this.jsonstring, "id"));
-	}
 }
