@@ -22,6 +22,7 @@ public class ClienteServiciosRestTest {
 	private HttpResponse Respuesta404;
 	private BasicHttpResponse RespuestaValida;
 	private ClienteServiciosREST CSRest;
+	private String jsonstring;
 	@Before
 	public void condicionesIniciales() throws UnsupportedEncodingException
 	{
@@ -29,6 +30,7 @@ public class ClienteServiciosRestTest {
 		this.RespuestaValida = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Mock", 3, 2), 200, "Mock"));
 		this.RespuestaValida.setEntity(new StringEntity("Mock") );
 		this.CSRest = new ClienteServiciosREST();
+		this.jsonstring = "{\"id\":36484980,\"power_seller_status\":\"platinum\",\"car_dealer\":false,\"real_estate_agency\":false}";
 	}
 	
 	@Test(expected=ImposibleConsumirException.class)
@@ -76,8 +78,8 @@ public class ClienteServiciosRestTest {
 	}
 	
 	@Test
-	public void test() throws IOException, org.json.simple.parser.ParseException
+	public void testObtenerCampoJson() throws IOException, org.json.simple.parser.ParseException
 	{
-		assertEquals("36484980", this.CSRest.obtenerValorDeCampoJSON("{\"id\":36484980,\"power_seller_status\":\"platinum\",\"car_dealer\":false,\"real_estate_agency\":false}", "id"));
+		assertEquals("36484980", this.CSRest.obtenerValorDeCampoJSON(this.jsonstring, "id"));
 	}
 }
