@@ -74,4 +74,10 @@ public class ClienteServiciosRestTest {
 		String textoObtenido = this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida);
 		assertEquals("Mock", textoObtenido);
 	}
+	
+	@Test
+	public void test() throws IOException, org.json.simple.parser.ParseException
+	{
+		assertEquals("36484980", this.CSRest.obtenerValorDeCampoJSON("{\"id\":36484980,\"power_seller_status\":\"platinum\",\"car_dealer\":false,\"real_estate_agency\":false}", "id"));
+	}
 }
