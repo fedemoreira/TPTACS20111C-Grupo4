@@ -25,7 +25,7 @@ public class ServletMercadoLibre extends HttpServlet {
 	public ServletMercadoLibre() {
 		super();
 		this.clienteRest = new ClienteServiciosREST();
-		this.JSONParser = new ParserJSON();
+		this.setJSONParser(new ParserJSON());
 	}
 
 	/**
@@ -48,5 +48,13 @@ public class ServletMercadoLibre extends HttpServlet {
 		out.println("</html>");
 
 		out.close();
+	}
+
+	public void setJSONParser(ParserJSON jSONParser) {
+		this.JSONParser = jSONParser;
+	}
+
+	public ParserJSON getJSONParser() {
+		return this.JSONParser;
 	}
 }

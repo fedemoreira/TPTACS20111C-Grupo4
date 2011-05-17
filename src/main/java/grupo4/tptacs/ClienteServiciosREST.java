@@ -11,20 +11,10 @@ import org.apache.http.util.EntityUtils;
 
 public class ClienteServiciosREST {
 
-	static public String pedir()
+	static public String pedir() throws ClientProtocolException, IOException
 	{
-		try
-		{
-			HttpResponse response = obtenerRespuesta("https://api.mercadolibre.com/sites/MLA/search?q=ipod");
-			return obtenerTextoDeRespuesta(response);
-		}
-		catch(ClientProtocolException c)
-		{
-		}
-		catch(IOException e)
-		{
-		}
-		return "";
+		HttpResponse response = obtenerRespuesta("https://api.mercadolibre.com/sites/MLA/search?q=ipod");
+		return obtenerTextoDeRespuesta(response);
 	}
 
 	private static String obtenerTextoDeRespuesta(HttpResponse response) throws IOException {
@@ -37,13 +27,7 @@ public class ClienteServiciosREST {
 		return "";
 	}
 		    
-		    
-
 	private static HttpResponse obtenerRespuesta(String URL) throws IOException, ClientProtocolException {
 		return new DefaultHttpClient().execute(new HttpGet(URL));
 	}	
-
-	public static void main(String [ ] args)	{
-		System.out.println(ClienteServiciosREST.pedir());
-	}
 }
