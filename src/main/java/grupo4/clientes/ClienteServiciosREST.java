@@ -1,7 +1,9 @@
 package main.java.grupo4.clientes;
 
 import java.io.IOException;
+import java.lang.reflect.WildcardType;
 import java.text.ParseException;
+import java.util.ArrayList;
 
 import main.java.grupo4.exceptions.ImposibleConsumirException;
 
@@ -87,14 +89,15 @@ public class ClienteServiciosREST {
 
 	public String obtenerValorDeCampoJSON(String respuesta, String campo) throws org.json.simple.parser.ParseException
 	{
-		return obtenerJSONObject(respuesta).get("id").toString();           
+		return obtenerJSONObject(respuesta).get(campo).toString();           
 	}
 	
 	private JSONObject obtenerJSONObject(String respuesta)
 	throws org.json.simple.parser.ParseException {
 		return (JSONObject) this.parser.parse(respuesta);
 	}
-
-
+	public JSONArray obtenerArrayJSON(String respuesta) {
+		return (JSONArray)JSONValue.parse(respuesta);
+	}
 }
 
