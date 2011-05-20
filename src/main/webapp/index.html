@@ -1,8 +1,25 @@
 <html>
 <head>
 <title>Grupo 4</title>
+<script src="http://code.jquery.com/jquery-latest.js"></script>                  
+
+<script>
+$.getJSON("ServletMercadoLibre", function(data) {
+  var items = [];
+
+  $.each(data, function(key, val) {
+    items.push(val.name + " " + val.id + "</br>");
+  });
+
+  $('<ul/>', {
+    'class': 'my-new-list',
+    html: items.join('\n')
+  }).appendTo('body');
+});
+</script>
+
 </head>
 <body>
-<a href="ServletMercadoLibre">Consumir un servicio REST</a>
+
 </body>
 </html>
