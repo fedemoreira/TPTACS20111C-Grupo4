@@ -35,8 +35,17 @@ public class ServletMercadoLibre extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.println(this.clienteRest.pedir("https://api.mercadolibre.com/sites/MLA/categories"));
+		out.println(this.clienteRest.pedir(this.obtenerURLCategoriaPedida(request)));
 		out.close();
+	}
+
+	private String obtenerURLCategoriaPedida(HttpServletRequest request){
+		String parameter = request.getParameter("cat");
+		if(parameter != null)
+		{
+			return "https://api.mercadolibre.com/categories/" + parameter;
+		}
+		return "https://api.mercadolibre.com/sites/MLA/categories";
 	}
 
 	public void setJSONParser(ParserJSON jSONParser) {
