@@ -33,20 +33,9 @@ public class ServletMercadoLibre extends HttpServlet {
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-
-		out.println("<html>");
-		out.println("<head>");
-		out.println("<title>Grupo 4</title>");
-		out.println("</head>");
-		out.println("<body>");
-
 		out.println(this.clienteRest.pedir("https://api.mercadolibre.com/sites/MLA/categories"));
-			
-		out.println("</body>");
-		out.println("</html>");
-
 		out.close();
 	}
 
