@@ -8,18 +8,26 @@ $.getJSON("ServletMercadoLibre", function(data) {
   var items = [];
 
   $.each(data, function(key, val) {
-    items.push(val.name + " " + val.id + "</br>");
+    items.push("<div class=\"cat\">" + val.name + " " + val.id + "</div>");
   });
 
   $('<ul/>', {
-    'class': 'my-new-list',
+    'class': 'categorias',
     html: items.join('\n')
   }).appendTo('body');
 });
 </script>
 
+
+<script>
+$(".cat").live('click', function() {
+  $(this).remove();
+});
+</script>
+
 </head>
 <body>
+
 
 </body>
 </html>
