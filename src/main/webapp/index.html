@@ -19,10 +19,18 @@ $.getJSON("ServletMercadoLibre", function(data) {
 </script>
 
 
+
+
 <script>
 $(".cat").live('click', function() {
-  $(this).remove();
-});
+	var auxiliarurl = "";
+	var auxurllength = 0;
+	var url = "ServletMercadoLibre?cat="
+	 auxiliarurl = $(this).html();
+	 auxurllength = auxiliarurl.length;
+	 url = url + auxiliarurl.substring(auxurllength -7 ,auxurllength);
+	$  ("<div class=\"leer\">" + url +  "</div>").appendTo('body');
+	});
 </script>
 
 </head>

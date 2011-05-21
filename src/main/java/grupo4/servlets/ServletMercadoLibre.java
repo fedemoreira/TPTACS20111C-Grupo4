@@ -35,8 +35,10 @@ public class ServletMercadoLibre extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		String parametro = request.getParameter("texto1");
 		out.println(this.clienteRest.pedir(this.obtenerURLCategoriaPedida(request)));
 		out.close();
+		
 	}
 
 	private String obtenerURLCategoriaPedida(HttpServletRequest request){
