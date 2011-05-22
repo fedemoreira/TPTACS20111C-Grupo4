@@ -1,6 +1,7 @@
 package main.java.grupo4.clientes;
 
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import main.java.grupo4.exceptions.ImposibleConsumirException;
 
@@ -8,6 +9,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.util.EntityUtils;
 
 
@@ -17,13 +19,16 @@ public class ClienteServiciosREST {
 
 	public ClienteServiciosREST()
 	{
-		this.clienteHTTP= new DefaultHttpClient();
+		this.clienteHTTP = new DefaultHttpClient(new ThreadSafeClientConnManager());
+		
 	}
 	public String pedir(String URL) throws IOException
 	{
 		try
 		{
-			return this.obtenerTextoDeRespuesta(this.obtenerRespuesta(URL));
+			String respuesta = this.obtenerTextoDeRespuesta(this.obtenerRespuesta(URL));
+			this.clienteHTTP.getConnectionManager().closeIdleConnections(1, TimeUnit.MILLISECONDS);
+			return respuesta;
 		}
 		catch(ClientProtocolException c)
 		{
