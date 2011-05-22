@@ -15,7 +15,7 @@ var funcionDelGet = function(data)
   $('<ul/>', {
     'class': 'categorias',
     html: items.join('\n')
-  }).appendTo('body');
+  }).appendTo('.listaDeCategorias');
         $.each(datos.path_from_root, function(key, data)
         {
           $("<div class=\'pater\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
@@ -32,7 +32,7 @@ var funcionDelGetSecundario = function(datos)
     $('<ul/>', {
         'class': 'categorias',
         html: items.join('\n')
-        }).appendTo('body');
+        }).appendTo('.listaDeCategorias');
         $.each(datos.path_from_root, function(key, data)
         {
           $("<div class=\'pater\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo(".pathToRoot");
@@ -49,7 +49,7 @@ $.getJSON("ServletMercadoLibre", function(data) {
 $(".cat").live('click', function() {
 	var url = "ServletMercadoLibre?cat=" + $(this).attr("idCat");
         $(".pathToRoot").empty();
-	$("ul").empty();
+	$(".listaDeCategorias").empty();
 	$.getJSON(url, function(datos) {
 		funcionDelGetSecundario(datos);
 		});	
@@ -59,7 +59,7 @@ $(".cat").live('click', function() {
 $(".pater").live('click', function() {
 	$(".cat").slideUp();
         $(".pathToRoot").empty();
-	$("ul").empty();
+	$(".listaDeCategorias").empty();
         var url = "ServletMercadoLibre?cat=" + $(this).attr("idCat");
 	$.getJSON(url, function(datos) {
 		funcionDelGetSecundario(datos);
@@ -71,8 +71,10 @@ $(".pater").live('click', function() {
 </head>
 
 <body>
-Seleccione una categoria:
-
+Categorias visitadas:
 <div class = pathtoRoot></div>
+
+Seleccione una categoria:
+<div class = listaDeCategorias></div>
 </body>
 </html>
