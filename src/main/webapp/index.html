@@ -22,7 +22,7 @@ var regenerarCategorias = function(data)
   });
 }
 
-var funcionDelGetSecundario = function(datos)
+var obtenerCategorias = function(datos)
 {	
   var items = [];
   $(".pathToRoot").empty();
@@ -43,11 +43,11 @@ $.getJSON("ServletMercadoLibre", function(data) {
 regenerarCategorias(data);
 });
 
+
 $(".cat").live('click', function() {
-	var url = "ServletMercadoLibre?cat=" + $(this).attr("idCat");
         limpiar();
-	$.getJSON(url, function(datos) {
-		funcionDelGetSecundario(datos);
+	$.getJSON("ServletMercadoLibre?cat=" + $(this).attr("idCat"), function(datos) {
+		obtenerCategorias(datos);
 		});	
 	});
 </script>
