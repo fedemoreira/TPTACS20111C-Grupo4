@@ -43,7 +43,7 @@ $(".cat").live('click', function() {
 	 auxiliarurl = $(this).html() ;
 	 auxurllength = auxiliarurl.length;
 	 url = url + auxiliarurl.substring(auxurllength -7 ,auxurllength);
-	$  ("<div class=\"pater\">" + url +  "</div>").appendTo('body');
+	$  ("<div class=\"pater\">" + url +  "</div>").appendTo($(".pathToRoot"));
 	$("ul").empty();
 	$.getJSON(url, function(datos) {
 		funcionDelGetSecundario(datos);
@@ -53,8 +53,9 @@ $(".cat").live('click', function() {
 </script>
 <script>
 $(".pater").live('click', function() {
+	$(".cat").slideUp();
 	$("ul").empty();
-	$  ("<div class=\"pater2\">" + $(this).html() + " opa" + "</div>").appendTo('body');
+	$  ("<div class=\"pater2\">" + $(this).html() + </div>").appendTo('body');
 	$.getJSON($(this).html(), function(datos) {
 		funcionDelGetSecundario(datos);
 		});	
@@ -63,8 +64,11 @@ $(".pater").live('click', function() {
 </script>
 
 </head>
-<body>
 
+<body>
+Seleccione una categoria:
+
+<div class = pathtoRoot></div>
 
 </body>
 </html>

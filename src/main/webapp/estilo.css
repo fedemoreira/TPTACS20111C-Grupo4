@@ -4,6 +4,12 @@ body {
     background-color: #fefefe;
 }
 
+.pathToRoot {
+    font-size: 12px;
+    color: #0a0a0a;
+    background-color: #aaaaaa;
+}
+
 .cat {
     background-color: #e6e6e6;
     color: #0a0a0a;
