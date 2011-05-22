@@ -18,34 +18,34 @@ var regenerarCategorias = function(data)
   var items = [];
 
   $.each(data, function(key, val) {
-    items.push("<div class=\"cat\" idCat=\"" + val.id + "\">" + val.name + "</div>");
+    $("<div class=\"cat\" idCat=\"" + val.id + "\">" + val.name + "</div>").appendTo('.listaDeCategorias');
   });
-
-  $('<ul/>', {
-    'class': 'categorias',
-    html: items.join('\n')
-  }).appendTo('.listaDeCategorias');
 }
 
 var funcionDelGetSecundario = function(datos)
 {	
-	var items = [];
-    $(".pathToRoot").empty();
-    regenerarCategorias(datos.children_categories);
-regenerarPathToRoot(datos);
+  var items = [];
+  $(".pathToRoot").empty();
+  regenerarCategorias(datos.children_categories);
+  regenerarPathToRoot(datos);
 };
 
+var limpiar = function()
+{
+        $(".pathToRoot").empty();
+	$(".listaDeCategorias").empty();
+}
+
+
+
+// Carga inicial
 $.getJSON("ServletMercadoLibre", function(data) {
 regenerarCategorias(data);
 });
-</script>
 
-
-<script>
 $(".cat").live('click', function() {
 	var url = "ServletMercadoLibre?cat=" + $(this).attr("idCat");
-        $(".pathToRoot").empty();
-	$(".listaDeCategorias").empty();
+        limpiar();
 	$.getJSON(url, function(datos) {
 		funcionDelGetSecundario(datos);
 		});	
@@ -57,7 +57,7 @@ $(".cat").live('click', function() {
 <body>
 Categorias visitadas:
 <div class = pathtoRoot></div>
-
+</br>
 Seleccione una categoria:
 <div class = listaDeCategorias></div>
 </body>
