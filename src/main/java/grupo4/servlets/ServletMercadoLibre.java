@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.http.impl.conn.SingleClientConnManager;
+
 import main.java.grupo4.clientes.ClienteServiciosREST;
 import main.java.grupo4.clientes.ParserJSON;
 
