@@ -4,7 +4,16 @@
 <link href="estilo.css" rel="stylesheet" type="text/css">
 <script src="jquery.js"></script>                  
 <script>
-var funcionDelGet = function(data)
+
+var regenerarPathToRoot = function(datos)
+{
+        $.each(datos.path_from_root, function(key, data)
+        {
+          $("<div class=\'cat\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
+        });
+}
+
+var regenerarCategorias = function(data)
 {
   var items = [];
 
@@ -16,27 +25,19 @@ var funcionDelGet = function(data)
     'class': 'categorias',
     html: items.join('\n')
   }).appendTo('.listaDeCategorias');
-        $.each(datos.path_from_root, function(key, data)
-        {
-          $("<div class=\'pater\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
-        });
-};
+}
+
+var funcionDelGet = function(datos)
+{
+regenerarCategorias(datos);
+}
 
 var funcionDelGetSecundario = function(datos)
 {	
 	var items = [];
     $(".pathToRoot").empty();
-     $.each(datos.children_categories, function(keychildren, valchildren) {
-    items.push("<div class=\"cat\" idCat=\"" + valchildren.id + "\">" + valchildren.name + "</div>");
-});
-    $('<ul/>', {
-        'class': 'categorias',
-        html: items.join('\n')
-        }).appendTo('.listaDeCategorias');
-        $.each(datos.path_from_root, function(key, data)
-        {
-          $("<div class=\'pater\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo(".pathToRoot");
-        });
+    regenerarCategorias(datos.children_categories);
+regenerarPathToRoot(datos);
 };
 
 $.getJSON("ServletMercadoLibre", function(data) {
@@ -55,18 +56,6 @@ $(".cat").live('click', function() {
 	$.getJSON(url, function(datos) {
 		funcionDelGetSecundario(datos);
 		});	
-	});
-</script>
-<script>
-$(".pater").live('click', function() {
-	$(".cat").slideUp();
-        $(".pathToRoot").empty();
-	$(".listaDeCategorias").empty();
-        var url = "ServletMercadoLibre?cat=" + $(this).attr("idCat");
-	$.getJSON(url, function(datos) {
-		funcionDelGetSecundario(datos);
-		});	
-
 	});
 </script>
 
