@@ -16,18 +16,27 @@ var funcionDelGet = function(data)
     'class': 'categorias',
     html: items.join('\n')
   }).appendTo('body');
+        $.each(datos.path_from_root, function(key, data)
+        {
+          $("<div class=\'pater\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
+        });
 };
 
 var funcionDelGetSecundario = function(datos)
 {	
 	var items = [];
-  $.each(datos.children_categories, function(keychildren, valchildren) {
+    $(".pathToRoot").empty();
+     $.each(datos.children_categories, function(keychildren, valchildren) {
     items.push("<div class=\"cat\" idCat=\"" + valchildren.id + "\">" + valchildren.name + "</div>");
 });
     $('<ul/>', {
         'class': 'categorias',
         html: items.join('\n')
         }).appendTo('body');
+        $.each(datos.path_from_root, function(key, data)
+        {
+          $("<div class=\'pater\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo(".pathToRoot");
+        });
 };
 
 $.getJSON("ServletMercadoLibre", function(data) {
@@ -38,23 +47,21 @@ $.getJSON("ServletMercadoLibre", function(data) {
 
 <script>
 $(".cat").live('click', function() {
-	var auxiliarurl = "";
-	var auxurllength = 0;
 	var url = "ServletMercadoLibre?cat=" + $(this).attr("idCat");
-	$  ("<div class=\"pater\">" + url +  "</div>").appendTo($(".pathToRoot"));
+        $(".pathToRoot").empty();
 	$("ul").empty();
 	$.getJSON(url, function(datos) {
 		funcionDelGetSecundario(datos);
 		});	
-
 	});
 </script>
 <script>
 $(".pater").live('click', function() {
 	$(".cat").slideUp();
+        $(".pathToRoot").empty();
 	$("ul").empty();
-	$  ("<div class=\"pater2\">" + $(this).html() + </div>").appendTo('body');
-	$.getJSON($(this).html(), function(datos) {
+        var url = "ServletMercadoLibre?cat=" + $(this).attr("idCat");
+	$.getJSON(url, function(datos) {
 		funcionDelGetSecundario(datos);
 		});	
 
@@ -67,6 +74,5 @@ $(".pater").live('click', function() {
 Seleccione una categoria:
 
 <div class = pathtoRoot></div>
-
 </body>
 </html>
