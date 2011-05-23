@@ -1,5 +1,5 @@
 body {
-    font-size: 12px;
+    font-size: 16px;
     color: black;
     background-color: #fefefe;
 }
@@ -13,5 +13,11 @@ body {
 .cat {
     background-color: #e6e6e6;
     color: #0a0a0a;
-    font-size: 12px;
+    font-size: 14px;
+}
+
+.productos {
+    background-color: #fafafa;
+    color: #0a0a0a;
+    font-size: 14px;
 }
