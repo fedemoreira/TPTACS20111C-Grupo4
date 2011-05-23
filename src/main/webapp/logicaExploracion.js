@@ -16,7 +16,7 @@ var regenerarCategorias = function(data)
 var regenerarProductos = function(data)
 {
     $.each(data, function(key, val) {
-	$("<div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + val.title + " $" + val.price +  "</a> </div>").appendTo('.productos');
+	$("<div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div>").appendTo('.productos');
     });
 }
 
