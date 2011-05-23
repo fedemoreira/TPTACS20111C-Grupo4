@@ -8,8 +8,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.http.impl.conn.SingleClientConnManager;
-
 import main.java.grupo4.clientes.ClienteServiciosREST;
 import main.java.grupo4.clientes.ParserJSON;
 
@@ -44,10 +42,13 @@ public class ServletMercadoLibre extends HttpServlet {
 	}
 
 	private String obtenerURLCategoriaPedida(HttpServletRequest request){
-		String parameter = request.getParameter("cat");
-		if(parameter != null)
+		String parameterCategoria = request.getParameter("cat");
+		String parameterProductos = request.getParameter("productos");
+		if(parameterCategoria != null)
 		{
-			return "https://api.mercadolibre.com/categories/" + parameter;
+			if(parameterProductos != null)
+				return "https://api.mercadolibre.com/sites/MLA/search?category=" + parameterCategoria;
+			return "https://api.mercadolibre.com/categories/" + parameterCategoria;
 		}
 		return "https://api.mercadolibre.com/sites/MLA/categories";
 	}
