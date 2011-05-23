@@ -1,9 +1,9 @@
 var regenerarPathToRoot = function(datos)
 {
-    $.each(datos.path_from_root, function(key, data)
-           {
-               $("<div class=\'cat\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
-           });
+    $("<div class=\'root\'\'> Home </div>").appendTo('.pathToRoot');
+    $.each(datos.path_from_root, function(key, data) {
+        $("<div class=\'cat\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
+    });
 }
 
 var regenerarCategorias = function(data)
@@ -52,3 +52,11 @@ $(".cat").live('click', function() {
 	regenerarProductos(datos.results);
     });	
 });
+
+$(".root").live('click', function() {
+    limpiar();
+    $.getJSON("ServletMercadoLibre", function(data) {
+	regenerarCategorias(data);
+    });
+});
+	      
