@@ -36,6 +36,19 @@ body {
     font-family:sans-serif;
 }
 
+.tituloPathToRoot
+{
+display:none;
+}
+
+.tituloCategorias
+{
+display:none;
+}
+.tituloProductos
+{
+display:none;
+}
 
 .A
 {
