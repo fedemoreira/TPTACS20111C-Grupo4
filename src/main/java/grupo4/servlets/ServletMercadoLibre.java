@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import main.java.grupo4.clientes.ClienteServiciosREST;
-import main.java.grupo4.clientes.ParserJSON;
 
 /**
  * Servlet implementation class ServletMercadoLibre
@@ -17,7 +16,6 @@ import main.java.grupo4.clientes.ParserJSON;
 public class ServletMercadoLibre extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private ClienteServiciosREST clienteRest;
-	private ParserJSON JSONParser;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -25,7 +23,6 @@ public class ServletMercadoLibre extends HttpServlet {
 	public ServletMercadoLibre() {
 		super();
 		this.clienteRest = new ClienteServiciosREST();
-		this.setJSONParser(new ParserJSON());
 	}
 
 	/**
@@ -49,13 +46,5 @@ public class ServletMercadoLibre extends HttpServlet {
 			return "https://api.mercadolibre.com/categories/" + parameterCategoria;
 		}
 		return "https://api.mercadolibre.com/sites/MLA/categories";
-	}
-
-	public void setJSONParser(ParserJSON jSONParser) {
-		this.JSONParser = jSONParser;
-	}
-
-	public ParserJSON getJSONParser() {
-		return this.JSONParser;
 	}
 }
