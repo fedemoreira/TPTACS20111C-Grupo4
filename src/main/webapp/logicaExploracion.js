@@ -5,7 +5,7 @@ var regenerarPathToRoot = function(datos)
     $.each(datos.path_from_root, function(key, data) {
         $("<div class=\'cat\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
     });
-}
+};
 
 var regenerarCategorias = function(data)
 {
@@ -13,7 +13,7 @@ var regenerarCategorias = function(data)
     $.each(data, function(key, val) {
 	$("<div class=\"cat\" idCat=\"" + val.id + "\">" + val.name + "</div>").appendTo('.listaDeCategorias');
     });
-}
+};
 
 var regenerarProductos = function(data)
 {
@@ -21,7 +21,7 @@ var regenerarProductos = function(data)
     $.each(data, function(key, val) {
 	$("<div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div>").appendTo('.productos');
     });
-}
+};
 
 var obtenerCategorias = function(datos)
 {	
