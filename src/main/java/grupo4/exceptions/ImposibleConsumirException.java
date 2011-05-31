@@ -1,4 +1,4 @@
-package main.java.grupo4.exceptions;
+package grupo4.exceptions;
 
 public class ImposibleConsumirException extends RuntimeException {
 	public ImposibleConsumirException() {

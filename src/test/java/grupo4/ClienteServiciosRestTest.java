@@ -1,14 +1,11 @@
-package test.java.grupo4;
+package grupo4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import grupo4.clientes.ClienteServiciosRest;
+import grupo4.exceptions.ImposibleConsumirException;
 
-
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
-import main.java.grupo4.clientes.ClienteServiciosRest;
-import main.java.grupo4.exceptions.ImposibleConsumirException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ProtocolVersion;
@@ -34,7 +31,7 @@ public class ClienteServiciosRestTest {
 	}
 	
 	@Test(expected=ImposibleConsumirException.class)
-	public void respuesta404TiraExcepcion() throws IOException
+	public void respuesta404TiraExcepcion()
 	{
 		this.CSRest.obtenerTextoDeRespuesta(this.Respuesta404);
 	}
@@ -46,7 +43,7 @@ public class ClienteServiciosRestTest {
 	}
 
 	@Test
-	public void extraeTextoDeRespuestaDeMock() throws IOException
+	public void extraeTextoDeRespuestaDeMock()
 	{
 		assertEquals("Mock", this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida));
 	}

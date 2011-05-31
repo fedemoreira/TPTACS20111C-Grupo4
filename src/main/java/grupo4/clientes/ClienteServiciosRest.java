@@ -1,9 +1,9 @@
-package main.java.grupo4.clientes;
+package grupo4.clientes;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
-import main.java.grupo4.exceptions.ImposibleConsumirException;
+import grupo4.exceptions.ImposibleConsumirException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;

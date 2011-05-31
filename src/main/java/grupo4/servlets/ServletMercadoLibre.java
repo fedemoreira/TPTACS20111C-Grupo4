@@ -1,4 +1,4 @@
-package main.java.grupo4.servlets;
+package grupo4.servlets;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.grupo4.clientes.ClienteServiciosRest;
+import grupo4.clientes.ClienteServiciosRest;
 
 /**
  * Le pasa a un ClienteServiciosRest la URL que debe solicitar en base a los
