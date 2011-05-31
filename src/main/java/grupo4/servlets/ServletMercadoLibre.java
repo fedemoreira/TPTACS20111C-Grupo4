@@ -14,6 +14,9 @@ import main.java.grupo4.clientes.ClienteServiciosREST;
  * Servlet implementation class ServletMercadoLibre
  */
 public class ServletMercadoLibre extends HttpServlet {
+	private static final String URLDeProductosDeCategoria = "https://api.mercadolibre.com/sites/MLA/search?category=";
+	private static final String URLDeSubcategorias = "https://api.mercadolibre.com/categories/";
+	private static final String URLDeCategorias = "https://api.mercadolibre.com/sites/MLA/categories";
 	private static final long serialVersionUID = 1L;
 	private ClienteServiciosREST clienteRest;
 
@@ -32,21 +35,31 @@ public class ServletMercadoLibre extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		String parametro = request.getParameter("texto1");
 		out.println(this.clienteRest.pedir(this.obtenerURLCategoriaPedida(request)));
 		out.close();
-		
 	}
 
 	private String obtenerURLCategoriaPedida(HttpServletRequest request){
-		String parameterCategoria = request.getParameter("cat");
-		String parameterProductos = request.getParameter("productos");
-		if(parameterCategoria != null)
+		String parameterCategoria = obtenerParametroCategoria(request);
+		String parameterProductos = obtenerParametroProductos(request);
+		if(existeParametroProductos(parameterCategoria))
 		{
-			if(parameterProductos != null)
-				return "https://api.mercadolibre.com/sites/MLA/search?category=" + parameterCategoria;
-			return "https://api.mercadolibre.com/categories/" + parameterCategoria;
+			if(existeParametroProductos(parameterProductos))
+				return URLDeProductosDeCategoria + parameterCategoria;
+			return URLDeSubcategorias + parameterCategoria;
 		}
-		return "https://api.mercadolibre.com/sites/MLA/categories";
+		return URLDeCategorias;
+	}
+
+	private boolean existeParametroProductos(String parameterProductos) {
+		return parameterProductos != null;
+	}
+
+	private String obtenerParametroProductos(HttpServletRequest request) {
+		return request.getParameter("productos");
+	}
+
+	private String obtenerParametroCategoria(HttpServletRequest request) {
+		return request.getParameter("cat");
 	}
 }

@@ -1,66 +1,21 @@
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+            "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <title>Grupo 4</title>
 <link href="estilo.css" rel="stylesheet" type="text/css">
-<script src="jquery.js"></script>                  
-<script>
-
-var regenerarPathToRoot = function(datos)
-{
-        $.each(datos.path_from_root, function(key, data)
-        {
-          $("<div class=\'cat\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
-        });
-}
-
-var regenerarCategorias = function(data)
-{
-  var items = [];
-
-  $.each(data, function(key, val) {
-    items.push("<div class=\"cat\" idCat=\"" + val.id + "\">" + val.name + "</div>");
-  });
-
-  $('<ul/>', {
-    'class': 'categorias',
-    html: items.join('\n')
-  }).appendTo('.listaDeCategorias');
-}
-
-var funcionDelGetSecundario = function(datos)
-{	
-	var items = [];
-    $(".pathToRoot").empty();
-    regenerarCategorias(datos.children_categories);
-regenerarPathToRoot(datos);
-};
-
-$.getJSON("ServletMercadoLibre", function(data) {
-regenerarCategorias(data);
-});
-</script>
-
-
-
-
-<script>
-$(".cat").live('click', function() {
-	var url = "ServletMercadoLibre?cat=" + $(this).attr("idCat");
-        $(".pathToRoot").empty();
-	$(".listaDeCategorias").empty();
-	$.getJSON(url, function(datos) {
-		funcionDelGetSecundario(datos);
-		});	
-	});
-</script>
-
+<script src="jquery.js" type="text/javascript" ></script>    
+<script src="logicaExploracion.js" type="text/javascript" ></script>                  
 </head>
 
 <body>
-Categorias visitadas:
-<div class = pathtoRoot></div>
-
-Seleccione una categoria:
+<div class = tituloPathToRoot>Categorias visitadas:</div>
+<div class = pathToRoot></div>
+<br>
+<div class = tituloCategorias>Seleccione una categoria:</div>
 <div class = listaDeCategorias></div>
+<br>
+<div class = tituloProductos>Productos:</div>
+<div class = productos></div>
 </body>
 </html>
