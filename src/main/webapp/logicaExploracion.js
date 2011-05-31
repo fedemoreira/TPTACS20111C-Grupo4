@@ -51,22 +51,26 @@ var limpiar = function()
     ocultarTitulos();
 };
 
-const direccionInicial = "ServletMercadoLibre";
+const direccionDelServlet = "ServletMercadoLibre";
 
+var obtenerUrlDeCategoria = function(idCategoria)
+{
+	return direccionDelServlet + "?cat=" + idCategoria;
+}
 
 $(".cat").live('click', function() {
     limpiar();
-    $.getJSON(direccionInicial + "?cat=" + $(this).attr("idCat"), function(datos) {
-	obtenerCategorias(datos);
+    $.getJSON(obtenerUrlDeCategoria($(this).attr("idCat")), function(datos) {
+		obtenerCategorias(datos);
     });	
-    $.getJSON(direccionInicial + "?cat=" + $(this).attr("idCat") + "&productos=true", function(datos) {
-	regenerarProductos(datos.results);
+    $.getJSON(obtenerUrlDeCategoria($(this).attr("idCat") + "&productos=true"), function(datos) {
+		regenerarProductos(datos.results);
     });	
 });
 
 $(".root").live('click', function() {
     limpiar();
-    $.getJSON(direccionInicial, function(data) {
+    $.getJSON(direccionDelServlet, function(data) {
 	regenerarCategorias(data);
     });
 });
@@ -76,7 +80,7 @@ $(".root").live('click', function() {
 // Carga inicial
 $(document).ready(function(){
 	ocultarTitulos();
-	$.getJSON(direccionInicial, function(data) {
+	$.getJSON(direccionDelServlet, function(data) {
 		regenerarCategorias(data);
 		});
 });
