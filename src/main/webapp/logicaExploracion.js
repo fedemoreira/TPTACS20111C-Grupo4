@@ -36,30 +36,32 @@ var ocultarTitulos = function()
     $(".tituloProductos").hide();
     $(".tituloCategorias").hide();
     $(".tituloPathToRoot").hide();
-}
+};
+
 var limpiar = function()
 {
     $(".pathToRoot").empty();
     $(".listaDeCategorias").empty();
     $(".productos").empty();
     ocultarTitulos();
-}
+};
 
+const direccionInicial = "ServletMercadoLibre";
 
 
 $(".cat").live('click', function() {
     limpiar();
-    $.getJSON("ServletMercadoLibre?cat=" + $(this).attr("idCat"), function(datos) {
+    $.getJSON(direccionInicial + "?cat=" + $(this).attr("idCat"), function(datos) {
 	obtenerCategorias(datos);
     });	
-    $.getJSON("ServletMercadoLibre?cat=" + $(this).attr("idCat") + "&productos=true", function(datos) {
+    $.getJSON(direccionInicial + "?cat=" + $(this).attr("idCat") + "&productos=true", function(datos) {
 	regenerarProductos(datos.results);
     });	
 });
 
 $(".root").live('click', function() {
     limpiar();
-    $.getJSON("ServletMercadoLibre", function(data) {
+    $.getJSON(direccionInicial, function(data) {
 	regenerarCategorias(data);
     });
 });
@@ -67,8 +69,9 @@ $(".root").live('click', function() {
 
 
 // Carga inicial
-
-ocultarTitulos();
-$.getJSON("ServletMercadoLibre", function(data) {
-    regenerarCategorias(data);
+$(document).ready(function(){
+	ocultarTitulos();
+	$.getJSON(direccionInicial, function(data) {
+		regenerarCategorias(data);
+		});
 });
