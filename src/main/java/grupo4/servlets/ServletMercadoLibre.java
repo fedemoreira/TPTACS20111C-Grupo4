@@ -15,9 +15,9 @@ import grupo4.clientes.ClienteServiciosRest;
  * parametros del request.
  */
 public class ServletMercadoLibre extends HttpServlet {
-	private static final String URLDeProductosDeCategoria = "https://api.mercadolibre.com/sites/MLA/search?category=";
-	private static final String URLDeSubcategorias = "https://api.mercadolibre.com/categories/";
-	private static final String URLDeCategorias = "https://api.mercadolibre.com/sites/MLA/categories";
+	private static final String urlDeProductosDeCategoria = "https://api.mercadolibre.com/sites/MLA/search?category=";
+	private static final String urlDeSubcategorias = "https://api.mercadolibre.com/categories/";
+	private static final String urlDeCategorias = "https://api.mercadolibre.com/sites/MLA/categories";
 	private static final long serialVersionUID = 1L;
 	private ClienteServiciosRest clienteRest;
 
@@ -43,21 +43,21 @@ public class ServletMercadoLibre extends HttpServlet {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		out.println(this.clienteRest.pedir(this
-				.obtenerURLCategoriaPedida(request)));
+				.obtenerUrlCategoriaPedida(request)));
 		out.close();
 	}
 
 	/**
 	 * Genera el string con la URL en base a los parametros del request.
 	 */
-	private String obtenerURLCategoriaPedida(HttpServletRequest request) {
+	private String obtenerUrlCategoriaPedida(HttpServletRequest request) {
 		String parameterCategoria = request.getParameter("cat");
 		String parameterProductos = request.getParameter("productos");
 		if (parameterCategoria != null) {
 			if (parameterProductos != null)
-				return URLDeProductosDeCategoria + parameterCategoria;
-			return URLDeSubcategorias + parameterCategoria;
+				return urlDeProductosDeCategoria + parameterCategoria;
+			return urlDeSubcategorias + parameterCategoria;
 		}
-		return URLDeCategorias;
+		return urlDeCategorias;
 	}
 }

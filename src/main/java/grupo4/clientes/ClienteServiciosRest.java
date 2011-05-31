@@ -37,7 +37,6 @@ public class ClienteServiciosRest {
 		try
 		{
 			String respuesta = this.obtenerTextoDeRespuesta(this.obtenerRespuesta(url));
-			this.clienteHttp.getConnectionManager().closeIdleConnections(1, TimeUnit.MILLISECONDS);
 			return respuesta;
 		}
 		catch(ImposibleConsumirException c)
