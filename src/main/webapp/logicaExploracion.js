@@ -1,3 +1,6 @@
+const direccionDelServlet = "ServletMercadoLibre";
+
+
 var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 {
 	$("<div class=\'cat\' idCat=\'" + id + "\'>" + name +  "</div>").appendTo(divDondeAgregar);
@@ -22,7 +25,7 @@ var regenerarCategorias = function(data)
 
 var regenerarProductos = function(data)
 {
-    $(".tituloPruductos").show();
+    $(".tituloProductos").show();
     $.each(data, function(key, val) {
 		$("<div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div>").appendTo('.productos');
     });
@@ -51,8 +54,6 @@ var limpiar = function()
     ocultarTitulos();
 };
 
-const direccionDelServlet = "ServletMercadoLibre";
-
 var obtenerUrlDeCategoria = function(idCategoria)
 {
 	return direccionDelServlet + "?cat=" + idCategoria;
@@ -60,10 +61,11 @@ var obtenerUrlDeCategoria = function(idCategoria)
 
 $(".cat").live('click', function() {
     limpiar();
-    $.getJSON(obtenerUrlDeCategoria($(this).attr("idCat")), function(datos) {
+    var idCategoria = $(this).attr("idCat");
+    $.getJSON(obtenerUrlDeCategoria(idCategoria), function(datos) {
 		obtenerCategorias(datos);
     });	
-    $.getJSON(obtenerUrlDeCategoria($(this).attr("idCat") + "&productos=true"), function(datos) {
+    $.getJSON(obtenerUrlDeCategoria(idCategoria) + "&productos=true", function(datos) {
 		regenerarProductos(datos.results);
     });	
 });
