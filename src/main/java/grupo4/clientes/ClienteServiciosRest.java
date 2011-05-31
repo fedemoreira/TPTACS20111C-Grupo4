@@ -1,9 +1,8 @@
 package grupo4.clientes;
 
-import java.io.IOException;
-import java.util.concurrent.TimeUnit;
-
 import grupo4.exceptions.ImposibleConsumirException;
+
+import java.io.IOException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -67,7 +66,7 @@ public class ClienteServiciosRest {
 
 	private boolean tieneEntidadValida(HttpResponse response) {
 		return (response.getEntity() != null) && 
-		response.getEntity().getContentLength() != 1;
+			response.getEntity().getContentLength() != 1;
 	}
 
 	private String extraerTextoDeRespuestaValida(HttpResponse response) throws IOException {
@@ -93,7 +92,7 @@ public class ClienteServiciosRest {
 
 	private HttpResponse realizarGet(String url) throws ClientProtocolException, IOException {
 		HttpResponse respuesta = this.clienteHttp.execute(new HttpGet(url));
-		if(!this.esRespuestaOK(respuesta))
+		if(!this.esRespuestaOk(respuesta))
 			throw new ImposibleConsumirException();
 		return respuesta;
 	}
@@ -102,7 +101,7 @@ public class ClienteServiciosRest {
 		return respuesta.getStatusLine().getStatusCode();
 	}
 
-	public boolean esRespuestaOK(HttpResponse respuesta) {
+	public boolean esRespuestaOk(HttpResponse respuesta) {
 		return obtenerCodigoDeEstado(respuesta) == 200;
 	}
 }

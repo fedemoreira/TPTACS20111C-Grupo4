@@ -17,35 +17,35 @@ import org.junit.Test;
 
 public class ClienteServiciosRestTest {
 	
-	private HttpResponse Respuesta404;
-	private BasicHttpResponse RespuestaValida;
-	private ClienteServiciosRest CSRest;
+	private HttpResponse respuesta404;
+	private BasicHttpResponse respuestaValida;
+	private ClienteServiciosRest clienteRest;
 
 	@Before
 	public void condicionesIniciales() throws UnsupportedEncodingException
 	{
-		this.Respuesta404 = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("", 0, 0), 404, "Mock"));
-		this.RespuestaValida = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Mock", 3, 2), 200, "Mock"));
-		this.RespuestaValida.setEntity(new StringEntity("Mock") );
-		this.CSRest = new ClienteServiciosRest();
+		this.respuesta404 = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("", 0, 0), 404, "Mock"));
+		this.respuestaValida = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Mock", 3, 2), 200, "Mock"));
+		this.respuestaValida.setEntity(new StringEntity("Mock") );
+		this.clienteRest = new ClienteServiciosRest();
 	}
 	
 	@Test(expected=ImposibleConsumirException.class)
 	public void respuesta404TiraExcepcion()
 	{
-		this.CSRest.obtenerTextoDeRespuesta(this.Respuesta404);
+		this.clienteRest.obtenerTextoDeRespuesta(this.respuesta404);
 	}
 
 	@Test
 	public void detectaRespuestaInvalida()
 	{
-		assertTrue(this.CSRest.esRespuestaOK(this.RespuestaValida));
+		assertTrue(this.clienteRest.esRespuestaOk(this.respuestaValida));
 	}
 
 	@Test
 	public void extraeTextoDeRespuestaDeMock()
 	{
-		assertEquals("Mock", this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida));
+		assertEquals("Mock", this.clienteRest.obtenerTextoDeRespuesta(this.respuestaValida));
 	}
 	
 }
