@@ -15,19 +15,19 @@ import org.apache.http.util.EntityUtils;
 
 public class ClienteServiciosREST {
 
-	private DefaultHttpClient clienteHTTP;
+	private DefaultHttpClient clienteHttp;
 
 	public ClienteServiciosREST()
 	{
-		this.clienteHTTP = new DefaultHttpClient(new ThreadSafeClientConnManager());
+		this.clienteHttp = new DefaultHttpClient(new ThreadSafeClientConnManager());
 		
 	}
-	public String pedir(String URL) throws IOException
+	public String pedir(String url) throws IOException
 	{
 		try
 		{
-			String respuesta = this.obtenerTextoDeRespuesta(this.obtenerRespuesta(URL));
-			this.clienteHTTP.getConnectionManager().closeIdleConnections(1, TimeUnit.MILLISECONDS);
+			String respuesta = this.obtenerTextoDeRespuesta(this.obtenerRespuesta(url));
+			this.clienteHttp.getConnectionManager().closeIdleConnections(1, TimeUnit.MILLISECONDS);
 			return respuesta;
 		}
 		catch(ClientProtocolException c)
@@ -55,8 +55,8 @@ public class ClienteServiciosREST {
 		return EntityUtils.toString(response.getEntity());
 	}
 			
-	public HttpResponse obtenerRespuesta(String URL) throws IOException, ClientProtocolException {
-		HttpResponse respuesta = ejecutarGet(URL);
+	public HttpResponse obtenerRespuesta(String url) throws IOException, ClientProtocolException {
+		HttpResponse respuesta = ejecutarGet(url);
 		if (!esRespuestaOK(respuesta))
 		{
 			throw new ImposibleConsumirException();
@@ -68,9 +68,9 @@ public class ClienteServiciosREST {
 		return respuesta.getStatusLine().getStatusCode();
 	}
 
-	private HttpResponse ejecutarGet(String URL) throws IOException,
+	private HttpResponse ejecutarGet(String url) throws IOException,
 			ClientProtocolException {
-		return this.clienteHTTP.execute(new HttpGet(URL));
+		return this.clienteHttp.execute(new HttpGet(url));
 	}
 
 	public boolean esRespuestaOK(HttpResponse respuesta) {
