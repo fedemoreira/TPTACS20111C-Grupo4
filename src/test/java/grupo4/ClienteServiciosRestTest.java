@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 
-import main.java.grupo4.clientes.ClienteServiciosREST;
+import main.java.grupo4.clientes.ClienteServiciosRest;
 import main.java.grupo4.exceptions.ImposibleConsumirException;
 
 import org.apache.http.HttpResponse;
@@ -22,7 +22,7 @@ public class ClienteServiciosRestTest {
 	
 	private HttpResponse Respuesta404;
 	private BasicHttpResponse RespuestaValida;
-	private ClienteServiciosREST CSRest;
+	private ClienteServiciosRest CSRest;
 
 	@Before
 	public void condicionesIniciales() throws UnsupportedEncodingException
@@ -30,7 +30,7 @@ public class ClienteServiciosRestTest {
 		this.Respuesta404 = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("", 0, 0), 404, "Mock"));
 		this.RespuestaValida = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Mock", 3, 2), 200, "Mock"));
 		this.RespuestaValida.setEntity(new StringEntity("Mock") );
-		this.CSRest = new ClienteServiciosREST();
+		this.CSRest = new ClienteServiciosRest();
 	}
 	
 	@Test(expected=ImposibleConsumirException.class)

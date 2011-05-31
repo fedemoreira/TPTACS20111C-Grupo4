@@ -13,14 +13,23 @@ import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.util.EntityUtils;
 
 
-public class ClienteServiciosREST {
+/**
+ * Realiza pedidos HTTP y permite obtener el texto de respuesta.
+ */
+public class ClienteServiciosRest {
 
 	private DefaultHttpClient clienteHttp;
-
-	public ClienteServiciosREST()
+	
+	public ClienteServiciosRest()
 	{
 		this.clienteHttp = new DefaultHttpClient(new ThreadSafeClientConnManager());		
 	}
+	
+	/**
+	 * @param url La URL que se utiliza para el pedido
+	 * @return Contenido de la respuesta del pedido.
+	 */
+	
 	public String pedir(String url) throws IOException
 	{
 		try
@@ -39,6 +48,12 @@ public class ClienteServiciosREST {
 		}
 	}
 
+	/**
+	 * Obtiene la respuesta desde un HttpResponse
+	 * @param response Objeto desde donde se obtiene el texto de respuesta
+	 * @return String con el contenido de la respuesta
+	 * @throws IOException
+	 */
 	public String obtenerTextoDeRespuesta(HttpResponse response) throws IOException {
 		if (tieneEntidadValida(response)) {
 				return(extraerTextoDeRespuestaValida(response));
@@ -47,7 +62,8 @@ public class ClienteServiciosREST {
 	}
 
 	private boolean tieneEntidadValida(HttpResponse response) {
-		return (response.getEntity() != null) && this.obtenerLargoDeRespuesta(response) != 1;
+		return (response.getEntity() != null) && 
+		        response.getEntity().getContentLength() != 1;
 	}
 
 	private String extraerTextoDeRespuestaValida(HttpResponse response) throws IOException {
@@ -55,7 +71,7 @@ public class ClienteServiciosREST {
 	}
 			
 	public HttpResponse obtenerRespuesta(String url) throws IOException, ClientProtocolException {
-		HttpResponse respuesta = ejecutarGet(url);
+		HttpResponse respuesta = this.clienteHttp.execute(new HttpGet(url));
 		if (!esRespuestaOK(respuesta))
 		{
 			throw new ImposibleConsumirException();
@@ -67,17 +83,8 @@ public class ClienteServiciosREST {
 		return respuesta.getStatusLine().getStatusCode();
 	}
 
-	private HttpResponse ejecutarGet(String url) throws IOException,
-			ClientProtocolException {
-		return this.clienteHttp.execute(new HttpGet(url));
-	}
-
 	public boolean esRespuestaOK(HttpResponse respuesta) {
 		return obtenerCodigoDeEstado(respuesta) == 200;
-	}	
-
-	private long obtenerLargoDeRespuesta(HttpResponse response) {
-		return response.getEntity().getContentLength();
 	}
 }
 

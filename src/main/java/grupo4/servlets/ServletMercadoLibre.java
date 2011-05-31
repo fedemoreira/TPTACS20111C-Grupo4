@@ -9,28 +9,32 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.grupo4.clientes.ClienteServiciosREST;
+import main.java.grupo4.clientes.ClienteServiciosRest;
 
 /**
- * Servlet implementation class ServletMercadoLibre
+ * Le pasa a un @{link ClienteServiciosRest} la URL que debe solicitar en base a los parámetros del request.
  */
 public class ServletMercadoLibre extends HttpServlet {
 	private static final String URLDeProductosDeCategoria = "https://api.mercadolibre.com/sites/MLA/search?category=";
 	private static final String URLDeSubcategorias = "https://api.mercadolibre.com/categories/";
 	private static final String URLDeCategorias = "https://api.mercadolibre.com/sites/MLA/categories";
 	private static final long serialVersionUID = 1L;
-	private ClienteServiciosREST clienteRest;
+	private ClienteServiciosRest clienteRest;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ServletMercadoLibre() {
 		super();
-		this.clienteRest = new ClienteServiciosREST();
+		this.clienteRest = new ClienteServiciosRest();
 	}
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * 
+	 * Realiza un get en base a los parámetros que se le pase.
+	 * ?cat=MLAxxxxxx obtiene las subcategorías de esa categoría
+	 * ?cat=MLAxxxxxx&productos=Y obtiene la primera página de productos
 	 */
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -40,27 +44,18 @@ public class ServletMercadoLibre extends HttpServlet {
 		out.close();
 	}
 
+	/**
+	 * Genera el string con la URL en base a los parámetros del request.
+	 */
 	private String obtenerURLCategoriaPedida(HttpServletRequest request){
-		String parameterCategoria = obtenerParametroCategoria(request);
-		String parameterProductos = obtenerParametroProductos(request);
-		if(existeParametroProductos(parameterCategoria))
+		String parameterCategoria = request.getParameter("cat");
+		String parameterProductos = request.getParameter("cat");
+		if(parameterCategoria != null)
 		{
-			if(existeParametroProductos(parameterProductos))
+			if(parameterProductos != null)
 				return URLDeProductosDeCategoria + parameterCategoria;
 			return URLDeSubcategorias + parameterCategoria;
 		}
 		return URLDeCategorias;
-	}
-
-	private boolean existeParametroProductos(String parameterProductos) {
-		return parameterProductos != null;
-	}
-
-	private String obtenerParametroProductos(HttpServletRequest request) {
-		return request.getParameter("productos");
-	}
-
-	private String obtenerParametroCategoria(HttpServletRequest request) {
-		return request.getParameter("cat");
 	}
 }
