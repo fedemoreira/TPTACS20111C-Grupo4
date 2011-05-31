@@ -1,9 +1,14 @@
+var appendDivAListaCategorias = function(id, name, divDondeAgregar)
+{
+	$("<div class=\'cat\' idCat=\'" + id + "\'>" + name +  "</div>").appendTo(divDondeAgregar);
+}
+
 var regenerarPathToRoot = function(datos)
 {
     $(".tituloPathToRoot").show();
     $("<div class=\'root\'\'> Home </div>").appendTo('.pathToRoot');
     $.each(datos.path_from_root, function(key, data) {
-        $("<div class=\'cat\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
+		appendDivAListaCategorias(data.id, data.name, '.pathToRoot');
     });
 };
 
@@ -11,7 +16,7 @@ var regenerarCategorias = function(data)
 {
     $(".tituloCategorias").show();
     $.each(data, function(key, val) {
-	$("<div class=\"cat\" idCat=\"" + val.id + "\">" + val.name + "</div>").appendTo('.listaDeCategorias');
+		appendDivAListaCategorias(val.id, val.name, '.listaDeCategorias');
     });
 };
 
@@ -19,7 +24,7 @@ var regenerarProductos = function(data)
 {
     $(".tituloPruductos").show();
     $.each(data, function(key, val) {
-	$("<div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div>").appendTo('.productos');
+		$("<div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div>").appendTo('.productos');
     });
 };
 
