@@ -19,19 +19,20 @@ import org.apache.http.util.EntityUtils;
 public class ClienteServiciosRest {
 
 	private DefaultHttpClient clienteHttp;
-	
+
 	public ClienteServiciosRest()
 	{
 		this.clienteHttp = new DefaultHttpClient(new ThreadSafeClientConnManager());		
 	}
-	
+
 	/**
 	 * Ejecuta un get en la url de parametro.
 	 * 
 	 * @param url La URL que se utiliza para el pedido
 	 * @return Contenido de la respuesta del pedido.
+	 * @throws IOException 
 	 */
-	public String pedir(String url) throws IOException
+	public String pedir(String url)
 	{
 		try
 		{
@@ -39,13 +40,9 @@ public class ClienteServiciosRest {
 			this.clienteHttp.getConnectionManager().closeIdleConnections(1, TimeUnit.MILLISECONDS);
 			return respuesta;
 		}
-		catch(ClientProtocolException c)
-		{
-			return "Imposible obtener respuesta.";
-		}
 		catch(ImposibleConsumirException c)
 		{
-			return "Imposible consumir Servicio REST.";
+			return "Imposible obtener respuesta.";
 		}
 	}
 
@@ -55,16 +52,23 @@ public class ClienteServiciosRest {
 	 * @return String con el contenido de la respuesta
 	 * @throws IOException
 	 */
-	public String obtenerTextoDeRespuesta(HttpResponse response) throws IOException {
+	public String obtenerTextoDeRespuesta(HttpResponse response){
 		if (tieneEntidadValida(response)) {
+			try 
+			{
 				return(extraerTextoDeRespuestaValida(response));
+			} 
+			catch (IOException e) 
+			{
+				throw new ImposibleConsumirException();
+			}
 		}
 		throw new ImposibleConsumirException();
 	}
 
 	private boolean tieneEntidadValida(HttpResponse response) {
 		return (response.getEntity() != null) && 
-		        response.getEntity().getContentLength() != 1;
+		response.getEntity().getContentLength() != 1;
 	}
 
 	private String extraerTextoDeRespuestaValida(HttpResponse response) throws IOException {
@@ -75,14 +79,23 @@ public class ClienteServiciosRest {
 	 * @param url URL sobre la que efectuar el pedido.
 	 * @return HTTPResponse con la respuesta del pedido.
 	 * @throws IOException
-	 * @throws ClientProtocolException
 	 */
-	public HttpResponse obtenerRespuesta(String url) throws IOException, ClientProtocolException {
-		HttpResponse respuesta = this.clienteHttp.execute(new HttpGet(url));
-		if (!esRespuestaOK(respuesta))
+	public HttpResponse obtenerRespuesta(String url) {
+		HttpResponse respuesta;
+		try 
 		{
+			respuesta = realizarGet(url);
+		} 
+		catch (IOException e) {
 			throw new ImposibleConsumirException();
 		}
+		return respuesta;
+	}
+
+	private HttpResponse realizarGet(String url) throws ClientProtocolException, IOException {
+		HttpResponse respuesta = this.clienteHttp.execute(new HttpGet(url));
+		if(!this.esRespuestaOK(respuesta))
+			throw new ImposibleConsumirException();
 		return respuesta;
 	}
 

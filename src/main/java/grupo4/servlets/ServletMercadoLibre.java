@@ -52,7 +52,7 @@ public class ServletMercadoLibre extends HttpServlet {
 	 */
 	private String obtenerURLCategoriaPedida(HttpServletRequest request) {
 		String parameterCategoria = request.getParameter("cat");
-		String parameterProductos = request.getParameter("cat");
+		String parameterProductos = request.getParameter("productos");
 		if (parameterCategoria != null) {
 			if (parameterProductos != null)
 				return URLDeProductosDeCategoria + parameterCategoria;
