@@ -1,9 +1,17 @@
+const direccionDelServlet = "ServletMercadoLibre";
+
+
+var appendDivAListaCategorias = function(id, name, divDondeAgregar)
+{
+	$("<div class=\'cat\' idCat=\'" + id + "\'>" + name +  "</div>").appendTo(divDondeAgregar);
+}
+
 var regenerarPathToRoot = function(datos)
 {
     $(".tituloPathToRoot").show();
     $("<div class=\'root\'\'> Home </div>").appendTo('.pathToRoot');
     $.each(datos.path_from_root, function(key, data) {
-        $("<div class=\'cat\' idCat=\'" + data.id + "\'>" + data.name +  "</div>").appendTo('.pathToRoot');
+		appendDivAListaCategorias(data.id, data.name, '.pathToRoot');
     });
 };
 
@@ -11,15 +19,15 @@ var regenerarCategorias = function(data)
 {
     $(".tituloCategorias").show();
     $.each(data, function(key, val) {
-	$("<div class=\"cat\" idCat=\"" + val.id + "\">" + val.name + "</div>").appendTo('.listaDeCategorias');
+		appendDivAListaCategorias(val.id, val.name, '.listaDeCategorias');
     });
 };
 
 var regenerarProductos = function(data)
 {
-    $(".tituloPruductos").show();
+    $(".tituloProductos").show();
     $.each(data, function(key, val) {
-	$("<div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div>").appendTo('.productos');
+		$("<div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div>").appendTo('.productos');
     });
 };
 
@@ -46,22 +54,25 @@ var limpiar = function()
     ocultarTitulos();
 };
 
-const direccionInicial = "ServletMercadoLibre";
-
+var obtenerUrlDeCategoria = function(idCategoria)
+{
+	return direccionDelServlet + "?cat=" + idCategoria;
+}
 
 $(".cat").live('click', function() {
     limpiar();
-    $.getJSON(direccionInicial + "?cat=" + $(this).attr("idCat"), function(datos) {
-	obtenerCategorias(datos);
+    var idCategoria = $(this).attr("idCat");
+    $.getJSON(obtenerUrlDeCategoria(idCategoria), function(datos) {
+		obtenerCategorias(datos);
     });	
-    $.getJSON(direccionInicial + "?cat=" + $(this).attr("idCat") + "&productos=true", function(datos) {
-	regenerarProductos(datos.results);
+    $.getJSON(obtenerUrlDeCategoria(idCategoria) + "&productos=true", function(datos) {
+		regenerarProductos(datos.results);
     });	
 });
 
 $(".root").live('click', function() {
     limpiar();
-    $.getJSON(direccionInicial, function(data) {
+    $.getJSON(direccionDelServlet, function(data) {
 	regenerarCategorias(data);
     });
 });
@@ -71,7 +82,7 @@ $(".root").live('click', function() {
 // Carga inicial
 $(document).ready(function(){
 	ocultarTitulos();
-	$.getJSON(direccionInicial, function(data) {
+	$.getJSON(direccionDelServlet, function(data) {
 		regenerarCategorias(data);
 		});
 });

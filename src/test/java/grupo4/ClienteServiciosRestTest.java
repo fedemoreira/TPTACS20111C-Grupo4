@@ -1,14 +1,11 @@
-package test.java.grupo4;
+package grupo4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import grupo4.clientes.ClienteServiciosRest;
+import grupo4.exceptions.ImposibleConsumirException;
 
-
-import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-
-import main.java.grupo4.clientes.ClienteServiciosREST;
-import main.java.grupo4.exceptions.ImposibleConsumirException;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.ProtocolVersion;
@@ -20,35 +17,35 @@ import org.junit.Test;
 
 public class ClienteServiciosRestTest {
 	
-	private HttpResponse Respuesta404;
-	private BasicHttpResponse RespuestaValida;
-	private ClienteServiciosREST CSRest;
+	private HttpResponse respuesta404;
+	private BasicHttpResponse respuestaValida;
+	private ClienteServiciosRest clienteRest;
 
 	@Before
 	public void condicionesIniciales() throws UnsupportedEncodingException
 	{
-		this.Respuesta404 = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("", 0, 0), 404, "Mock"));
-		this.RespuestaValida = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Mock", 3, 2), 200, "Mock"));
-		this.RespuestaValida.setEntity(new StringEntity("Mock") );
-		this.CSRest = new ClienteServiciosREST();
+		this.respuesta404 = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("", 0, 0), 404, "Mock"));
+		this.respuestaValida = new BasicHttpResponse(new BasicStatusLine(new ProtocolVersion("Mock", 3, 2), 200, "Mock"));
+		this.respuestaValida.setEntity(new StringEntity("Mock") );
+		this.clienteRest = new ClienteServiciosRest();
 	}
 	
 	@Test(expected=ImposibleConsumirException.class)
-	public void respuesta404TiraExcepcion() throws IOException
+	public void respuesta404TiraExcepcion()
 	{
-		this.CSRest.obtenerTextoDeRespuesta(this.Respuesta404);
+		this.clienteRest.obtenerTextoDeRespuesta(this.respuesta404);
 	}
 
 	@Test
 	public void detectaRespuestaInvalida()
 	{
-		assertTrue(this.CSRest.esRespuestaOK(this.RespuestaValida));
+		assertTrue(this.clienteRest.esRespuestaOk(this.respuestaValida));
 	}
 
 	@Test
-	public void extraeTextoDeRespuestaDeMock() throws IOException
+	public void extraeTextoDeRespuestaDeMock()
 	{
-		assertEquals("Mock", this.CSRest.obtenerTextoDeRespuesta(this.RespuestaValida));
+		assertEquals("Mock", this.clienteRest.obtenerTextoDeRespuesta(this.respuestaValida));
 	}
 	
 }
