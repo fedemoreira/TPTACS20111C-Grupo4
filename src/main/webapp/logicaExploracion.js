@@ -74,6 +74,27 @@ $(".root").live('click', function() {
 		});
 });
 	      
+	      
+
+$('#busqueda').live('submit', function() {
+	limpiar();
+	alert("Test!");
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?", function(data) {
+		regenerarProductos(data[2]);
+	});
+	return false; 
+});	     
+	     
+$('.busqueda').submit(function() {
+	ocultarTitulos();
+	alert("Test!");
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $(this).productoABuscar.val() + "&callback=?", function(data) {
+		regenerarProductos(data[2].results);
+	});
+	return false; 
+ });
+
+
 
 
 // Carga inicial
@@ -81,5 +102,6 @@ $(document).ready(function(){
 	ocultarTitulos();
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
 		regenerarCategorias(data[2]);
-		});
+	});
 });
+
