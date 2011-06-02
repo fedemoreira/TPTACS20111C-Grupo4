@@ -56,25 +56,28 @@ var limpiar = function()
 
 var obtenerUrlDeCategoria = function(idCategoria)
 {
+	//return "https://api.mercadolibre.com/categories/" + idCategoria + "?&jsoncallback=?";
 	return direccionDelServlet + "?cat=" + idCategoria;
 }
+	
 
 $(".cat").live('click', function() {
     limpiar();
     var idCategoria = $(this).attr("idCat");
-    $.getJSON(obtenerUrlDeCategoria(idCategoria), function(datos) {
-		obtenerCategorias(datos);
-    });	
-    $.getJSON(obtenerUrlDeCategoria(idCategoria) + "&productos=true", function(datos) {
-		regenerarProductos(datos.results);
-    });	
+    $.ajax({url:obtenerUrlDeCategoria(idCategoria), success: function(data) {
+        	obtenerCategorias( data  );
+    	
+    }});
+    $.ajax(obtenerUrlDeCategoria(idCategoria) + "&productos=true", function(estado,objeto1, objeto2) {
+    regenerarProductos(dato.result);
+    });
 });
 
 $(".root").live('click', function() {
     limpiar();
-    $.getJSON(direccionDelServlet, function(data) {
+    $.ajax({url:direccionDelServlet, success: function(data) {
 	regenerarCategorias(data);
-    });
+    }});
 });
 	      
 
@@ -82,7 +85,7 @@ $(".root").live('click', function() {
 // Carga inicial
 $(document).ready(function(){
 	ocultarTitulos();
-	$.getJSON(direccionDelServlet, function(data) {
-		regenerarCategorias(data);
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
+		regenerarCategorias(data[2]);
 		});
 });
