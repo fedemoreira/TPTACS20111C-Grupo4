@@ -73,26 +73,30 @@ $(".root").live('click', function() {
 		regenerarCategorias(data[2]);
 		});
 });
+
+var mostrarSinResultados = function()
+{
+    $(".tituloProductos").show();
+    $(".productos").append("No hay resultados");
+}
+
 	      
 	      
 
 $('#busqueda').live('submit', function() {
 	limpiar();
 	alert("Test!");
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?", function(data) {
-		regenerarProductos(data[2]);
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("busqueda:productoABuscar").val() + "&callback=?", function(data) {
+		if(data[2].results.length==0)
+		{
+			mostrarSinResultados();
+			return false;
+		} 
+		regenerarProductos(data[2].results);
 	});
 	return false; 
 });	     
 	     
-$('.busqueda').submit(function() {
-	ocultarTitulos();
-	alert("Test!");
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $(this).productoABuscar.val() + "&callback=?", function(data) {
-		regenerarProductos(data[2].results);
-	});
-	return false; 
- });
 
 
 
