@@ -64,13 +64,12 @@ var obtenerUrlDeCategoria = function(idCategoria)
 $(".cat").live('click', function() {
     limpiar();
     var idCategoria = $(this).attr("idCat");
-    $.ajax({url:obtenerUrlDeCategoria(idCategoria), success: function(data) {
-        	obtenerCategorias( data  );
-    	
-    }});
-    $.ajax(obtenerUrlDeCategoria(idCategoria) + "&productos=true", function(estado,objeto1, objeto2) {
-    regenerarProductos(dato.result);
-    });
+	$.getJSON("https://api.mercadolibre.com/categories/" + idCategoria + "?callback=?", function(data) {
+		regenerarCategorias(data[2].children_categories);
+	});
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?category=" + idCategoria + "&callback=?", function(data) {
+				regenerarProductos(data[2].results);
+	});
 });
 
 $(".root").live('click', function() {
