@@ -27,7 +27,7 @@ var regenerarProductos = function(data)
 {
     $(".tituloProductos").show();
     $.each(data, function(key, val) {
-		$("<div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div>").appendTo('.productos');
+		$("<li> <div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div></li>").appendTo('.productos');
     });
 };
 
@@ -86,7 +86,7 @@ var mostrarSinResultados = function()
 $('#busqueda').live('submit', function() {
 	limpiar();
 	alert("Test!");
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("busqueda:productoABuscar").val() + "&callback=?", function(data) {
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?", function(data) {
 		if(data[2].results.length==0)
 		{
 			mostrarSinResultados();
