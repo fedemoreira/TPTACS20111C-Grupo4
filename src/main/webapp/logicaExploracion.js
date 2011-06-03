@@ -27,7 +27,9 @@ var regenerarProductos = function(data)
 {
     $(".tituloProductos").show();
     $.each(data, function(key, val) {
-		$("<li> <div class=\"producto\" idProd=\"" + val.id + "\"> " + "<a href=\"" + val.permalink + "\">"  + "$" + val.price + " -  " +  val.title +  "</a> </div></li>").appendTo('.productos');
+		$("<li> <div class=\"producto\" idProd=\"" + val.id + "\"> " + 
+		"<a href=\"" + val.permalink + "\">"  + "$" + val.price 
+		+ " -  " +  val.title +  "</a> </div></li>").appendTo('.productos');
     });
 };
 
@@ -62,7 +64,8 @@ $(".cat").live('click', function() {
 	$.getJSON("https://api.mercadolibre.com/categories/" + idCategoria + "?callback=?", function(data) {
 		obtenerCategorias(data[2]);
 	});
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?category=" + idCategoria + "&callback=?", function(data) {
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?category=" +
+			  idCategoria + "&callback=?", function(data) {
 				regenerarProductos(data[2].results);
 	});
 });
@@ -86,7 +89,8 @@ var mostrarSinResultados = function()
 $('#busqueda').live('submit', function() {
 	limpiar();
 	alert("Test!");
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?", function(data) {
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" +
+			$("input:first").val() + "&callback=?", function(data) {
 		if(data[2].results.length==0)
 		{
 			mostrarSinResultados();
@@ -97,7 +101,11 @@ $('#busqueda').live('submit', function() {
 	return false; 
 });	     
 	     
-
+$('#volverAlIndice').live('submit', function() {
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
+		regenerarCategorias(data[2]);
+	});
+});	 
 
 
 
