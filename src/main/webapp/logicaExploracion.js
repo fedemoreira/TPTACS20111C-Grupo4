@@ -39,7 +39,7 @@ var regenerarProductos = function(data)
 		$("<li> <div class=\"producto\" idProd=\"" + val.id + "\"> " + 
 		"<a href=\"" + val.permalink + "\">"  + "$" + val.price 
 		+ " -  " +  val.title +  "</a> </div></li>").appendTo('.productos');
-		nuevaopcion = new Option("$" + val.price + " -  " +  val.title ,val.id);  
+		nuevaopcion = new Option("$" + val.price + " -  " +  val.title ,val.permalink);  
 		document.menu.productos2.options[document.menu.productos2.options.length]= nuevaopcion;
     });
 };
@@ -66,8 +66,6 @@ var limpiar = function()
     $(".productos").empty();
     ocultarTitulos();
 };
-
-	
 
 $(".cat").live('click', function() {
     limpiar();
@@ -119,6 +117,11 @@ $('#volverAlIndice').live('submit', function() {
 	});
 });	 
 
+
+$('#ir').live('submit', function() {
+open(document.menu.productos2.options[document.menu.productos2selectedIndex].value);
+	
+});
 
 
 // Carga inicial
