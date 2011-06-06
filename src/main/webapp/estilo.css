@@ -37,14 +37,26 @@ body {
     margin-right:10px;
 }
 
+#volverAlIndice
+{
+    float:left;
+    margin-bottom:10px;
+    margin-right:10px;
+}
+
 .productos {
     background-color: #bababa;
     color: #0a0a0a;
     font-size: 14px;
     font-family:sans-serif;
     float:left;
-	clear:left;
-	
+	clear:left;	
+}
+
+#productoABuscar {
+	height: 22px;
+	width: 30%;
+	font-size: 16px;
 }
 
 .A
