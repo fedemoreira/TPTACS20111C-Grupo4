@@ -4,9 +4,11 @@
 	<head>
 		<title>Grupo 4</title>
 		<link href="estilo.css" rel="stylesheet" type="text/css">
+		<link type="text/css" href="jqueryuitheme.css" rel="Stylesheet" />	
 		<script src="jquery.js" type="text/javascript" ></script>    
 		<script src="logicaExploracion.js" type="text/javascript" ></script> 
 		<script src="jquery.form.js" type="text/javascript" ></script> 
+		<script src="jqueryui.js" type="text/javascript" ></script> 
 		<link rel="stylesheet" href="http://code.jquery.com/qunit/git/qunit.css" type="text/css" media="screen" />
 		<script type="text/javascript" src="http://code.jquery.com/qunit/git/qunit.js"></script>
 		<script src="logicaExploracionTest.js" type="text/javascript" ></script>
@@ -15,11 +17,17 @@
 	<body>
 		<form id = busqueda>
 			<input type="text" value="" name=productoABuscar>
-			<input type="submit" value="Buscar">
+			<button class="ui-button ui-button-text-only  ui-state-default ui-corner-all">
+				<span class="ui-button-text">Buscar</span>
+			</button>
 		</form>
+
 			<form id = volverAlIndice>
-			<input type="submit" value="Volver al indice">
+			<button class="ui-button ui-button-text-only  ui-state-default ui-corner-all">
+				<span class="ui-button-text">Volver al Indice</span>
+			</button>
 		</form>
+
 		<div class = tituloPathToRoot>Categorias visitadas:</div>
 		<div class = pathToRoot></div>
 		<br>
@@ -30,7 +38,9 @@
 		<div class = productos></div>
 	    <form name ="menu">
 	        <select name = "productos2"></select>
-	        <input type="submit" value="Ir">
-	    </form>
+			<button class="ui-button ui-button-text-only  ui-state-default ui-corner-all">
+				<span class="ui-button-text">Ir</span>
+			</button>
+		</form>
 	</body>
 </html>

@@ -1,0 +1,17 @@
+<html>
+ <head>
+  <title>Test Page for multiplyAndAddFive(value1, value2)</title>
+  <script language="javascript" src="jsUnitCore.js"></script>
+  <script language="javascript" src="logicaExploracion.js"></script>
+ </head>
+ <body>
+  <script language="javascript">
+    function testWithValidArgs() {
+        assertEquals("2 times 3 plus 5 is 11", 11, (2+3)*5);
+    }
+    function testStrictReturnType() {
+        assertNotEquals("Should return a number, not a string", "11", "3");
+    }
+  </script>
+ </body>
+</html>
