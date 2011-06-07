@@ -78,20 +78,23 @@ $('#busqueda').live('submit', function() {
 	return false;
 	}); 
 	     
-$('#volverAlIndice').live('submit', function() {
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
-		regenerarCategorias(data[2], ".listaDeCategorias");
-	});
-});	 
-
-
-// Carga inicial
-$(document).ready(function(){
+var regenerarRoot = function()
+{
+	limpiar();
 	$(".listaDeCategorias").show();
 	$(".pathToRoot").show();
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
 		regenerarCategorias(data[2], ".listaDeCategorias");
 	});
-	
+}
+
+$('#volverAlIndice').live('submit', function() {
+	regenerarRoot();
+});	 
+
+
+// Carga inicial
+$(document).ready(function(){
+	regenerarRoot();
 });
 
