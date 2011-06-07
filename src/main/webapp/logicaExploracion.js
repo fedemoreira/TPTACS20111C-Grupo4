@@ -57,25 +57,28 @@ var mostrarSinResultados = function()
 {
     $(".tituloProductos").show();
     $(".productos").append("No hay resultados");
-}
+};
 
-var busqueda = function(valor)
+
+
+
+var busqueda = function(data)
 {
-$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" +
-		valor + "&callback=?", function(data) {
 		if(data[2].results.length==0)
 		{
 			mostrarSinResultados();
 			return false;
 		}
 			regenerarProductos(data[2].results);
-		});
+		    return true;
 }
 
 $('#busqueda').live('submit', function() {
 	$(".productos").empty();
 	$(".cat").remove();
-    busqueda($("input:first").val());
+    $.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" +
+    		$("input:first").val() + "&callback=?",
+    		function(data) {busqueda(data);});
 	return false;
 	}); 
 	     
