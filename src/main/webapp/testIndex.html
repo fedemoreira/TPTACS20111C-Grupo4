@@ -1,17 +1,18 @@
-<html>
- <head>
-  <title>Test Page for multiplyAndAddFive(value1, value2)</title>
-  <script language="javascript" src="jsUnitCore.js"></script>
-  <script language="javascript" src="logicaExploracion.js"></script>
- </head>
- <body>
-  <script language="javascript">
-    function testWithValidArgs() {
-        assertEquals("2 times 3 plus 5 is 11", 11, (2+3)*5);
-    }
-    function testStrictReturnType() {
-        assertNotEquals("Should return a number, not a string", "11", "3");
-    }
-  </script>
- </body>
-</html>
+<!DOCTYPE html>  
+<html>  
+<head>  
+    <title>QUnit Test Suite</title>  
+    <link rel="stylesheet" href="http://github.com/jquery/qunit/raw/master/qunit/qunit.css" type="text/css" media="screen">  
+    <script type="text/javascript" src="http://github.com/jquery/qunit/raw/master/qunit/qunit.js"></script>  
+    <script type="text/javascript" src="jquery.js"></script>  
+    <script type="text/javascript" src="logicaExploracion.js"></script>  
+    <script type="text/javascript" src="logicaExploracionTest.js"></script>  
+</head>  
+<body>  
+    <h1 id="qunit-header">QUnit Test Suite</h1>  
+    <h2 id="qunit-banner"></h2>  
+    <div id="qunit-testrunner-toolbar"></div>  
+    <h2 id="qunit-userAgent"></h2>  
+    <ol id="qunit-tests"></ol>  
+</body>  
+</html> 

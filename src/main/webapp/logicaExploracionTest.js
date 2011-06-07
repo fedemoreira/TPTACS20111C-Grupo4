@@ -1,15 +1,14 @@
 var respuestaConeccion = function(){
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {});
-	return 400;
+	return data[0];
 
 };    
 
-var coneccion = respuestaConeccion();
+var conexion = respuestaConexion();
 
 module('Module A');  
  
-test('coneccion', function() {
-	           
-                  ok((coneccion >= 400 && coneccion < 500 ), 'funciona la coneccion con el server');
-                    });  
+test('Si hay internet, el API de Mercado Libre está levantado', function() {
+                  ok((conexion >= 400 && conexion < 500 ), 'funciona la conexion con el server');
+});  
  
