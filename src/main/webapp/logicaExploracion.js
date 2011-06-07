@@ -3,6 +3,12 @@ var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 	$("<div class=\'cat\' idCat=\'" + id + "\'>" + name + "<div style= </div>").appendTo(divDondeAgregar);
 };
 
+var appendDivAListaProductos = function(val, divDondeAgregar)
+{
+	$("<li> <div class=\"producto\" idProd=\"" + val.id + "\"> " + 	"<a href=\"" + val.permalink + "\">"  
+		+ "$" + val.price + " -  " +  val.title +  "</a> </div></li>").appendTo(divDondeAgregar);
+};
+
 var regenerarCategorias = function(data, divAUsar)
 {
     $(divAUsar).empty();
@@ -15,18 +21,14 @@ var regenerarProductos = function(data)
 {
 	$(".productos").empty();
     $.each(data, function(key, val) {
-		$("<li> <div class=\"producto\" idProd=\"" + val.id + "\"> " + 
-		"<a href=\"" + val.permalink + "\">"  + "$" + val.price 
-		+ " -  " +  val.title +  "</a> </div></li>").appendTo('.productos');
+		appendDivAListaProductos(val, ".productos");
     });
 };
-
 
 $(".cat").live('click', function() {   
     
     $(".listaDeCategorias").hide("highlight", 100);
     $(".pathToRoot").hide("highlight", 100);
-    
     var idCategoria = $(this).attr("idCat");
 	$.getJSON("https://api.mercadolibre.com/categories/" + idCategoria + "?callback=?", function(data) {
 		regenerarCategorias(data[2].children_categories, ".listaDeCategorias");
@@ -59,16 +61,20 @@ var busqueda = function(data)
 			mostrarSinResultados();
 			return false;
 		}
-			regenerarProductos(data[2].results);
-		    return true;
+		regenerarProductos(data[2].results);
+	    return true;
+}
+
+var limpiar = function()
+{
+	$(".productos").empty();
+	$(".cat").remove();
 }
 
 $('#busqueda').live('submit', function() {
-	$(".productos").empty();
-	$(".cat").remove();
-    $.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" +
-    		$("input:first").val() + "&callback=?",
-    		function(data) {busqueda(data);});
+	limpiar();
+    $.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?",
+    		function(data) { busqueda(data); });
 	return false;
 	}); 
 	     
