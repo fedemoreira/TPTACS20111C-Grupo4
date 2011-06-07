@@ -25,25 +25,12 @@ var regenerarProductos = function(data)
     });
 };
 
-$(".cat").live('click', function() {   
-    
-    $(".listaDeCategorias").hide("highlight", 100);
-    $(".pathToRoot").hide("highlight", 100);
-    var idCategoria = $(this).attr("idCat");
-	$.getJSON("https://api.mercadolibre.com/categories/" + idCategoria + "?callback=?", function(data) {
-		regenerarCategorias(data[2].children_categories, ".listaDeCategorias");
-		regenerarCategorias(data[2].path_from_root, ".pathToRoot");
-	});
-	$(".listaDeCategorias").show("highlight", 100);
-    $(".pathToRoot").show("highlight", 100);
-	
-	
-    
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?category=" +
-			  idCategoria + "&callback=?", function(data) {
-				regenerarProductos(data[2].results);
-	});
-});
+var toggleCategorias = function()
+{
+    $(".listaDeCategorias").toggle("highlight", 100);
+    $(".pathToRoot").toggle("highlight", 100);
+}
+
 
 var mostrarSinResultados = function()
 {
@@ -70,13 +57,6 @@ var limpiar = function()
 	$(".productos").empty();
 	$(".cat").remove();
 }
-
-$('#busqueda').live('submit', function() {
-	limpiar();
-    $.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?",
-    		function(data) { busqueda(data); });
-	return false;
-	}); 
 	     
 var regenerarRoot = function()
 {
@@ -88,10 +68,42 @@ var regenerarRoot = function()
 	});
 }
 
+
+var obtenerCategorias = function(idCategoria)
+{
+	$.getJSON("https://api.mercadolibre.com/categories/" + idCategoria + "?callback=?", function(data) {
+		regenerarCategorias(data[2].children_categories, ".listaDeCategorias");
+		regenerarCategorias(data[2].path_from_root, ".pathToRoot");
+	});
+}
+
+var obtenerProductos = function(idCategoria)
+{
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?category=" +
+		idCategoria + "&callback=?", function(data) 
+		{
+			regenerarProductos(data[2].results)
+		});
+};
+
+$(".cat").live('click', function() {   
+    toggleCategorias();
+    obtenerCategorias($(this).attr("idCat"));
+    toggleCategorias();    
+	obtenerProductos($(this).attr("idCat"));
+});
+
+
+$('#busqueda').live('submit', function() {
+	limpiar();
+    $.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?",
+    		function(data) { busqueda(data); });
+	return false;
+	}); 
+	
 $('#volverAlIndice').live('submit', function() {
 	regenerarRoot();
 });	 
-
 
 // Carga inicial
 $(document).ready(function(){
