@@ -13,9 +13,12 @@ asyncTest('Si hay internet, el API de Mercado Libre esta levantado', function() 
   setTimeout(function(){
   var data;
 $.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) 
-	{(ok((data[0] >= 200 && data[0] < 300 ), 'funciona la conexion con el server'));});
+	{	
+		ok(data[0] > 0 && data[0] < 500, 'funciona la conexion con el server');
+		
 		start();
 	}, 2000);
+	});
 }); 
 
 module('Busqueda');
@@ -36,11 +39,12 @@ asyncTest("Busqueda con resultado no vacio reconoce no vacio",function() {
  
 module('Categorias');
  test("Testeo de appendDivAListaCategorias", function(){
-	 var mockDiv = $('<div class = mockProductos ></div>');
-	 ok($(".mockProductos > div").size() == 0 , "agrego bien" + $(".mockProductos").children().size());
+	 var mockDiv = $('<div class = mockProductos></div>');
+	 mockDiv.appendTo('.body');
+	 ok($(".mockProductos > div").length == 0 , "agrego bien" + $(".mockProductos > div").length);
 	 appendDivAListaCategorias ("mock","mock", mockDiv );
-	 ok($(".mockProductos > div").size() == 1 , "agrego bien" + $(".mockProductos").size());
+	 ok($(".mockProductos > div").length == 1 , "agrego bien" + $(".mockProductos > div").length);
 	 appendDivAListaCategorias ("mock","mock", mockDiv );
-	 ok($(".mockProductos > div").size() == 2 , "agrego bien" + $(".mockProductos").children().size());
+	 ok($(".mockProductos > div").length == 2 , "agrego bien" + $(".mockProductos > div").length);
 });
 });
