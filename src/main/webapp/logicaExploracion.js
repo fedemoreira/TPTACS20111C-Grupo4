@@ -3,19 +3,11 @@ var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 	$("<div class=\'cat\' idCat=\'" + id + "\'>" + name + "<div style= </div>").appendTo(divDondeAgregar);
 };
 
-var regenerarPathToRoot = function(datos)
-{   
-    $(".pathToRoot").empty();
-    $.each(datos.path_from_root, function(key, data) {
-    	appendDivAListaCategorias(data.id, data.name, '.pathToRoot');
-    });
-};
-
-var regenerarCategorias = function(data)
+var regenerarCategorias = function(data, divAUsar)
 {
-    $(".listaDeCategorias").empty();
+    $(divAUsar).empty();
     $.each(data, function(key, val) {
-		appendDivAListaCategorias(val.id, val.name, '.listaDeCategorias');
+		appendDivAListaCategorias(val.id, val.name, divAUsar);
     });
 };
 
@@ -32,16 +24,16 @@ var regenerarProductos = function(data)
 
 $(".cat").live('click', function() {   
     
-    $(".listaDeCategorias").hide("highlight", 1000);
-    $(".pathToRoot").hide("highlight", 1000);
+    $(".listaDeCategorias").hide("highlight", 100);
+    $(".pathToRoot").hide("highlight", 100);
     
     var idCategoria = $(this).attr("idCat");
 	$.getJSON("https://api.mercadolibre.com/categories/" + idCategoria + "?callback=?", function(data) {
-		regenerarCategorias(data[2].children_categories);
-		regenerarPathToRoot(data[2]);
+		regenerarCategorias(data[2].children_categories, ".listaDeCategorias");
+		regenerarCategorias(data[2].path_from_root, ".pathToRoot");
 	});
-	$(".listaDeCategorias").show("highlight", 1000);
-    $(".pathToRoot").show("highlight", 1000);
+	$(".listaDeCategorias").show("highlight", 100);
+    $(".pathToRoot").show("highlight", 100);
 	
 	
     
@@ -82,7 +74,7 @@ $('#busqueda').live('submit', function() {
 	     
 $('#volverAlIndice').live('submit', function() {
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
-		regenerarCategorias(data[2]);
+		regenerarCategorias(data[2], ".listaDeCategorias");
 	});
 });	 
 
@@ -92,7 +84,7 @@ $(document).ready(function(){
 	$(".listaDeCategorias").show();
 	$(".pathToRoot").show();
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
-		regenerarCategorias(data[2]);
+		regenerarCategorias(data[2], ".listaDeCategorias");
 	});
 	
 });
