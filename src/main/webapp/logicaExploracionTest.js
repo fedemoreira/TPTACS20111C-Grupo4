@@ -14,7 +14,7 @@ asyncTest('Si hay internet, el API de Mercado Libre esta levantado', function() 
   var data;
 $.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) 
 	{	
-		ok(data[0] > 0 && data[0] < 500, 'funciona la conexion con el server');
+		ok(data[0] > 0 && data[0] < 400, 'Funciona la conexion con el API de ML');
 		
 		start();
 	}, 2000);
@@ -23,14 +23,16 @@ $.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", functi
 
 module('Busqueda');
 asyncTest("Busqueda con resultado vacio reconoce vacío",function() {
-	setTimeout(function(){
+	setTimeout(function()
+	{
 		ok(!(busqueda(mockRespuestaBusquedaVacia)), "Reconoce una busqueda resultado vacio");
 		start();
 	}, 2000);
 });
       
 asyncTest("Busqueda con resultado no vacio reconoce no vacio",function() {
-	setTimeout(function(){
+	setTimeout(function()
+	{
 		ok(busqueda(mockRespuestaBusquedaNoVacia), "Reconoce una busqueda resultado no vacio");
 		start();
     }, 2000);
@@ -38,13 +40,13 @@ asyncTest("Busqueda con resultado no vacio reconoce no vacio",function() {
 });
  
 module('Categorias');
- test("Testeo de appendDivAListaCategorias", function(){
-	 var mockDiv = $('<div class = mockProductos></div>');
-	 mockDiv.appendTo('.body');
-	 ok($(".mockProductos > div").length == 0 , "agrego bien" + $(".mockProductos > div").length);
-	 appendDivAListaCategorias ("mock","mock", mockDiv );
-	 ok($(".mockProductos > div").length == 1 , "agrego bien" + $(".mockProductos > div").length);
-	 appendDivAListaCategorias ("mock","mock", mockDiv );
-	 ok($(".mockProductos > div").length == 2 , "agrego bien" + $(".mockProductos > div").length);
+test("Testeo de appendDivAListaCategorias", function(){
+	 $("<div id=mockProductos></div>").appendTo("body");
+	 ok($("#mockProductos > div").size() == 0 , "El div empieza vacío");
+	 appendDivAListaCategorias ("mockProductos","mock", "#mockProductos" );
+	 ok($("#mockProductos > div").size() == 1 , "Se agrega un elemento, cuenta uno");
+	 appendDivAListaCategorias ("mockProductos","mock", "#mockProductos" );
+	 ok($("#mockProductos > div").size() == 2 , "Se agrega un elemento, cuenta dos");
+	 $("#mockProductos").remove();
 });
 });
