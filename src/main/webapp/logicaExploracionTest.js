@@ -7,67 +7,40 @@ var mockRespuestaBusquedaNoVacia = ([200, {"X-MLAPI-Version":"1.5.18","ETag":"ad
 
 
 $(document).ready(function() { 
-module('Module A');  
+module('Conexion');  
+asyncTest('Si hay internet, el API de Mercado Libre esta levantado', function() {
+  expect(1);
+  setTimeout(function(){
+  var data;
+$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) 
+	{(ok((data[0] >= 200 && data[0] < 300 ), 'funciona la conexion con el server'));});
+		start();
+	}, 2000);
+}); 
 
-	asyncTest('Si hay internet, el API de Mercado Libre esta levantado', function() {
+module('Busqueda');
+asyncTest("Busqueda con resultado vacio reconoce vacío",function() {
+	setTimeout(function(){
+		ok(!(busqueda(mockRespuestaBusquedaVacia)), "Reconoce una busqueda resultado vacio");
+		start();
+	}, 2000);
+});
+      
+asyncTest("Busqueda con resultado no vacio reconoce no vacio",function() {
+	setTimeout(function(){
+		ok(busqueda(mockRespuestaBusquedaNoVacia), "Reconoce una busqueda resultado no vacio");
+		start();
+    }, 2000);
+    $(".productos").empty();
+});
  
-	  setTimeout(function(){
-		  var data;
-			$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) 
-					{(ok((data[0] >= 200 && data[0] < 300 ), 'funciona la conexion con el server'));});
-		
-	    
-	    start();
-	  }, 2000);
-	}); 
-
-module('Module B'); 
-
-	asyncTest("a test", function() {
-	  setTimeout(function(){
-	    ok(true, "always fine");
-	    start();
-	  }, 13);
-	});
-
-
-module('Module C');
-      
-
-      asyncTest("busquedaConResultadoVacio",function() {
-	  setTimeout(function(){
-		    ok(!(busqueda(mockRespuestaBusquedaVacia)), "Reconoce una busqueda resultado vacio");
-		    start();
-		  }, 2000);
-		});
-      
- module('Module D');
-      
-      asyncTest("busquedaConResultadoNoVacio",function() {
-        
-     setTimeout(function(){
-    
-     ok(busqueda(mockRespuestaBusquedaNoVacia), "Reconoce una busqueda resultado no vacio");
-     start();
-     }, 2000);
-     $(".productos").empty();
-     }); 
-  
-module('Module E');
- test("apend a div", function(){
-	 var mockDiv =$('<div class = mockProductos ></div>');
-	 mockDiv.appendTo('.body');
-	 appendDivAListaCategorias ("4","cuatro",mockDiv );
-	 ok(mockDiv.text() == "cuatro" , "agrego bien");
-	 mockDiv.remove();
-	 
- });
- /*
- module('Module F');
- test ("incerta correctamente", function(){
-  regenerarProductos(mockRespuestaBusquedaNoVacia);
-   ok(('.productos').length == 10, "agrego cantidad correcta");
-  ('.productos').empty;
-
- });*/
+module('Categorias');
+ test("Testeo de appendDivAListaCategorias", function(){
+	 var mockDiv = $('<div class = mockProductos ></div>');
+	 ok($(".mockProductos > div").size() == 0 , "agrego bien" + $(".mockProductos").children().size());
+	 appendDivAListaCategorias ("mock","mock", mockDiv );
+	 ok($(".mockProductos > div").size() == 1 , "agrego bien" + $(".mockProductos").size());
+	 appendDivAListaCategorias ("mock","mock", mockDiv );
+	 ok($(".mockProductos > div").size() == 2 , "agrego bien" + $(".mockProductos").children().size());
+});
 });

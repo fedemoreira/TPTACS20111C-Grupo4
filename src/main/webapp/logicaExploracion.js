@@ -1,5 +1,3 @@
-const direccionDelServlet = "ServletMercadoLibre";
-
 var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 {
 	$("<div class=\'cat\' idCat=\'" + id + "\'>" + name + "<div style= </div>").appendTo(divDondeAgregar);
