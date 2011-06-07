@@ -53,13 +53,26 @@ module('Module C');
 		});
       
 module('Module D');
- 
+      var clonProductos = $(".productos").clone();
       asyncTest("busquedaConResultadoNoVacio",function() {
-    	     	  setTimeout(function(){
+    	  
+    	 
+    	  setTimeout(function(){
+    	     		 
     		    ok(busqueda(mockRespuestaBusquedaNoVacia), "Reconoce una busqueda resultado no vacio");
     		    start();
     		  }, 2000);
     	     	  
     		});     
+  
+module('Module E');
+ test("apend a div", function(){
+	 var mockDiv =$('<div class = mockProductos ></div>');
+	 mockDiv.appendTo('.body');
+	 appendDivAListaCategorias ("4","cuatro",mockDiv );
+	 ok(mockDiv.text() == "cuatro" , "agrego bien");
+	 mockDiv.remove();
+	 
+ });
 
 });
