@@ -31,6 +31,12 @@ public class Wishlist {
 	{
 		this.getListaDeProductos().add(productoAAniadir); 
 	} 
+	
+	public void aniadirProducto(String nombre, String link)
+	{
+		this.getListaDeProductos().add(new Producto(nombre, link)); 
+	} 
+	
     public void quitarProducto(Producto productoEjemplo)
     {
         this.getListaDeProductos().remove(productoEjemplo);
