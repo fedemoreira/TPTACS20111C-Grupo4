@@ -5,6 +5,8 @@ import grupo4.exceptions.WishlistVaciaException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.google.gson.Gson;
+
 public class Wishlist {
 
 	private String usuario;
@@ -57,5 +59,10 @@ public class Wishlist {
 
 	public List<Producto> getListaDeProductos() {
 		return this.listaDeProductos;
+	}
+
+	public String convertirAJson() {
+		return new Gson().toJson(this);
+		
 	}
 }

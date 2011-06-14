@@ -1,11 +1,15 @@
 package grupo4;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertTrue;
 import grupo4.wishlist.Producto;
 import grupo4.wishlist.Wishlist;
 
 import org.junit.Before;
 import org.junit.Test;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 public class WishlistTest {
 	
@@ -32,4 +36,13 @@ public class WishlistTest {
 		assertTrue(this.wishlist.sacameUnProducto()== this.productoEjemplo );
 	}
 		
+	
+	@Test
+	public void sePasaAJsonYObtieneElUltimoProducto()
+	{
+		this.wishlist.aniadirProducto(this.productoEjemplo); 
+		this.wishlist = new Gson().fromJson(this.wishlist.convertirAJson(), Wishlist.class);
+		assertEquals("Producto", this.wishlist.dameProducto(0).getNombre());
+		}
+	
 }
