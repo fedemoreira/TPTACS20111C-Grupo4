@@ -2,8 +2,8 @@ package grupo4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
-import grupo4.clientes.ClienteServiciosRest;
-import grupo4.exceptions.ImposibleConsumirException;
+import grupo4.Wishlist.Wishlist;
+
 
 import java.io.UnsupportedEncodingException;
 
@@ -19,11 +19,27 @@ public class WishlistTest {
 	
 
 	private Wishlist wishlist;
-
+    private String stringmocked = "esta es una respuesta";
+    
 	@Before
 	public void condicionesIniciales() throws UnsupportedEncodingException
 	{
 		this.wishlist = new Wishlist();
-	
+
 	}
 	
+	@Test
+	public void agregayQuitaBienUnProducto()
+	{   
+		this.wishlist.aniadirProducto(this.stringmocked); 
+		assertTrue(this.wishlist.quitarProducto(this.stringmocked));
+		
+	}	
+	@Test
+	public void agregaySacaBienUnProducto()
+	{   
+		this.wishlist.aniadirProducto(this.stringmocked); 
+		assertTrue(this.wishlist.sacameUnProducto()== this.stringmocked );
+	}
+		
+}

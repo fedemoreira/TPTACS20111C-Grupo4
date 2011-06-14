@@ -9,7 +9,7 @@ public class Wishlist {
 	private String usuario;
 	private List<String> listaDeProductos ;
 	
-	Wishlist()
+	public Wishlist()
 	{
 		this.listaDeProductos = new ArrayList<String>();
 	}
