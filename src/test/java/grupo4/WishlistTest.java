@@ -1,8 +1,8 @@
 package grupo4;
 
 import static org.junit.Assert.assertTrue;
-import grupo4.Wishlist.Producto;
-import grupo4.Wishlist.Wishlist;
+import grupo4.wishlist.Producto;
+import grupo4.wishlist.Wishlist;
 
 import org.junit.Before;
 import org.junit.Test;
