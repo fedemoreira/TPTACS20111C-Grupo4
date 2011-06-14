@@ -14,7 +14,7 @@ $(document).ready(function() {
 			var data;
 			$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) 
 					{	
-				ok(data[0] > 0 && data[0] < 400, 'Funciona la conexion con el API de ML');
+				ok(data[0] > 200 && data[0] < 300, 'Funciona la conexion con el API de ML');
 
 				start();
 					}, 2000);
