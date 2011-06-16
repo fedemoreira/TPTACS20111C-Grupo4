@@ -1,9 +1,15 @@
 package grupo4.wishlist;
 
 public class Producto {
+	/**
+	 * Contiene los datos de un producto de la wishlist.
+	 */
 	private String nombre;
 	private String link;
 
+	/**
+	 * Los valores por defecto son ""
+	 */
 	public Producto()
 	{
 		this.setNombre("");
