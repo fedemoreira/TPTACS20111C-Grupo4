@@ -1,7 +1,7 @@
 package grupo4;
 
-import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import grupo4.wishlist.Producto;
 import grupo4.wishlist.Wishlist;
@@ -22,26 +22,23 @@ public class WishlistTest {
 	{
 		this.wishlist = new Wishlist();
 		this.productoEjemplo = new Producto("Producto", "Link de prueba");
+		this.wishlist.aniadirProducto(this.productoEjemplo); 
 	}
 	
 	@Test
 	public void agregayQuitaBienUnProducto()
 	{   
-		this.wishlist.aniadirProducto(this.productoEjemplo); 
 		this.wishlist.quitarProducto(this.productoEjemplo);
 	}	
 	@Test
 	public void agregaySacaBienUnProducto()
 	{   
-		this.wishlist.aniadirProducto(this.productoEjemplo); 
 		assertTrue(this.wishlist.sacameUnProducto()== this.productoEjemplo );
 	}
-		
 	
 	@Test
 	public void sePasaAJsonYObtieneElUltimoProducto()
 	{
-		this.wishlist.aniadirProducto(this.productoEjemplo); 
 		this.wishlist = new Gson().fromJson(this.wishlist.convertirAJson(), Wishlist.class);
 		assertEquals("Producto", this.wishlist.dameProducto(0).getNombre());
 	}
@@ -49,20 +46,19 @@ public class WishlistTest {
 	@Test
 	public void detectaCorrectamenteQueUnProductoYaExisteEnWishlist()
 	{
-		this.wishlist.aniadirProducto(this.productoEjemplo);
 		assertTrue(this.wishlist.tieneElProducto("Producto"));
 	}
 
 	@Test
 	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlist()
 	{
-		this.wishlist.aniadirProducto(this.productoEjemplo);
 		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
 	}
 
 	@Test
 	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlistVacia()
 	{
+		this.wishlist.vaciar();
 		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
 	}
 	

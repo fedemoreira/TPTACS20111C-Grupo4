@@ -78,4 +78,8 @@ public class Wishlist {
 				return true;
 		return false;
 	}
+
+	public void vaciar() {
+		this.setListaDeProductos(new ArrayList<Producto>());
+	}
 }
