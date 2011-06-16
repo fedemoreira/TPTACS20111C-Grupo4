@@ -15,10 +15,17 @@ public class WishlistMapperTest {
 	{
 		this.map = new WishlistMapper();
 	}
+	@Test
+	public void siPidoUnWishlistQueExisteLoDevuelve()
+	{
+		Wishlist wishlist = new Wishlist();
+		this.map.getMap().put("UsuarioEjemplo", wishlist);
+		assertEquals(this.map.get("UsuarioEjemplo"), wishlist);
+	}	
 	
 	@Test
 	public void siPidoUnWishlistEnMapVacioDevuelveUno()
 	{
-		assertEquals(this.map.get("UsuarioEjemplo"), new Wishlist());
+		assertEquals(0, this.map.get("UsuarioEjemplo").getListaDeProductos().size());
 	}	
 }
