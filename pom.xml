@@ -28,10 +28,23 @@
                <encoding>UTF-8</encoding>
             </configuration>
   		</plugin>
+  		<plugin>
+  			<groupId>net.kindleit</groupId>
+  			<artifactId>maven-gae-plugin</artifactId>
+			<version>0.8.4</version>
+  			<configuration></configuration>
+  		</plugin>
   	</plugins>
   </build>
   <profiles>
   </profiles>
+   <pluginRepositories>
+        <pluginRepository>
+            <id>maven-gae-plugin-repo</id>
+            <name>Maven Google App Engine Repository</name>
+            <url>http://maven-gae-plugin.googlecode.com/svn/repository/</url>
+        </pluginRepository>
+    </pluginRepositories>
   <dependencies>
   	<dependency>
   		<groupId>org.apache.httpcomponents</groupId>
@@ -61,11 +74,19 @@
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
+  	<dependency>
+  		<groupId>com.google.appengine</groupId>
+  		<artifactId>appengine</artifactId>
+  		<version>1.5.0.1</version>
+  		<type>pom</type>
+  		<scope>provided</scope>
+  	</dependency>
   </dependencies>
   <dependencyManagement>
   	<dependencies>
   	</dependencies>
   </dependencyManagement>
   <properties>
+	<gae.version>1.5.0</gae.version>
   </properties>
 </project>
