@@ -71,4 +71,11 @@ public class Wishlist {
 		return new Gson().toJson(this);
 		
 	}
+
+	public boolean tieneElProducto(String nombreDeProductoABuscar) {
+		for(Producto producto : this.listaDeProductos)
+			if (producto.getNombre().equals(nombreDeProductoABuscar))
+				return true;
+		return false;
+	}
 }

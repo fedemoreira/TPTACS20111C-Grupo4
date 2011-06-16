@@ -1,5 +1,6 @@
 package grupo4;
 
+import static org.junit.Assert.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import grupo4.wishlist.Producto;
@@ -43,6 +44,26 @@ public class WishlistTest {
 		this.wishlist.aniadirProducto(this.productoEjemplo); 
 		this.wishlist = new Gson().fromJson(this.wishlist.convertirAJson(), Wishlist.class);
 		assertEquals("Producto", this.wishlist.dameProducto(0).getNombre());
+	}
+
+	@Test
+	public void detectaCorrectamenteQueUnProductoYaExisteEnWishlist()
+	{
+		this.wishlist.aniadirProducto(this.productoEjemplo);
+		assertTrue(this.wishlist.tieneElProducto("Producto"));
+	}
+
+	@Test
+	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlist()
+	{
+		this.wishlist.aniadirProducto(this.productoEjemplo);
+		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
+	}
+
+	@Test
+	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlistVacia()
+	{
+		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
 	}
 	
 }
