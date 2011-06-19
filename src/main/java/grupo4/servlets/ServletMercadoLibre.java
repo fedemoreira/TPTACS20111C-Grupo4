@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import grupo4.clientes.ClienteServiciosRest;
-
 /**
  * Le pasa a un ClienteServiciosRest la URL que debe solicitar en base a los
  * parametros del request.
