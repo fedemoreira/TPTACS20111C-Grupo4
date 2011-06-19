@@ -5,11 +5,18 @@ import grupo4.exceptions.WishlistVaciaException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.Entity;
+
+import javax.persistence.Id;
+
 import com.google.gson.Gson;
 
+@Entity
 public class Wishlist {
 
+	@Id
 	private String usuario;
+	
 	private List<Producto> listaDeProductos ;
 	
 	public Wishlist()

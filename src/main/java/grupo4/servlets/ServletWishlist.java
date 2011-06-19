@@ -1,8 +1,13 @@
 package grupo4.servlets;
 
+import grupo4.persistence.EntityManagerFact;
+import grupo4.wishlist.Producto;
+import grupo4.wishlist.Wishlist;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.persistence.EntityManager;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,12 +39,25 @@ public class ServletWishlist extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		out.println(this.obtenerWishlistDeUsuario(request));
+		EntityManager em = EntityManagerFact.get().createEntityManager();
+		try
+		{
+			Wishlist wishlist = em.find(Wishlist.class, request.getParameter("user"));
+			if(wishlist == null)
+			{
+				wishlist = new Wishlist();
+				wishlist.aniadirProducto(new Producto("Das", "Asdf"));	
+				out.println("Posta que era null.");
+			}
+			wishlist.aniadirProducto(new Producto("DasAuto", "AsdfD2adsad"));	
+			out.println(wishlist.convertirAJson());
+			out.println("Alfreda.");
+		}
+		finally
+		{
+			em.close();
+		}
+		out.println("Das" + new Wishlist().convertirAJson() + "Caca");
 		out.close();
-	}
-
-	private String obtenerWishlistDeUsuario(HttpServletRequest request) {
-		String parameterUser = request.getParameter("user");
-		return parameterUser;
 	}
 }
