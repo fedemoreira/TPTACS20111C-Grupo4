@@ -94,9 +94,20 @@ $(".cat").live('click', function() {
 
 $('#busqueda').live('submit', function() {
 	limpiar();
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?", function(data) 
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + document.busqueda.productoABuscar.value + "&callback=?", function(data) 
 			{ 
 				busqueda(data); 
+			});
+	return false;
+}); 
+
+
+$('#whislist').live('submit', function() {
+	var usuario = document.wishlist.usuarioABuscar.value;
+	$.getJSON("http://tptacs20111c-grupo4-b.appspot.com/ServletWishlist?user=" + usuario + "&callback=?", function(data) 
+			{ 
+		      alert(data[0]);
+		 
 			});
 	return false;
 }); 
