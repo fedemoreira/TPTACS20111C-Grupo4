@@ -5,7 +5,7 @@ var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 
 var appendDivAListaProductos = function(val, divDondeAgregar)
 {
-	$("<li> <div class=\"producto\" " + "link=\"" + val.permalink + "\"> " + "$" + val.price + " -  " +  val.title +  "</a> </div></li>").appendTo(divDondeAgregar);
+	$("<li> <div class=\"producto\" " + "link=\"" + val.permalink + "\"> " + "$" + val.price + " -  " +  val.title +  "</div></li>").appendTo(divDondeAgregar);
 };
 
 var regenerarCategorias = function(data, divAUsar)
@@ -21,6 +21,14 @@ var regenerarProductos = function(data)
 	$(".productos").empty();
 	$.each(data, function(key, val) {
 		appendDivAListaProductos(val, ".productos");
+	});
+};
+
+var regenerarWishlist = function(data, divAUsar)
+{
+	$(".wishlist").empty();
+	$.each(data, function(key, val) {
+		$("<li> <div class=\"productoWishlist\" " + "link=\"" + val.link + "\"> " + val.nombre + "</div></li>").appendTo(divAUsar);
 	});
 };
 
@@ -60,8 +68,12 @@ var regenerarRoot = function()
 	limpiar();
 	$(".listaDeCategorias").show();
 	$(".pathToRoot").show();
+	$(".wishlist").show();
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
 		regenerarCategorias(data[2], ".listaDeCategorias");
+	});
+	$.getJSON("ServletWishlist?user=userPrueba", function(data) {
+		regenerarWishlist(data[2].listaDeProductos, ".wishlist");
 	});
 };
 
