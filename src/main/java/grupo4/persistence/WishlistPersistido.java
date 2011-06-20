@@ -3,22 +3,27 @@ package grupo4.persistence;
 import grupo4.exceptions.WishlistVaciaException;
 import grupo4.wishlist.Producto;
 
+
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.PersistenceCapable;  
+import javax.jdo.annotations.IdentityType;  
+import javax.jdo.annotations.Persistent; 
+import javax.jdo.annotations.IdGeneratorStrategy; 
 
-@Entity
+@PersistenceCapable(identityType = IdentityType.APPLICATION)
 public class WishlistPersistido {
 
-	@Id
+    @PrimaryKey  
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)  
+    private Long id;  
+	
+	@Persistent
 	private String usuario;
 	
-	@Basic
+	@Persistent
 	private List<Producto> listaDeProductos ;
 	
 	public WishlistPersistido()

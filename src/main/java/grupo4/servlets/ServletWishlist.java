@@ -1,18 +1,22 @@
 package grupo4.servlets;
 
-import grupo4.persistence.EntityManagerFact;
-import grupo4.persistence.WishlistPersistido;
+
 import grupo4.wishlist.Producto;
 import grupo4.wishlist.Wishlist;
+import grupo4.persistence.WishlistPersistido;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
-import javax.persistence.EntityManager;
+import grupo4.persistence.PMF;
+import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+
 /**
  * Le pasa a un ClienteServiciosRest la URL que debe solicitar en base a los
  * parametros del request.
@@ -40,10 +44,10 @@ public class ServletWishlist extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		EntityManager em = EntityManagerFact.get().createEntityManager();
+		final PersistenceManager pm = PMF.get().getPersistenceManager();
 		try
 		{
-			WishlistPersistido wishlistPersistido = em.find(WishlistPersistido.class, request.getParameter("user"));
+			WishlistPersistido wishlistPersistido = pm.getObjectById(WishlistPersistido.class, request.getParameter("user"));
 			Wishlist wishlist;
 			if(wishlistPersistido == null)
 			{
@@ -61,7 +65,7 @@ public class ServletWishlist extends HttpServlet {
 		}
 		finally
 		{
-			em.close();
+			pm.close();
 		}
 		out.println("Das" + new Wishlist().convertirAJson() + "Caca");
 		out.close();

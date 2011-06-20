@@ -1,23 +1,24 @@
 package grupo4.wishlist;
 
-import javax.persistence.Basic;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.jdo.annotations.PersistenceCapable;  
+import javax.jdo.annotations.IdentityType;
+import javax.jdo.annotations.PrimaryKey;
+import javax.jdo.annotations.Persistent; 
+import javax.jdo.annotations.IdGeneratorStrategy;  
+import com.google.appengine.api.datastore.Key;
 
-@Entity
+@PersistenceCapable(identityType = IdentityType.APPLICATION)  
 public class Producto {
 	/**
 	 * Contiene los datos de un producto de la wishlist.
 	 */
-	@Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int key;
+	@PrimaryKey  
+	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)  
+    private Key key;
 	
-	@Basic
+	@Persistent
 	private String nombre;
-	@Basic
+	@Persistent
 	private String link;
 
 	/**
