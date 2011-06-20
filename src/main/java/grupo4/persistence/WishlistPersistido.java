@@ -22,8 +22,7 @@ public class WishlistPersistido {
 	private String usuario;
 	
 	@OneToMany(cascade=CascadeType.PERSIST)
-	@Basic
-	private List<Producto> listaDeProductos ;
+	private List<Producto> listaDeProductos;
 	
 	public WishlistPersistido()
 	{

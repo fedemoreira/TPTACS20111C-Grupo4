@@ -45,13 +45,14 @@ public class ServletWishlist extends HttpServlet {
 		if(wishlistPersistido!=null)
 		{
 			Wishlist wishlist = new Wishlist(wishlistPersistido);
+			wishlist.aniadirProducto(new Producto("Persistido", "Persistido posta"));
 			out.println(wishlist.convertirAJson());
 		}
 		else
 		{
 			Wishlist wishlist = new Wishlist();
 			wishlist.setUsuario(request.getParameter("user").toString());
-			wishlist.aniadirProducto(new Producto("Das", "Asdf"));
+			wishlist.aniadirProducto(new Producto("No persistido", "No persistido"));
 			WishlistPersistido wp = wishlist.getWishlistPersistido();
 			em.persist(wp);
 			out.println(wishlist.convertirAJson());
