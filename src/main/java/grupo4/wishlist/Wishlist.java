@@ -1,20 +1,15 @@
 package grupo4.wishlist;
 
 import grupo4.exceptions.WishlistVaciaException;
+import grupo4.persistence.WishlistPersistido;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.Entity;
-
-import javax.persistence.Id;
-
 import com.google.gson.Gson;
 
-@Entity
 public class Wishlist {
-
-	@Id
+	
 	private String usuario;
 	
 	private List<Producto> listaDeProductos ;
@@ -24,6 +19,11 @@ public class Wishlist {
 		this.setListaDeProductos(new ArrayList<Producto>());
 	}
 	
+	public Wishlist(WishlistPersistido wishlistPersistido) {
+		this.setListaDeProductos(wishlistPersistido.getListaDeProductos());
+		this.setUsuario(wishlistPersistido.getUsuario());
+	}
+
 	public void setUsuario( String user)
 	{ 
 		this.usuario = user;

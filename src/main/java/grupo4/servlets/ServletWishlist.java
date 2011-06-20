@@ -1,6 +1,7 @@
 package grupo4.servlets;
 
 import grupo4.persistence.EntityManagerFact;
+import grupo4.persistence.WishlistPersistido;
 import grupo4.wishlist.Producto;
 import grupo4.wishlist.Wishlist;
 
@@ -42,16 +43,21 @@ public class ServletWishlist extends HttpServlet {
 		EntityManager em = EntityManagerFact.get().createEntityManager();
 		try
 		{
-			Wishlist wishlist = em.find(Wishlist.class, request.getParameter("user"));
-			if(wishlist == null)
+			WishlistPersistido wishlistPersistido = em.find(WishlistPersistido.class, request.getParameter("user"));
+			Wishlist wishlist;
+			if(wishlistPersistido == null)
 			{
-				wishlist = new Wishlist();
+				wishlist  = new Wishlist(wishlistPersistido);
 				wishlist.aniadirProducto(new Producto("Das", "Asdf"));	
 				out.println("Posta que era null.");
 			}
+			else
+			{
+			wishlist = new Wishlist();
 			wishlist.aniadirProducto(new Producto("DasAuto", "AsdfD2adsad"));	
 			out.println(wishlist.convertirAJson());
 			out.println("Alfreda.");
+			}
 		}
 		finally
 		{
