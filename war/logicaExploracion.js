@@ -24,11 +24,11 @@ var regenerarProductos = function(data)
 	});
 };
 
-var regenerarWishlist = function(data, divAUsar)
+var regenerarWishlist = function(data)
 {
 	$(".wishlist").empty();
 	$.each(data, function(key, val) {
-		$("<li> <div class=\"productoWishlist\" " + "link=\"" + val.link + "\"> " + val.nombre + "</div></li>").appendTo(divAUsar);
+		$("<li> <div class=\"productoWishlist\" " + "link=\"" + val.link + "\"> " + val.nombre + "</div></li>").appendTo(".wishlist");
 	});
 };
 
@@ -73,7 +73,7 @@ var regenerarRoot = function()
 		regenerarCategorias(data[2], ".listaDeCategorias");
 	});
 	$.getJSON("ServletWishlist?user=userPrueba", function(data) {
-		regenerarWishlist(data[2].listaDeProductos, ".wishlist");
+		regenerarWishlist(data.listaDeProductos);
 	});
 };
 
