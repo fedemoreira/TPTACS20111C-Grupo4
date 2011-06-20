@@ -40,17 +40,17 @@
   		<scope>provided</scope>
   	</dependency>
   	<dependency>
-  		<groupId>javax.jdo</groupId>
-  		<artifactId>jdo</artifactId>
-  		<version>2.0-20050809.1515</version>
-  		<type>jar</type>
-  		<scope>compile</scope>
-  	</dependency>
-  	<dependency>
   		<groupId>com.google.code.gson</groupId>
   		<artifactId>gson</artifactId>
   		<version>1.7.1</version>
   		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
+  		<groupId>com.kenai.nbpwr</groupId>
+  		<artifactId>javax-persistence</artifactId>
+  		<version>1.0-201003141300</version>
+  		<type>nbm</type>
   		<scope>compile</scope>
   	</dependency>
   </dependencies>
