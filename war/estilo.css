@@ -1,5 +1,5 @@
 body {
-    font-size: 16px;
+    font-size: 14px;
     color: black;
     background-color: #fefefe;
     font-family:sans serif;
@@ -17,7 +17,7 @@ body {
 .cat {
     background-color: #e6e6e6;
     color: #0a0a0a;
-    font-size: 14px;
+    font-size: 12px;
     cursor: hand;
     font-family:sans-serif;
 }
@@ -37,6 +37,17 @@ body {
     margin-right:10px;
 }
 
+
+.wishlist
+{
+    background-color: #fafafa;
+    color: #0a0a0a;
+    font-size: 12px;
+    font-family:sans-serif;
+    float:left;
+	clear:left;	
+}
+
 #volverAlIndice
 {
     float:left;
@@ -47,7 +58,7 @@ body {
 .productos {
     background-color: #bababa;
     color: #0a0a0a;
-    font-size: 14px;
+    font-size: 12px;
     font-family:sans-serif;
     float:left;
 	clear:left;	

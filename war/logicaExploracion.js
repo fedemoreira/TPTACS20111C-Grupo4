@@ -122,13 +122,24 @@ $('.producto').live('click', function() {
  }, 
  "xml"
 );
+	$.getJSON("ServletWishlist?user=userPrueba", function(data) {
+		regenerarWishlist(data.listaDeProductos);
+	});
 }); 
 
 $('#volverAlIndice').live('submit', function() {
 	regenerarRoot();
+	
+	$.getJSON("ServletWishlist?user=userPrueba", function(data) {
+		regenerarWishlist(data.listaDeProductos);
+	});
 });	 
 
 $(document).ready(function(){
 	regenerarRoot();
+	
+	$.getJSON("ServletWishlist?user=userPrueba", function(data) {
+		regenerarWishlist(data.listaDeProductos);
+	});
 });
 
