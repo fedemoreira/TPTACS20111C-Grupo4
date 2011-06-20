@@ -1,56 +1,22 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>Grupo4</groupId>
-  <artifactId>TPTACS</artifactId>
-  <packaging>war</packaging>
+  <groupId>tptacs4</groupId>
+  <artifactId>tptacs4</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <build>
   	<plugins>
   		<plugin>
+  			<groupId>net.kindleit</groupId>
+  			<artifactId>maven-gae-plugin</artifactId>
+  			<version>0.8.4</version>
+  		</plugin>
+  		<plugin>
   			<groupId>org.apache.maven.plugins</groupId>
   			<artifactId>maven-compiler-plugin</artifactId>
   			<version>2.3.2</version>
-  			<configuration>
-        		<source>1.5</source>
-		        <target>1.5</target>
-		    </configuration>
-  		</plugin>
-  		<plugin>
-  			<groupId>org.codehaus.mojo</groupId>
-  			<artifactId>tomcat-maven-plugin</artifactId>
-  			<version>1.1</version>
-  		</plugin>
-  		<plugin>
-  			<groupId>org.apache.maven.plugins</groupId>
-  			<artifactId>maven-resources-plugin</artifactId>
-  			<version>2.5</version>
-  			<configuration>
-               <encoding>UTF-8</encoding>
-            </configuration>
-  		</plugin>
-  		<plugin>
-  			<groupId>net.kindleit</groupId>
-  			<artifactId>maven-gae-plugin</artifactId>
-			<version>0.8.4</version>
-  			<configuration></configuration>
   		</plugin>
   	</plugins>
   </build>
-  <profiles>
-  </profiles>
-   <pluginRepositories>
-        <pluginRepository>
-            <id>maven-gae-plugin-repo</id>
-            <name>Maven Google App Engine Repository</name>
-            <url>http://maven-gae-plugin.googlecode.com/svn/repository/</url>
-        </pluginRepository>
-        <pluginRepository>
-	        <id>DataNucleus_Repos2</id>
-            <name>DataNucleus Repository</name>
-            <url>http://www.datanucleus.org/downloads/maven2</url>
-        </pluginRepository>
-    </pluginRepositories>
   <dependencies>
   	<dependency>
   		<groupId>org.apache.httpcomponents</groupId>
@@ -74,30 +40,18 @@ xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xs
   		<scope>provided</scope>
   	</dependency>
   	<dependency>
+  		<groupId>javax.jdo</groupId>
+  		<artifactId>jdo</artifactId>
+  		<version>2.0-20050809.1515</version>
+  		<type>jar</type>
+  		<scope>compile</scope>
+  	</dependency>
+  	<dependency>
   		<groupId>com.google.code.gson</groupId>
   		<artifactId>gson</artifactId>
   		<version>1.7.1</version>
   		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
-  	<dependency>
-  		<groupId>com.google.appengine</groupId>
-  		<artifactId>appengine</artifactId>
-  		<version>1.5.0</version>
-  		<type>pom</type>
-  		<scope>provided</scope>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.hibernate.java-persistence</groupId>
-  		<artifactId>jpa-api</artifactId>
-  		<version>2.0.Beta-20090815</version>
-  	</dependency>
   </dependencies>
-  <dependencyManagement>
-  	<dependencies>
-  	</dependencies>
-  </dependencyManagement>
-  <properties>
-	<gae.version>1.5.0</gae.version>
-  </properties>
 </project>

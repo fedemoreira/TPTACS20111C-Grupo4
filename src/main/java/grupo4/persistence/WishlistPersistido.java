@@ -15,7 +15,12 @@ import javax.persistence.Id;
 @Entity
 public class WishlistPersistido {
 
+	@SuppressWarnings("unused")
 	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int key;
+	
+	@Basic
 	private String usuario;
 	
 	@Basic

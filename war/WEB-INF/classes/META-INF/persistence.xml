@@ -12,4 +12,17 @@
             <property name="datanucleus.ConnectionURL" value="appengine"/>
         </properties>
     </persistence-unit>
+
+    <persistence-unit name="eventual-reads-short-deadlines">
+        <provider>org.datanucleus.store.appengine.jpa.DatastorePersistenceProvider</provider>
+        <properties>
+            <property name="datanucleus.NontransactionalRead" value="true"/>
+            <property name="datanucleus.NontransactionalWrite" value="true"/>
+            <property name="datanucleus.ConnectionURL" value="appengine"/>
+
+            <property name="datanucleus.appengine.datastoreReadConsistency" value="EVENTUAL" />
+            <property name="javax.persistence.query.timeout" value="5000" />
+            <property name="datanucleus.datastoreWriteTimeout" value="10000" />
+        </properties>
+    </persistence-unit>
 </persistence>

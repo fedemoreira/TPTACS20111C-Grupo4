@@ -1,7 +1,4 @@
-- Para levantar el proyecto, el comando que usamos es:
-	mvn tomcat:run
+ Para levantar el proyecto, el comando que usamos es:
+	mvn gae:run
 
-Donde en localhost:8080/TPTACS levanta el index para navegar las categorías.
-En localhost:8080/TPTACS/ServletMercadoLibre levanta el servlet que devuelve JSON y se integra con MercadoLibre.
-
-
+Donde en localhost:8080 levanta el index para navegar las categorías.
