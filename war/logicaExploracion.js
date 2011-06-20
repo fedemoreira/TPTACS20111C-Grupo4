@@ -5,8 +5,7 @@ var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 
 var appendDivAListaProductos = function(val, divDondeAgregar)
 {
-	$("<li> <div class=\"producto\" idProd=\"" + val.id + "\"> " + 	"<a href=\"" + val.permalink + "\">"  
-			+ "$" + val.price + " -  " +  val.title +  "</a> </div></li>").appendTo(divDondeAgregar);
+	$("<li> <div class=\"producto\" " + "link=\"" + val.permalink + "\"> " + "$" + val.price + " -  " +  val.title +  "</a> </div></li>").appendTo(divDondeAgregar);
 };
 
 var regenerarCategorias = function(data, divAUsar)
@@ -99,6 +98,18 @@ $('#busqueda').live('submit', function() {
 				busqueda(data); 
 			});
 	return false;
+}); 
+
+
+
+$('.producto').live('click', function() {
+
+    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: "userPrueba" },
+ function(data) {
+   process(data);
+ }, 
+ "xml"
+);
 }); 
 
 $('#volverAlIndice').live('submit', function() {
