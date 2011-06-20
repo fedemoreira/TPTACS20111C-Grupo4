@@ -18,7 +18,7 @@ public class WishlistPersistido {
 	@SuppressWarnings("unused")
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int key;
+    private String key;
 	
 	@Basic
 	private String usuario;

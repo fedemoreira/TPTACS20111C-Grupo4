@@ -89,4 +89,11 @@ public class Wishlist {
 	public void vaciar() {
 		this.setListaDeProductos(new ArrayList<Producto>());
 	}
+
+	public WishlistPersistido getWishlistPersistido() {
+		WishlistPersistido retorno = new WishlistPersistido();
+		retorno.setListaDeProductos(this.getListaDeProductos());
+		retorno.setUsuario(this.usuario);
+		return retorno;
+	}
 }
