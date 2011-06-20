@@ -41,7 +41,7 @@ public class ServletWishlist extends HttpServlet {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-			WishlistPersistido wishlistPersistido = em.find(WishlistPersistido.class, request.getParameter("user").toString());
+		WishlistPersistido wishlistPersistido = em.find(WishlistPersistido.class, request.getParameter("user").toString());
 		if(wishlistPersistido!=null)
 		{
 			out.println(new Wishlist(wishlistPersistido).convertirAJson());
@@ -55,5 +55,29 @@ public class ServletWishlist extends HttpServlet {
 		}
 		em.close();
 		out.close();
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/x-json;charset=UTF-8");
+		EntityManager em = EntityManagerFact.get().createEntityManager();
+		WishlistPersistido wishlistPersistido = em.find(WishlistPersistido.class, request.getParameter("user").toString());
+		Producto productoAPersistir = new Producto();
+		productoAPersistir.setLink(request.getParameter("link"));
+		productoAPersistir.setNombre(request.getParameter("nombre"));
+		Wishlist wishlist;
+		if(wishlistPersistido!=null)
+		{
+			wishlist = new Wishlist(wishlistPersistido);
+		}
+		else
+		{
+			wishlist = new Wishlist();
+			wishlist.setUsuario(request.getParameter("user").toString());
+		}
+		wishlist.aniadirProducto(productoAPersistir);
+		em.persist(wishlist.getWishlistPersistido());
+		em.close();
 	}
 }
