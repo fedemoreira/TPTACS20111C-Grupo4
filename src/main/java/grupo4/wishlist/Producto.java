@@ -1,10 +1,23 @@
 package grupo4.wishlist;
 
+import javax.persistence.Basic;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Producto {
 	/**
 	 * Contiene los datos de un producto de la wishlist.
 	 */
+	@Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int key;
+	
+	@Basic
 	private String nombre;
+	@Basic
 	private String link;
 
 	/**
@@ -12,8 +25,6 @@ public class Producto {
 	 */
 	public Producto()
 	{
-		this.setNombre("");
-		this.setLink("");
 	}
 	public Producto(String nombre2, String link) {
 		this.setNombre(nombre2);

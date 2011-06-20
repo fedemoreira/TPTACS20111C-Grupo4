@@ -14,7 +14,7 @@ public class ProductoTest {
 	{
 		this.productoDefecto = new Producto();
 	}
-
+/*
 	@Test
 	public void unProductoSeCreaConElLinkPorDefecto()
 	{   
@@ -26,5 +26,5 @@ public class ProductoTest {
 	{   
 		assert(this.productoDefecto.getNombre() == "");
 	}	
-	
+	*/
 }
