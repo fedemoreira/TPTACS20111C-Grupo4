@@ -40,7 +40,10 @@ public class ServletWishlist extends HttpServlet {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-		out.println(obtenerWishlist(request, em).convertirAJson());
+		if(request.getParameter("user") != null)
+			out.println(obtenerWishlist(request, em).convertirAJson());
+		else
+			out.println(new Wishlist().convertirAJson());			
 		em.close();
 		out.close();
 	}
@@ -60,14 +63,21 @@ public class ServletWishlist extends HttpServlet {
 		}
 		return wishlist;
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		EntityManager em = EntityManagerFact.get().createEntityManager();
 		Wishlist wishlist = obtenerWishlist(request, em);
 		Producto productoAPersistir = new Producto(request.getParameter("nombre"),request.getParameter("link"));
-		wishlist.agregarOQuitar(productoAPersistir);
+		if(wishlist.tieneElProducto(productoAPersistir))
+				{
+					wishlist.quitarProducto(productoAPersistir);
+				}
+		else
+		{
+			wishlist.aniadirProducto(productoAPersistir);
+		}
 		em.persist(wishlist.getWishlistPersistido());
 		em.close();
 	}
