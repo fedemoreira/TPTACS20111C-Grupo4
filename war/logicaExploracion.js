@@ -38,6 +38,13 @@ var regenerarCategorias = function(data, divAUsar)
 	});
 };
 
+var obtenerWishlist = function(idUsuario)
+{
+	$.getJSON("ServletWishlist?user=" + idUsuario, function(data) {
+		regenerarWishlist(data.listaDeProductos);
+	});
+};
+
 var regenerarProductos = function(data)
 {
 	$(".productos").empty();
@@ -93,9 +100,6 @@ var regenerarRoot = function()
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
 		regenerarCategorias(data[2], ".listaDeCategorias");
 	});
-	$.getJSON("ServletWishlist?user=" + $.getUrlVar('user'), function(data) {
-		regenerarWishlist(data.listaDeProductos);
-	});
 };
 
 
@@ -136,31 +140,18 @@ $('#busqueda').live('submit', function() {
 
 
 $('.producto').live('click', function() {
-    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: $.getUrlVar('user') },
- function(data) {
-   process(data);
- }, 
- "xml"
-);
-	$.getJSON("ServletWishlist?user=" + $.getUrlVar('user'), function(data) {
-		regenerarWishlist(data.listaDeProductos);
-	});
+    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: $.getUrlVar('user') }
+	obtenerWishlist($.getUrlVar('user'));
 }); 
 
 $('#volverAlIndice').live('submit', function() {
 	regenerarRoot();
-	
-	$.getJSON("ServletWishlist?user=" + $.getUrlVar('user'), function(data) {
-		regenerarWishlist(data.listaDeProductos);
-	});
+	obtenerWishlist($.getUrlVar('user'));
 });	 
 
 $(document).ready(function(){
 	regenerarRoot();
-	
-	$.getJSON("ServletWishlist?user=" + $.getUrlVar('user'), function(data) {
-		regenerarWishlist(data.listaDeProductos);
-	});
+	obtenerWishlist($.getUrlVar('user'));
 });
 
 
