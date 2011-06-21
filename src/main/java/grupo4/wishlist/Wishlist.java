@@ -1,6 +1,5 @@
 package grupo4.wishlist;
 
-import grupo4.persistence.WishlistPersistido;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +7,9 @@ import java.util.List;
 import com.google.gson.Gson;
 
 public class Wishlist {
-	
+	/**
+	 * Contiene el nombre de usuario y la lista de productos de su wishlist
+	 */
 	private String usuario;
 	
 	private List<Producto> listaDeProductos ;
@@ -18,6 +19,10 @@ public class Wishlist {
 		this.setListaDeProductos(new ArrayList<Producto>());
 	}
 	
+	/**
+	 * Crea una Wishlist desde una Wishlist persistida.
+	 * @param wishlistPersistido Wishlist persistida
+	 */
 	public Wishlist(WishlistPersistido wishlistPersistido) {
 		this.setListaDeProductos(wishlistPersistido.getListaDeProductos());
 		this.setUsuario(wishlistPersistido.getUsuario());
@@ -78,6 +83,10 @@ public class Wishlist {
 		this.setListaDeProductos(new ArrayList<Producto>());
 	}
 
+	/**
+	 * Transforma a una Wishlist en WishlistPersistido para persistir
+	 * @return WishlistPersistido con usuario y productos de la Wishlist
+	 */
 	public WishlistPersistido getWishlistPersistido() {
 		WishlistPersistido retorno = new WishlistPersistido();
 		retorno.setListaDeProductos(this.getListaDeProductos());

@@ -23,9 +23,6 @@ public class Producto {
 	@Basic
 	private String link;
 
-	/**
-	 * Los valores por defecto son ""
-	 */
 	public Producto()
 	{
 	}

@@ -1,9 +1,9 @@
 package grupo4.servlets;
 
 import grupo4.persistence.EntityManagerFact;
-import grupo4.persistence.WishlistPersistido;
 import grupo4.wishlist.Producto;
 import grupo4.wishlist.Wishlist;
+import grupo4.wishlist.WishlistPersistido;
 
 import java.io.IOException;
 import java.io.PrintWriter;
