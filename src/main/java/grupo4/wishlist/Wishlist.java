@@ -48,10 +48,11 @@ public class Wishlist {
 		this.getListaDeProductos().add(new Producto(nombre, link)); 
 	} 
 	
-    public void quitarProducto(Producto productoEjemplo)
+    public void quitarProducto(Producto productoABuscar)
     {
-        this.getListaDeProductos().remove(productoEjemplo);
-    	
+		for(Producto producto : this.listaDeProductos)
+			if (producto.getNombre().equals(productoABuscar.getNombre()))
+				this.getListaDeProductos().remove(producto);
     }
         
     public Producto dameProducto(int indice)
@@ -84,7 +85,7 @@ public class Wishlist {
 	}
 
 	/**
-	 * Transforma a una Wishlist en WishlistPersistido para persistir
+	 * Transforma una Wishlist en WishlistPersistido para persistir
 	 * @return WishlistPersistido con usuario y productos de la Wishlist
 	 */
 	public WishlistPersistido getWishlistPersistido() {
@@ -92,5 +93,12 @@ public class Wishlist {
 		retorno.setListaDeProductos(this.getListaDeProductos());
 		retorno.setUsuario(this.usuario);
 		return retorno;
+	}
+
+	public boolean tieneElProducto(Producto productoAPersistir) {
+		for(Producto producto : this.getListaDeProductos())
+			if (producto.getNombre().equals(productoAPersistir.getNombre()))
+				return true;
+		return false;
 	}
 }

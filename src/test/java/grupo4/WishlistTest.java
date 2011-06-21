@@ -50,6 +50,23 @@ public class WishlistTest {
 		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
 	}
 
+
+	@Test
+	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlistBuscandoPorProducto()
+	{
+		Producto productoQueEsta = new Producto("Un-", "ProductoQueNoEsta");
+		assertFalse(this.wishlist.tieneElProducto(productoQueEsta));
+	}
+
+
+	@Test
+	public void detectaCorrectamenteQueUnProductoExistenteExisteEnWishlistBuscandoPorProducto()
+	{
+		Producto productoQueEsta = new Producto("Un", "Producto");
+		this.wishlist.aniadirProducto(productoQueEsta);
+		assertTrue(this.wishlist.tieneElProducto(productoQueEsta));
+	}
+	
 	@Test
 	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlistVacia()
 	{
