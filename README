@@ -2,3 +2,10 @@
 	mvn gae:run
 
 Donde en localhost:8080 levanta el index para navegar las categorías.
+Hacer click en un producto lo agrega a la wishlist. 
+
+---
+
+Para elegir qué wishlist usar, pasarlo como parámetro:
+
+localhost:8888/?user=stringDeUsuario

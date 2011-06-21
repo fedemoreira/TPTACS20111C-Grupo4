@@ -1,3 +1,25 @@
+//  --- Sacado verbatim de http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
+$.extend({
+  getUrlVars: function(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  },
+  getUrlVar: function(name){
+    return $.getUrlVars()[name];
+  }
+});
+//  --- Sacado verbatim de http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
+
+
+
+
 var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 {
 	$("<div class=\'cat\' idCat=\'" + id + "\'>" + name + "<div style= </div>").appendTo(divDondeAgregar);
@@ -45,7 +67,6 @@ var mostrarSinResultados = function()
 	$(".productos").append("No hay resultados");
 };
 
-
 var busqueda = function(data)
 {
 	if(data[2].results.length==0)
@@ -72,7 +93,7 @@ var regenerarRoot = function()
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
 		regenerarCategorias(data[2], ".listaDeCategorias");
 	});
-	$.getJSON("ServletWishlist?user=userPrueba", function(data) {
+	$.getJSON("ServletWishlist?user=" + $.getUrlVar('user'), function(data) {
 		regenerarWishlist(data.listaDeProductos);
 	});
 };
@@ -115,14 +136,13 @@ $('#busqueda').live('submit', function() {
 
 
 $('.producto').live('click', function() {
-
-    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: "userPrueba" },
+    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: $.getUrlVar('user') },
  function(data) {
    process(data);
  }, 
  "xml"
 );
-	$.getJSON("ServletWishlist?user=userPrueba", function(data) {
+	$.getJSON("ServletWishlist?user=" + $.getUrlVar('user'), function(data) {
 		regenerarWishlist(data.listaDeProductos);
 	});
 }); 
@@ -130,7 +150,7 @@ $('.producto').live('click', function() {
 $('#volverAlIndice').live('submit', function() {
 	regenerarRoot();
 	
-	$.getJSON("ServletWishlist?user=userPrueba", function(data) {
+	$.getJSON("ServletWishlist?user=" + $.getUrlVar('user'), function(data) {
 		regenerarWishlist(data.listaDeProductos);
 	});
 });	 
@@ -138,8 +158,11 @@ $('#volverAlIndice').live('submit', function() {
 $(document).ready(function(){
 	regenerarRoot();
 	
-	$.getJSON("ServletWishlist?user=userPrueba", function(data) {
+	$.getJSON("ServletWishlist?user=" + $.getUrlVar('user'), function(data) {
 		regenerarWishlist(data.listaDeProductos);
 	});
 });
+
+
+
 

@@ -47,10 +47,10 @@
   		<scope>compile</scope>
   	</dependency>
   	<dependency>
-  		<groupId>com.kenai.nbpwr</groupId>
-  		<artifactId>javax-persistence</artifactId>
-  		<version>1.0-201003141300</version>
-  		<type>nbm</type>
+  		<groupId>javax.persistence</groupId>
+  		<artifactId>persistence-api</artifactId>
+  		<version>1.0</version>
+  		<type>jar</type>
   		<scope>compile</scope>
   	</dependency>
   </dependencies>
