@@ -100,6 +100,7 @@ var regenerarRoot = function()
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
 		regenerarCategorias(data[2], ".listaDeCategorias");
 	});
+	obtenerWishlist($.getUrlVar('user'));
 };
 
 
@@ -140,7 +141,7 @@ $('#busqueda').live('submit', function() {
 
 
 $('.producto').live('click', function() {
-    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: $.getUrlVar('user') }
+    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: $.getUrlVar('user') });
 	obtenerWishlist($.getUrlVar('user'));
 }); 
 
@@ -153,7 +154,3 @@ $(document).ready(function(){
 	regenerarRoot();
 	obtenerWishlist($.getUrlVar('user'));
 });
-
-
-
-
