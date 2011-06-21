@@ -11,14 +11,14 @@ public class Wishlist {
 	 * Contiene el nombre de usuario y la lista de productos de su wishlist
 	 */
 	private String usuario;
-	
+
 	private List<Producto> listaDeProductos ;
-	
+
 	public Wishlist()
 	{
 		this.setListaDeProductos(new ArrayList<Producto>());
 	}
-	
+
 	/**
 	 * Crea una Wishlist desde una Wishlist persistida.
 	 * @param wishlistPersistido Wishlist persistida
@@ -32,33 +32,33 @@ public class Wishlist {
 	{ 
 		this.usuario = user;
 	}
-    
+
 	public String getUsuario()
 	{
 		return this.usuario;
 	}
-	
+
 	public void aniadirProducto(Producto productoAAniadir)
 	{
 		this.getListaDeProductos().add(productoAAniadir); 
 	} 
-	
+
 	public void aniadirProducto(String nombre, String link)
 	{
 		this.getListaDeProductos().add(new Producto(nombre, link)); 
 	} 
-	
-    public void quitarProducto(Producto productoABuscar)
-    {
+
+	public void quitarProducto(Producto productoABuscar)
+	{
 		for(Producto producto : this.listaDeProductos)
 			if (producto.getNombre().equals(productoABuscar.getNombre()))
 				this.getListaDeProductos().remove(producto);
-    }
-        
-    public Producto dameProducto(int indice)
-    {
-    	return this.getListaDeProductos().get(indice);
-    }
+	}
+
+	public Producto dameProducto(int indice)
+	{
+		return this.getListaDeProductos().get(indice);
+	}
 
 	public void setListaDeProductos(List<Producto> listaDeProductos) {
 		this.listaDeProductos = listaDeProductos;
@@ -70,7 +70,7 @@ public class Wishlist {
 
 	public String convertirAJson() {
 		return new Gson().toJson(this);
-		
+
 	}
 
 	public boolean tieneElProducto(String nombreDeProductoABuscar) {
@@ -100,5 +100,16 @@ public class Wishlist {
 			if (producto.getNombre().equals(productoAPersistir.getNombre()))
 				return true;
 		return false;
+	}
+
+	public void agregarOQuitar(Producto productoAPersistir) {
+		if(this.tieneElProducto(productoAPersistir))
+		{
+			this.quitarProducto(productoAPersistir);
+		}
+		else
+		{
+			this.aniadirProducto(productoAPersistir);
+		}
 	}
 }

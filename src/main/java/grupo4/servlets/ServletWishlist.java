@@ -67,14 +67,7 @@ public class ServletWishlist extends HttpServlet {
 		EntityManager em = EntityManagerFact.get().createEntityManager();
 		Wishlist wishlist = obtenerWishlist(request, em);
 		Producto productoAPersistir = new Producto(request.getParameter("nombre"),request.getParameter("link"));
-		if(wishlist.tieneElProducto(productoAPersistir))
-				{
-					wishlist.quitarProducto(productoAPersistir);
-				}
-		else
-		{
-			wishlist.aniadirProducto(productoAPersistir);
-		}
+		wishlist.agregarOQuitar(productoAPersistir);
 		em.persist(wishlist.getWishlistPersistido());
 		em.close();
 	}

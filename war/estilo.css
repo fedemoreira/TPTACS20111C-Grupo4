@@ -44,6 +44,9 @@ A:active {color:#0a0a0a}
     background-color: #e6e6e6;
     float:left;
 	clear:left;	
+    margin-top:10px;
+    margin-bottom:10px;
+    margin-right:10px;
 }
 
 #volverAlIndice
