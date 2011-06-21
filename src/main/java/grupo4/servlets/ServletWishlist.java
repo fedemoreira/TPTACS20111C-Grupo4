@@ -69,15 +69,7 @@ public class ServletWishlist extends HttpServlet {
 		response.setContentType("text/x-json;charset=UTF-8");
 		EntityManager em = EntityManagerFact.get().createEntityManager();
 		Wishlist wishlist = obtenerWishlist(request, em);
-		Producto productoAPersistir = new Producto(request.getParameter("nombre"),request.getParameter("link"));
-		if(wishlist.tieneElProducto(productoAPersistir))
-				{
-					wishlist.quitarProducto(productoAPersistir);
-				}
-		else
-		{
-			wishlist.aniadirProducto(productoAPersistir);
-		}
+		wishlist.agregarOQuitar(new Producto(request.getParameter("nombre"),request.getParameter("link")));
 		em.persist(wishlist.getWishlistPersistido());
 		em.close();
 	}
