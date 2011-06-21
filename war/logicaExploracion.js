@@ -47,31 +47,31 @@ var obtenerWishlist = function(idUsuario)
 
 var regenerarProductos = function(data)
 {
-	$(".productos").empty();
+	$("#productos").empty();
 	$.each(data, function(key, val) {
-		appendDivAListaProductos(val, ".productos");
+		appendDivAListaProductos(val, "#productos");
 	});
 };
 
 var regenerarWishlist = function(data)
 {
-	$(".wishlist").empty();
+	$("#wishlist").empty();
 	$.each(data, function(key, val) {
-		$("<li> <div class=\"productoWishlist\" " + "link=\"" + val.link + "\"> " + val.nombre + "</div></li>").appendTo(".wishlist");
+		$("<li> <div class=\"productoWishlist\" " + "link=\"" + val.link + "\"> " + val.nombre + "</div></li>").appendTo("#wishlist");
 	});
 };
 
 var toggleCategorias = function()
 {
-	$(".listaDeCategorias").toggle("highlight", 100);
-	$(".pathToRoot").toggle("highlight", 100);
+	$("#listaDeCategorias").toggle("highlight", 100);
+	$("#pathToRoot").toggle("highlight", 100);
 };
 
 
 var mostrarSinResultados = function()
 {
-	$(".tituloProductos").show();
-	$(".productos").append("No hay resultados");
+	$("#tituloProductos").show();
+	$("#productos").append("No hay resultados");
 };
 
 var busqueda = function(data)
@@ -87,18 +87,18 @@ var busqueda = function(data)
 
 var limpiar = function()
 {
-	$(".productos").empty();
+	$("#productos").empty();
 	$(".cat").remove();
 };
 
 var regenerarRoot = function()
 {
 	limpiar();
-	$(".listaDeCategorias").show();
-	$(".pathToRoot").show();
-	$(".wishlist").show();
+	$("#listaDeCategorias").show();
+	$("#pathToRoot").show();
+	$("#wishlist").show();
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
-		regenerarCategorias(data[2], ".listaDeCategorias");
+		regenerarCategorias(data[2], "#listaDeCategorias");
 	});
 	obtenerWishlist($.getUrlVar('user'));
 };
@@ -108,8 +108,8 @@ var obtenerCategorias = function(idCategoria)
 {
 	$.getJSON("https://api.mercadolibre.com/categories/" + idCategoria + "?callback=?", function(data) 
 			{
-				regenerarCategorias(data[2].children_categories, ".listaDeCategorias");
-				regenerarCategorias(data[2].path_from_root, ".pathToRoot");
+				regenerarCategorias(data[2].children_categories, "#listaDeCategorias");
+				regenerarCategorias(data[2].path_from_root, "#pathToRoot");
 			});
 };
 
@@ -150,7 +150,12 @@ $('#volverAlIndice').live('submit', function() {
 	obtenerWishlist($.getUrlVar('user'));
 });	 
 
+
+	
 $(document).ready(function(){
 	regenerarRoot();
 	obtenerWishlist($.getUrlVar('user'));
+	$(function() {
+		$( "#tabs" ).tabs();
+	});
 });
