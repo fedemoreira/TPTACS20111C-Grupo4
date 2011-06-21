@@ -6,6 +6,8 @@ Hacer click en un producto lo agrega a la wishlist.
 
 ---
 
-Para elegir qué wishlist usar, pasarlo como parámetro:
+Deployado en GAE en http://tptacs20111c-grupo4.appspot.com
 
-localhost:8888/?user=stringDeUsuario
+Para elegir qué wishlist usar, pasarlo como parámetro:
+http://localhost:8888/?user=test
+http://tptacs20111c-grupo4.appspot.com/?user=test
