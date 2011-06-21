@@ -13,7 +13,8 @@ public class Producto {
 	/**
 	 * Contiene los datos de un producto de la wishlist.
 	 */
-    @Id
+    @SuppressWarnings("unused")
+	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Key key;
 	

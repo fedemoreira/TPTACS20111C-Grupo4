@@ -1,6 +1,5 @@
 package grupo4.wishlist;
 
-import grupo4.exceptions.WishlistVaciaException;
 import grupo4.persistence.WishlistPersistido;
 
 import java.util.ArrayList;
@@ -49,18 +48,7 @@ public class Wishlist {
         this.getListaDeProductos().remove(productoEjemplo);
     	
     }
-    
-    public Producto sacameUnProducto()
-    {
-    	if (this.getListaDeProductos().isEmpty()) 
-    	{
-    		throw new WishlistVaciaException();
-    	}
-    	Producto productoASacar = this.getListaDeProductos().get(this.getListaDeProductos().size() - 1);
-    	this.getListaDeProductos().remove(productoASacar);
-    	return productoASacar;
-    }
-    
+        
     public Producto dameProducto(int indice)
     {
     	return this.getListaDeProductos().get(indice);

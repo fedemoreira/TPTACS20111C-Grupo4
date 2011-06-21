@@ -30,11 +30,6 @@ public class WishlistTest {
 	{   
 		this.wishlist.quitarProducto(this.productoEjemplo);
 	}	
-	@Test
-	public void agregaySacaBienUnProducto()
-	{   
-		assertTrue(this.wishlist.sacameUnProducto()== this.productoEjemplo );
-	}
 	
 	@Test
 	public void sePasaAJsonYObtieneElUltimoProducto()
