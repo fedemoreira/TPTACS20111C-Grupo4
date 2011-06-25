@@ -25,11 +25,11 @@ public class WishlistTest {
 		this.wishlist.aniadirProducto(this.productoEjemplo); 
 	}
 	
-	@Test
+	/*@Test
 	public void agregayQuitaBienUnProducto()
 	{   
 		this.wishlist.quitarProducto(this.productoEjemplo);
-	}	
+	}/*/
 	
 	@Test
 	public void sePasaAJsonYObtieneElUltimoProducto()
