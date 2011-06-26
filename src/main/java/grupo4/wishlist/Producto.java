@@ -3,20 +3,15 @@ package grupo4.wishlist;
 import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-import com.google.appengine.api.datastore.Key;
 
 @Entity
 public class Producto {
 	/**
 	 * Contiene los datos de un producto de la wishlist.
 	 */
-    @SuppressWarnings("unused")
-	@Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Key key;
+    @Id @GeneratedValue long id;
 	
 	@Basic
 	private String nombre;
