@@ -72,6 +72,14 @@
 					<enhancerName>ASM</enhancerName>
 					<api>JPA</api>
 				</configuration>
+				<executions>
+                <execution>
+                    <phase>compile</phase>
+                    <goals>
+                        <goal>enhance</goal>
+                    </goals>
+                </execution>
+            </executions>
 			</plugin>
 		</plugins>
 	</build>
