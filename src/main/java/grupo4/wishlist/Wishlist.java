@@ -45,7 +45,10 @@ public class Wishlist {
 
 	public void aniadirProducto(String nombre, String link)
 	{
-		this.getListaDeProductos().add(new Producto(nombre, link)); 
+		Producto p = new Producto();
+		p.setNombre(nombre);
+		p.setLink(link);
+		this.getListaDeProductos().add(p); 
 	} 
 
 	public void quitarProducto(Producto productoABuscar)

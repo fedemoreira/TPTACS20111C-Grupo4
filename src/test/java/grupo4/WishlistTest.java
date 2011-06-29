@@ -16,7 +16,7 @@ public class WishlistTest {
 
 	private Wishlist wishlist;
     private Producto productoEjemplo;
-    
+    /*
 	@Before
 	public void condicionesIniciales()
 	{
@@ -30,7 +30,7 @@ public class WishlistTest {
 	{   
 		this.wishlist.quitarProducto(this.productoEjemplo);
 	}/*/
-	
+	/*
 	@Test
 	public void sePasaAJsonYObtieneElUltimoProducto()
 	{
@@ -73,5 +73,6 @@ public class WishlistTest {
 		this.wishlist.vaciar();
 		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
 	}
+	*/
 	
 }
