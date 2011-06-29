@@ -8,8 +8,8 @@
 	<version>1</version>
 	<packaging>war</packaging>
 
-	<name>Gae + Eclipse + Maven Example - Guestbook</name>
-	<description>The Guestbook Example changed to a one managed by Maven which also works on the Google Eclipse Plugin</description>
+	<name>TP TACS 2011 1C - Grupo 4</name>
+	<description>Trabajo práctico del grupo 4</description>
 
 	<profiles>
 		<profile>
