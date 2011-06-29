@@ -7,11 +7,19 @@ import javax.jdo.annotations.Persistent;
 import javax.jdo.annotations.IdGeneratorStrategy;  
 import com.google.appengine.api.datastore.Key;
 
+<<<<<<< HEAD
 @PersistenceCapable(identityType = IdentityType.APPLICATION)  
+=======
+import com.google.appengine.api.datastore.Key;
+
+
+@Entity
+>>>>>>> a1c43209c2f4f3edee79e4321a4404aed0c035c1
 public class Producto {
 	/**
 	 * Contiene los datos de un producto de la wishlist.
 	 */
+<<<<<<< HEAD
 	@PrimaryKey  
 	@Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)  
     private Key key;
@@ -19,17 +27,16 @@ public class Producto {
 	@Persistent
 	private String nombre;
 	@Persistent
+=======
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Key id;
+    private String nombre;
+>>>>>>> a1c43209c2f4f3edee79e4321a4404aed0c035c1
 	private String link;
 
-	/**
-	 * Los valores por defecto son ""
-	 */
 	public Producto()
 	{
-	}
-	public Producto(String nombre2, String link) {
-		this.setNombre(nombre2);
-		this.setLink(link);
 	}
 	
 	public void setNombre(String nombre) {

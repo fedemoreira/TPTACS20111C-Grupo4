@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
 	<application>tptacs20111c-grupo4-b</application>
@@ -9,3 +10,14 @@
 	</system-properties>
 	
 </appengine-web-app>
+=======
+<?xml version="1.0" encoding="utf-8"?>
+<appengine-web-app xmlns="http://appengine.google.com/ns/1.0">
+    <application>tptacs20111c-grupo</application>
+    <version>2</version>
+
+    <system-properties>
+        <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
+    </system-properties>
+</appengine-web-app>
+>>>>>>> a1c43209c2f4f3edee79e4321a4404aed0c035c1

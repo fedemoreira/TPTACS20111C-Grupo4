@@ -1,3 +1,25 @@
+//  --- Sacado verbatim de http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
+$.extend({
+  getUrlVars: function(){
+    var vars = [], hash;
+    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+    for(var i = 0; i < hashes.length; i++)
+    {
+      hash = hashes[i].split('=');
+      vars.push(hash[0]);
+      vars[hash[0]] = hash[1];
+    }
+    return vars;
+  },
+  getUrlVar: function(name){
+    return $.getUrlVars()[name];
+  }
+});
+//  --- Sacado verbatim de http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
+
+
+
+
 var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 {
 	$("<div class=\'cat\' idCat=\'" + id + "\'>" + name + "<div style= </div>").appendTo(divDondeAgregar);
@@ -5,8 +27,7 @@ var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 
 var appendDivAListaProductos = function(val, divDondeAgregar)
 {
-	$("<li> <div class=\"producto\" idProd=\"" + val.id + "\"> " + 	"<a href=\"" + val.permalink + "\">"  
-			+ "$" + val.price + " -  " +  val.title +  "</a> </div></li>").appendTo(divDondeAgregar);
+	$("<li> <div class=\"producto\" " + "link=\"" + val.permalink + "\"> " + "$" + val.price + " -  " +  val.title +  "</div></li>").appendTo(divDondeAgregar);
 };
 
 var regenerarCategorias = function(data, divAUsar)
@@ -17,27 +38,41 @@ var regenerarCategorias = function(data, divAUsar)
 	});
 };
 
+var obtenerWishlist = function(idUsuario)
+{
+	$.getJSON("ServletWishlist?user=" + idUsuario, function(data) {
+		regenerarWishlist(data.listaDeProductos);
+	});
+};
+
 var regenerarProductos = function(data)
 {
-	$(".productos").empty();
+	$("#productos").empty();
 	$.each(data, function(key, val) {
-		appendDivAListaProductos(val, ".productos");
+		appendDivAListaProductos(val, "#productos");
+	});
+};
+
+var regenerarWishlist = function(data)
+{
+	$("#wishlist").empty();
+	$.each(data, function(key, val) {
+		$("<li> <div class=\"productoWishlist\" " + "link=\"" + val.link + "\"> " + val.nombre + "</div></li>").appendTo("#wishlist");
 	});
 };
 
 var toggleCategorias = function()
 {
-	$(".listaDeCategorias").toggle("highlight", 100);
-	$(".pathToRoot").toggle("highlight", 100);
+	$("#listaDeCategorias").toggle("highlight", 100);
+	$("#pathToRoot").toggle("highlight", 100);
 };
 
 
 var mostrarSinResultados = function()
 {
-	$(".tituloProductos").show();
-	$(".productos").append("No hay resultados");
+	$("#tituloProductos").show();
+	$("#productos").append("No hay resultados");
 };
-
 
 var busqueda = function(data)
 {
@@ -52,18 +87,20 @@ var busqueda = function(data)
 
 var limpiar = function()
 {
-	$(".productos").empty();
+	$("#productos").empty();
 	$(".cat").remove();
 };
 
 var regenerarRoot = function()
 {
 	limpiar();
-	$(".listaDeCategorias").show();
-	$(".pathToRoot").show();
+	$("#listaDeCategorias").show();
+	$("#pathToRoot").show();
+	$("#wishlist").show();
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
-		regenerarCategorias(data[2], ".listaDeCategorias");
+		regenerarCategorias(data[2], "#listaDeCategorias");
 	});
+	obtenerWishlist($.getUrlVar('user'));
 };
 
 
@@ -71,8 +108,8 @@ var obtenerCategorias = function(idCategoria)
 {
 	$.getJSON("https://api.mercadolibre.com/categories/" + idCategoria + "?callback=?", function(data) 
 			{
-				regenerarCategorias(data[2].children_categories, ".listaDeCategorias");
-				regenerarCategorias(data[2].path_from_root, ".pathToRoot");
+				regenerarCategorias(data[2].children_categories, "#listaDeCategorias");
+				regenerarCategorias(data[2].path_from_root, "#pathToRoot");
 			});
 };
 
@@ -102,6 +139,7 @@ $('#busqueda').live('submit', function() {
 }); 
 
 
+<<<<<<< HEAD
 $('#whislist').live('submit', function() {
 	var usuario = document.wishlist.usuarioABuscar.value;
 	$.getJSON("http://tptacs20111c-grupo4-b.appspot.com/ServletWishlist?user=" + usuario + "&callback=?", function(data) 
@@ -110,13 +148,25 @@ $('#whislist').live('submit', function() {
 		 
 			});
 	return false;
+=======
+
+$('.producto').live('click', function() {
+    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: $.getUrlVar('user') });
+	obtenerWishlist($.getUrlVar('user'));
+>>>>>>> a1c43209c2f4f3edee79e4321a4404aed0c035c1
 }); 
 
 $('#volverAlIndice').live('submit', function() {
 	regenerarRoot();
+	obtenerWishlist($.getUrlVar('user'));
 });	 
 
+
+	
 $(document).ready(function(){
 	regenerarRoot();
+	obtenerWishlist($.getUrlVar('user'));
+	$(function() {
+		$( "#tabs" ).tabs();
+	});
 });
-

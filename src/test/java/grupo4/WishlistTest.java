@@ -16,7 +16,7 @@ public class WishlistTest {
 
 	private Wishlist wishlist;
     private Producto productoEjemplo;
-    
+    /*
 	@Before
 	public void condicionesIniciales()
 	{
@@ -25,17 +25,12 @@ public class WishlistTest {
 		this.wishlist.aniadirProducto(this.productoEjemplo); 
 	}
 	
-	@Test
+	/*@Test
 	public void agregayQuitaBienUnProducto()
 	{   
 		this.wishlist.quitarProducto(this.productoEjemplo);
-	}	
-	@Test
-	public void agregaySacaBienUnProducto()
-	{   
-		assertTrue(this.wishlist.sacameUnProducto()== this.productoEjemplo );
-	}
-	
+	}/*/
+	/*
 	@Test
 	public void sePasaAJsonYObtieneElUltimoProducto()
 	{
@@ -55,11 +50,29 @@ public class WishlistTest {
 		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
 	}
 
+
+	@Test
+	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlistBuscandoPorProducto()
+	{
+		Producto productoQueEsta = new Producto("Un-", "ProductoQueNoEsta");
+		assertFalse(this.wishlist.tieneElProducto(productoQueEsta));
+	}
+
+
+	@Test
+	public void detectaCorrectamenteQueUnProductoExistenteExisteEnWishlistBuscandoPorProducto()
+	{
+		Producto productoQueEsta = new Producto("Un", "Producto");
+		this.wishlist.aniadirProducto(productoQueEsta);
+		assertTrue(this.wishlist.tieneElProducto(productoQueEsta));
+	}
+	
 	@Test
 	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlistVacia()
 	{
 		this.wishlist.vaciar();
 		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
 	}
+	*/
 	
 }
