@@ -1,5 +1,6 @@
 package grupo4.servlets;
 
+import grupo4.wishlist.Producto;
 import grupo4.wishlist.Wishlist;
 import grupo4.wishlist.WishlistPersistido;
 
@@ -29,4 +30,10 @@ public class WishlistService {
 		return wishlist;
 	}
 	
+	void agregarProductoAWishlist(HttpServletRequest request,
+			EntityManager em) {
+		Wishlist wishlist = this.obtenerWishlist(request, em);
+		wishlist.aniadirProducto(new Producto(request.getParameter("nombre"), request.getParameter("link")));
+		em.persist(wishlist.getWishlistPersistido());
+	}
 }
