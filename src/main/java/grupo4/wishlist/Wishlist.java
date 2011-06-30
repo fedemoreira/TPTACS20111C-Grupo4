@@ -32,6 +32,7 @@ public class Wishlist {
 		this.setUsuario(user);
 	}
 
+
 	public void setUsuario(String user)
 	{ 
 		this.usuario = user;
@@ -105,16 +106,5 @@ public class Wishlist {
 			if (producto.getNombre().equals(productoAPersistir.getNombre()))
 				return true;
 		return false;
-	}
-
-	public void agregarOQuitar(Producto productoAPersistir) {
-		if(this.tieneElProducto(productoAPersistir))
-		{
-			this.quitarProducto(productoAPersistir);
-		}
-		else
-		{
-			this.aniadirProducto(productoAPersistir);
-		}
 	}
 }

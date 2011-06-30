@@ -40,10 +40,7 @@ public class ServletWishlist extends HttpServlet {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-		if(request.getParameter("user") != null)
-			out.println(this.wishlistService.obtenerWishlist(request, em).convertirAJson());
-		else
-			out.println(new Wishlist().convertirAJson());			
+		out.println(this.wishlistService.obtenerWishlist(request, em).convertirAJson());
 		em.close();
 		out.close();
 	}
@@ -54,8 +51,7 @@ public class ServletWishlist extends HttpServlet {
 		response.setContentType("text/x-json;charset=UTF-8");
 		EntityManager em = EntityManagerFact.get().createEntityManager();
 		Wishlist wishlist = this.wishlistService.obtenerWishlist(request, em);
-		Producto p = new Producto(request.getParameter("nombre"), request.getParameter("link"));
-		wishlist.agregarOQuitar(p);
+		wishlist.aniadirProducto(new Producto(request.getParameter("nombre"), request.getParameter("link")));
 		em.persist(wishlist.getWishlistPersistido());
 		em.close();
 	}

@@ -24,8 +24,7 @@ public class WishlistService {
 
 	private Wishlist crearWishlist(String user, EntityManager em) {
 		Wishlist wishlist;
-		wishlist = new Wishlist();
-		wishlist.setUsuario(user);
+		wishlist = new Wishlist(user);
 		em.persist(wishlist.getWishlistPersistido());
 		return wishlist;
 	}
