@@ -3,7 +3,6 @@ package grupo4.servlets;
 import grupo4.persistence.EntityManagerFact;
 import grupo4.wishlist.Producto;
 import grupo4.wishlist.Wishlist;
-import grupo4.wishlist.WishlistPersistido;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -22,6 +21,7 @@ public class ServletWishlist extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = -5797158012022779648L;
+	private WishlistService wishlistService = new WishlistService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -41,34 +41,19 @@ public class ServletWishlist extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		EntityManager em = EntityManagerFact.get().createEntityManager();
 		if(request.getParameter("user") != null)
-			out.println(obtenerWishlist(request, em).convertirAJson());
+			out.println(this.wishlistService.obtenerWishlist(request, em).convertirAJson());
 		else
 			out.println(new Wishlist().convertirAJson());			
 		em.close();
 		out.close();
 	}
 
-	private Wishlist obtenerWishlist(HttpServletRequest request, EntityManager em) {
-		WishlistPersistido wishlistPersistido = em.find(WishlistPersistido.class, request.getParameter("user").toString());
-		Wishlist wishlist;
-		if (wishlistPersistido == null)
-		{
-			wishlist = new Wishlist();
-			wishlist.setUsuario(request.getParameter("user").toString());
-			em.persist(wishlist.getWishlistPersistido());
-		}
-		else
-		{
-			wishlist = new Wishlist(wishlistPersistido);
-		}
-		return wishlist;
-	}
 	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-		Wishlist wishlist = obtenerWishlist(request, em);
+		Wishlist wishlist = this.wishlistService.obtenerWishlist(request, em);
 		Producto p = new Producto();
 		p.setNombre(request.getParameter("nombre"));
 		p.setLink(request.getParameter("link"));
