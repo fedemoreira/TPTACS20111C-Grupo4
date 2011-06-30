@@ -13,14 +13,20 @@ public class WishlistService {
 		Wishlist wishlist;
 		if (wishlistPersistido == null)
 		{
-			wishlist = new Wishlist();
-			wishlist.setUsuario(request.getParameter("user").toString());
-			em.persist(wishlist.getWishlistPersistido());
+			wishlist = crearWishlist(request.getParameter("user").toString(), em);
 		}
 		else
 		{
 			wishlist = new Wishlist(wishlistPersistido);
 		}
+		return wishlist;
+	}
+
+	private Wishlist crearWishlist(String user, EntityManager em) {
+		Wishlist wishlist;
+		wishlist = new Wishlist();
+		wishlist.setUsuario(user);
+		em.persist(wishlist.getWishlistPersistido());
 		return wishlist;
 	}
 	
