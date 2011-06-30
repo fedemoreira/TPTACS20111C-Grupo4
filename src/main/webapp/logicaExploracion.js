@@ -131,7 +131,7 @@ $(".cat").live('click', function() {
 
 $('#busqueda').live('submit', function() {
 	limpiar();
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + document.busqueda.productoABuscar.value + "&callback=?", function(data) 
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?", function(data) 
 			{ 
 				busqueda(data); 
 			});
@@ -139,21 +139,10 @@ $('#busqueda').live('submit', function() {
 }); 
 
 
-<<<<<<< HEAD
-$('#whislist').live('submit', function() {
-	var usuario = document.wishlist.usuarioABuscar.value;
-	$.getJSON("http://tptacs20111c-grupo4-b.appspot.com/ServletWishlist?user=" + usuario + "&callback=?", function(data) 
-			{ 
-		      alert(data[0]);
-		 
-			});
-	return false;
-=======
 
 $('.producto').live('click', function() {
     $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: $.getUrlVar('user') });
 	obtenerWishlist($.getUrlVar('user'));
->>>>>>> a1c43209c2f4f3edee79e4321a4404aed0c035c1
 }); 
 
 $('#volverAlIndice').live('submit', function() {

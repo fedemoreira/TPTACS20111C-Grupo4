@@ -3,7 +3,6 @@ package grupo4.wishlist;
 
 import java.util.ArrayList;
 import java.util.List;
-import grupo4.wishlist.Producto;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;

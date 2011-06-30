@@ -63,7 +63,7 @@ public class ServletWishlist extends HttpServlet {
 		}
 		return wishlist;
 	}
-
+	
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");

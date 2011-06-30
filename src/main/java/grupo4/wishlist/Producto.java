@@ -23,7 +23,7 @@ public class Producto {
 	public Producto()
 	{
 	}
-
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
@@ -38,5 +38,3 @@ public class Producto {
 		return this.link;
 	}
 }
-
-
