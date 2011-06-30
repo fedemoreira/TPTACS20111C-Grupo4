@@ -24,6 +24,11 @@ public class Producto {
 	{
 	}
 	
+	public Producto(String nombre, String link) {
+		this.nombre = nombre;
+		this.link = link;
+	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
