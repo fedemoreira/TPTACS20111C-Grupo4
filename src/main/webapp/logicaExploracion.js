@@ -27,7 +27,7 @@ var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 
 var appendDivAListaProductos = function(val, divDondeAgregar)
 {
-	$("<li> <div class=\"producto\" " + "link=\"" + val.permalink + "\"> " + "$" + val.price + " -  " +  val.title +  "</div></li>").appendTo(divDondeAgregar);
+	$("<div class=\"producto\" " + "link=\"" + val.permalink + "\"> " + "$" + val.price + " -  " +  val.title +  "</div>").appendTo(divDondeAgregar);
 };
 
 var regenerarCategorias = function(data, divAUsar)
