@@ -14,10 +14,11 @@ import javax.persistence.OneToMany;
 import com.google.gson.Gson;
 
 @Entity
-public class WishlistPersistido {
 /**
- * Wishlist sin comportamiento 
+ * Wishlist por usuario. El ID es el nombre de usuario (string)
+ *
  */
+public class WishlistPersistido {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String usuario;
@@ -49,16 +50,17 @@ public class WishlistPersistido {
 	public List<Producto> getListaDeProductos() {
 		return listaDeProductos;
 	}
-	
-	
-	
-
 
 	public void aniadirProducto(Producto productoAAniadir)
 	{
 		this.getListaDeProductos().add(productoAAniadir); 
 	} 
 
+	/**
+	 * Añade un producto
+	 * @param nombre Nombre de producto
+	 * @param link Link a MercadoLibre, al post del producto
+	 */
 	public void aniadirProducto(String nombre, String link)
 	{
 		Producto p = new Producto(nombre, link);
@@ -70,12 +72,19 @@ public class WishlistPersistido {
 		this.getListaDeProductos().remove(productoABuscar);
 	}
 
-
+	/**
+	 * Usa GSON para convertir la wishlist a JSON para su envío.
+	 * @return
+	 */
 	public String convertirAJson() {
 		return new Gson().toJson(this);
 
 	}
 
+	
+	/**
+	 * Vacía la lista de productos
+	 */
 	public void vaciar() {
 		this.setListaDeProductos(new ArrayList<Producto>());
 	}
@@ -84,6 +93,11 @@ public class WishlistPersistido {
 		return this.listaDeProductos.get(i);
 	}
 
+	/**
+	 * Busca un producto por nombre
+	 * @param string
+	 * @return
+	 */
 	public boolean tieneElProducto(String string) {
 		for(Producto p : this.getListaDeProductos())
 			if(p.getNombre() == string)

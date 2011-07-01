@@ -22,20 +22,14 @@ $(document).ready(function() {
 	}); 
 
 	module('Busqueda');
-	asyncTest("Busqueda con resultado vacio reconoce vac�o",function() {
-		setTimeout(function()
-				{
+	test("Busqueda con resultado vacio reconoce vac�o",function() {
 					ok(!(busqueda(mockRespuestaBusquedaVacia)), "Reconoce una busqueda resultado vacio");
 					start();
-				}, 2000);
 	});
 
-	asyncTest("Busqueda con resultado no vacio reconoce no vacio",function() {
-		setTimeout(function()
-				{
-					ok(busqueda(mockRespuestaBusquedaNoVacia), "Reconoce una busqueda resultado no vacio");
-					start();
-				}, 2000);
+	test("Busqueda con resultado no vacio reconoce no vacio",function() {
+		ok(busqueda(mockRespuestaBusquedaNoVacia), "Reconoce una busqueda resultado no vacio");
+		start();
 		$(".productos").empty();
 	});
 
