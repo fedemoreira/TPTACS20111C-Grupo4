@@ -1,6 +1,5 @@
 package grupo4.wishlist;
 
-import javax.persistence.Basic;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -24,6 +23,11 @@ public class Producto {
 	{
 	}
 	
+	public Producto(String nombre, String link) {
+		this.nombre = nombre;
+		this.link = link;
+	}
+
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}

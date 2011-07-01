@@ -1,36 +1,37 @@
 package grupo4.servlets;
 
 import grupo4.persistence.EntityManagerFact;
-import grupo4.wishlist.Producto;
-import grupo4.wishlist.Wishlist;
-import grupo4.wishlist.WishlistPersistido;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
 /**
- * Le pasa a un ClienteServiciosRest la URL que debe solicitar en base a los
- * parametros del request.
+ * Maneja la persistencia de wishlists.
  */
 public class ServletWishlist extends HttpServlet {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -5797158012022779648L;
+	private WishlistService wishlistService = new WishlistService();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
 	public ServletWishlist() {
 		super();
+		EntityManagerFact.get().createEntityManager().setFlushMode(FlushModeType.AUTO);
 	}
 
 	/**
+	 * Obtiene la wishlist de un usuario, el ID de usuario viene por parámetro en el request.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 * 
@@ -40,40 +41,19 @@ public class ServletWishlist extends HttpServlet {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-		if(request.getParameter("user") != null)
-			out.println(obtenerWishlist(request, em).convertirAJson());
-		else
-			out.println(new Wishlist().convertirAJson());			
+		out.println(this.wishlistService.obtenerWishlist(request, em).convertirAJson());
 		em.close();
 		out.close();
 	}
 
-	private Wishlist obtenerWishlist(HttpServletRequest request, EntityManager em) {
-		WishlistPersistido wishlistPersistido = em.find(WishlistPersistido.class, request.getParameter("user").toString());
-		Wishlist wishlist;
-		if (wishlistPersistido == null)
-		{
-			wishlist = new Wishlist();
-			wishlist.setUsuario(request.getParameter("user").toString());
-			em.persist(wishlist.getWishlistPersistido());
-		}
-		else
-		{
-			wishlist = new Wishlist(wishlistPersistido);
-		}
-		return wishlist;
-	}
-	
+	/**
+	 * Agrega un producto a la wishlist del usuario, los parámetros del producto vienen por parámetros de request.
+	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-		Wishlist wishlist = obtenerWishlist(request, em);
-		Producto p = new Producto();
-		p.setNombre(request.getParameter("nombre"));
-		p.setLink(request.getParameter("link"));
-		wishlist.agregarOQuitar(p);
-		em.persist(wishlist.getWishlistPersistido());
+		this.wishlistService.agregarProductoAWishlist(request, em);
 		em.close();
 	}
 }
