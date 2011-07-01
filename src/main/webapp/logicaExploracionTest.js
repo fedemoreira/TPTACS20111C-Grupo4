@@ -8,21 +8,34 @@ var mockRespuestaBusquedaNoVacia = ([200, {"X-MLAPI-Version":"1.5.18","ETag":"ad
 
 $(document).ready(function() { 
 	module('Conexion');  
-	asyncTest('Si hay internet, el API de Mercado Libre esta levantado', function() {
+	asyncTest('API de ML devuelve respuestas html validas', function() {
 		expect(1);
-		setTimeout(function(){
-			var data;
-			$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) 
-					{	
-				ok(data[0] > 200 && data[0] < 300, 'Funciona la conexion con el API de ML');
-
-				start();
-					}, 2000);
+		$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) 
+			{	
+			ok((data[0] > 199) && (data[0] < 300), 'Funciona la conexion con el API de ML');
+			});
+	    setTimeout(function() {  
+	        start();  
+	    }, 2000);  
 		});
+	
+	asyncTest(' ML acepta 2 monedas en Argentina', function() {
+		expect(2);
+		$.getJSON("https://api.mercadolibre.com/sites/MLA?callback=?", function(data) 
+			{	
+			$.each(data[2].currencies ,function(key, val)
+				{
+				ok(true);
+				}); 
+			});
+		setTimeout(function() 
+			{  
+			start();  
+			}, 2000);  
 	}); 
-
+			
 	module('Busqueda');
-	test("Busqueda con resultado vacio reconoce vac�o",function() {
+	test("Busqueda con resultado vacio reconoce vacio",function() {
 					ok(!(busqueda(mockRespuestaBusquedaVacia)), "Reconoce una busqueda resultado vacio");
 					start();
 	});
