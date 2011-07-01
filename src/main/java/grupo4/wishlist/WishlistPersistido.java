@@ -11,6 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+import com.google.gson.Gson;
+
 @Entity
 public class WishlistPersistido {
 /**
@@ -20,12 +22,16 @@ public class WishlistPersistido {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private String usuario;
 	
-	@OneToMany(cascade=CascadeType.PERSIST)
+	@OneToMany(cascade=CascadeType.ALL)
 	private List<Producto> listaDeProductos;
 	
 	public WishlistPersistido()
 	{
-		this.setListaDeProductos(new ArrayList<Producto>());
+	}
+
+	public WishlistPersistido(String user) {
+		this();
+		this.usuario = user;
 	}
 
 	public void setUsuario(String usuario) {
@@ -44,5 +50,40 @@ public class WishlistPersistido {
 		return listaDeProductos;
 	}
 	
+	
+	
+
+
+	public void aniadirProducto(Producto productoAAniadir)
+	{
+		this.getListaDeProductos().add(productoAAniadir); 
+	} 
+
+	public void aniadirProducto(String nombre, String link)
+	{
+		Producto p = new Producto(nombre, link);
+		this.getListaDeProductos().add(p); 
+	} 
+
+	public void quitarProducto(Producto productoABuscar)
+	{
+		for(Producto producto : this.listaDeProductos)
+			if (producto.getNombre().equals(productoABuscar.getNombre()))
+				this.getListaDeProductos().remove(producto);
+	}
+
+
+	public String convertirAJson() {
+		return new Gson().toJson(this);
+
+	}
+
+	public void vaciar() {
+		this.setListaDeProductos(new ArrayList<Producto>());
+	}
+
+	public Producto dameProducto(int i) {
+		return this.listaDeProductos.get(i);
+	}
     
 }

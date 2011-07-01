@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 import javax.persistence.EntityManager;
+import javax.persistence.FlushModeType;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,6 +27,7 @@ public class ServletWishlist extends HttpServlet {
 	 */
 	public ServletWishlist() {
 		super();
+		EntityManagerFact.get().createEntityManager().setFlushMode(FlushModeType.AUTO);
 	}
 
 	/**
