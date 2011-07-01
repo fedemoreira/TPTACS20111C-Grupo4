@@ -67,9 +67,7 @@ public class WishlistPersistido {
 
 	public void quitarProducto(Producto productoABuscar)
 	{
-		for(Producto producto : this.listaDeProductos)
-			if (producto.getNombre().equals(productoABuscar.getNombre()))
-				this.getListaDeProductos().remove(producto);
+		this.getListaDeProductos().remove(productoABuscar);
 	}
 
 
@@ -84,6 +82,13 @@ public class WishlistPersistido {
 
 	public Producto dameProducto(int i) {
 		return this.listaDeProductos.get(i);
+	}
+
+	public boolean tieneElProducto(String string) {
+		for(Producto p : this.getListaDeProductos())
+			if(p.getNombre() == string)
+				return true;
+		return false;
 	}
     
 }

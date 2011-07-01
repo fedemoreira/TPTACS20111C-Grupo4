@@ -25,37 +25,32 @@ public class WishlistTest {
 		this.wishlist.aniadirProducto(this.productoEjemplo); 
 	}
 	
-	/*@Test
+	@Test
 	public void agregayQuitaBienUnProducto()
 	{   
 		this.wishlist.quitarProducto(this.productoEjemplo);
-	}/*/
+	}
 	@Test
 	public void sePasaAJsonYObtieneElUltimoProducto()
 	{
 		this.wishlist = new Gson().fromJson(this.wishlist.convertirAJson(), WishlistPersistido.class);
 		assertEquals("Producto", this.wishlist.dameProducto(0).getNombre());
 	}
-/*
 	@Test
 	public void detectaCorrectamenteQueUnProductoYaExisteEnWishlist()
 	{
 		assertTrue(this.wishlist.tieneElProducto("Producto"));
 	}
-*/
-	/*
 	@Test
 	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlist()
 	{
 		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
 	}
-*/
-	/*
 	@Test
 	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlistBuscandoPorProducto()
 	{
 		Producto productoQueEsta = new Producto("Un-", "ProductoQueNoEsta");
-		assertFalse(this.wishlist.tieneElProducto(productoQueEsta));
+		assertFalse(this.wishlist.tieneElProducto(productoQueEsta.getNombre()));
 	}
 
 
@@ -64,7 +59,7 @@ public class WishlistTest {
 	{
 		Producto productoQueEsta = new Producto("Un", "Producto");
 		this.wishlist.aniadirProducto(productoQueEsta);
-		assertTrue(this.wishlist.tieneElProducto(productoQueEsta));
+		assertTrue(this.wishlist.tieneElProducto(productoQueEsta.getNombre()));
 	}
 	
 	@Test
@@ -73,5 +68,4 @@ public class WishlistTest {
 		this.wishlist.vaciar();
 		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
 	}
-	*/	
 }
