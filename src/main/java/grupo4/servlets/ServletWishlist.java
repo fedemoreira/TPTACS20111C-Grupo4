@@ -27,7 +27,6 @@ public class ServletWishlist extends HttpServlet {
 	 */
 	public ServletWishlist() {
 		super();
-		EntityManagerFact.get().createEntityManager().setFlushMode(FlushModeType.AUTO);
 	}
 
 	/**

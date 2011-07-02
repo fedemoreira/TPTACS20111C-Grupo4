@@ -20,11 +20,8 @@ public class WishlistService {
 		WishlistPersistido wishlistPersistido = em.find(WishlistPersistido.class, request.getParameter("user").toString());
 		if (wishlistPersistido == null)
 		{
-			System.out.println("No existia " + "\n");
 			wishlistPersistido = crearWishlist(request.getParameter("user").toString(), em);
 		}
-
-		System.out.println("Obtenido: " + wishlistPersistido.convertirAJson());
 		return wishlistPersistido;
 	}
 
@@ -47,11 +44,8 @@ public class WishlistService {
 	void agregarProductoAWishlist(HttpServletRequest request, EntityManager em) {
 		em.getTransaction().begin();
 		WishlistPersistido wishlist = this.obtenerWishlist(request, em);
-		System.out.println("ObtenidoEnPost: " + wishlist.convertirAJson());
 		wishlist.aniadirProducto(new Producto(request.getParameter("nombre"), request.getParameter("link")));
-		em.refresh(wishlist);
 		em.getTransaction().commit();
-		System.out.println("Persistido: " + wishlist.convertirAJson());
 	}
 
 	public WishlistPersistido obtenerWishlistDeUsuario(HttpServletRequest request,
