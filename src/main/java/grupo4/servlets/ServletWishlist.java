@@ -52,7 +52,10 @@ public class ServletWishlist extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-		this.wishlistService.agregarProductoAWishlist(request, em);
+		if(request.getParameter("limpiar") != null)
+			this.wishlistService.limpiarWishlist(request, em);
+		else
+			this.wishlistService.agregarProductoAWishlist(request, em);
 		em.close();
 	}
 }

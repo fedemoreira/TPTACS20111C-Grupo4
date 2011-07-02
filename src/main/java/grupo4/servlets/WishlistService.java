@@ -56,4 +56,11 @@ public class WishlistService {
 		em.getTransaction().commit();
 		return wishlist;
 	}
+
+	public void limpiarWishlist(HttpServletRequest request, EntityManager em) {
+		em.getTransaction().begin();
+		WishlistPersistido wishlist = this.obtenerWishlist(request, em);
+		wishlist.vaciar();
+		em.getTransaction().commit();		
+	}
 }

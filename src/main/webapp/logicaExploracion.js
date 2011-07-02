@@ -130,8 +130,9 @@ $(".cat").live('click', function() {
 
 
 $('#vaciarWishlist').live('submit', function() {
-// Post con vaciar wishlist
+    $.post("ServletWishlist", { limpiar: "y", user: $.getUrlVar('user') });
 	alert("Wishlist vaciada");
+	obtenerWishlist($.getUrlVar('user'));
 	return false;
 }); 
 
