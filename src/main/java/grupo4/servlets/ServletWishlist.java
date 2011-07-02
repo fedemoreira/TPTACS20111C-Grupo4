@@ -41,7 +41,7 @@ public class ServletWishlist extends HttpServlet {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-		out.println(this.wishlistService.obtenerWishlist(request, em).convertirAJson());
+		out.println(this.wishlistService.obtenerWishlistDeUsuario(request, em).convertirAJson());
 		em.close();
 		out.close();
 	}
