@@ -129,6 +129,15 @@ $(".cat").live('click', function() {
 });
 
 
+$('#vaciarWishlist').live('submit', function() {
+// Post con vaciar wishlist
+	alert("Wishlist vaciada");
+	return false;
+}); 
+
+
+
+
 $('#busqueda').live('submit', function() {
 	limpiar();
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/search?q=" + $("input:first").val() + "&callback=?", function(data) 
