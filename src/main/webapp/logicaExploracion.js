@@ -147,6 +147,11 @@ $('#busqueda').live('submit', function() {
 	return false;
 }); 
 
+$('#registrarse').live('submit', function() {
+
+	location.href("https://graph.facebook.com/oauth/access_token?client_id=140959625981357&redirect_uri=http://localhost:8080");
+	return false;
+}); 
 
 
 $('.producto').live('click', function() {

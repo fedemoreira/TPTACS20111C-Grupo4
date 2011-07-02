@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import main.java.grupo4.autenticacion.Autenticacion;
+
 /**
  * Maneja la persistencia de wishlists.
  */
@@ -40,6 +42,13 @@ public class ServletWishlist extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
+		String codigo = request.getParameter("code");
+		String token = new String();
+		if (codigo != null){
+			Autenticacion autenticacion= new Autenticacion();
+			token = autenticacion.requestToFacebook(codigo);
+			//out.println(token);
+		}
 		EntityManager em = EntityManagerFact.get().createEntityManager();
 		out.println(this.wishlistService.obtenerWishlist(request, em).convertirAJson());
 		em.close();
@@ -56,4 +65,6 @@ public class ServletWishlist extends HttpServlet {
 		this.wishlistService.agregarProductoAWishlist(request, em);
 		em.close();
 	}
+    
+	
 }
