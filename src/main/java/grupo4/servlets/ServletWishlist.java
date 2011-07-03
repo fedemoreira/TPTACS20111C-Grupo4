@@ -30,7 +30,7 @@ public class ServletWishlist extends HttpServlet {
 	}
 
 	/**
-	 * Obtiene la wishlist de un usuario, el ID de usuario viene por parámetro en el request.
+	 * Obtiene la wishlist de un usuario, el ID de usuario viene por parametro en el request.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 * 
@@ -46,7 +46,7 @@ public class ServletWishlist extends HttpServlet {
 	}
 
 	/**
-	 * Agrega un producto a la wishlist del usuario, los parámetros del producto vienen por parámetros de request.
+	 * Agrega un producto a la wishlist del usuario, los parametros del producto vienen por parametros de request.
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

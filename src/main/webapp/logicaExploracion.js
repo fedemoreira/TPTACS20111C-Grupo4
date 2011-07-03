@@ -1,24 +1,4 @@
-//  --- Sacado verbatim de http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
-$.extend({
-  getUrlVars: function(){
-    var vars = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
-      hash = hashes[i].split('=');
-      vars.push(hash[0]);
-      vars[hash[0]] = hash[1];
-    }
-    return vars;
-  },
-  getUrlVar: function(name){
-    return $.getUrlVars()[name];
-  }
-});
-//  --- Sacado verbatim de http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
-
-
-
+var usuario;
 
 var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 {
@@ -100,7 +80,7 @@ var regenerarRoot = function()
 	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
 		regenerarCategorias(data[2], "#listaDeCategorias");
 	});
-	obtenerWishlist($.getUrlVar('user'));
+	//obtenerWishlist(usuario.id);
 };
 
 
@@ -121,6 +101,16 @@ var obtenerProductos = function(idCategoria)
 			});
 };
 
+var conectarse = function(usuario){
+	if(FB.getSession() != null) {
+		FB.api('/me', function(response) 
+		{
+			alert ("Welcome " + response.name + ": Your UID is " + response.id);
+			usuario=response.id;
+	    });
+	};	
+};
+
 $(".cat").live('click', function() {   
 	toggleCategorias();
 	obtenerCategorias($(this).attr("idCat"));
@@ -130,14 +120,21 @@ $(".cat").live('click', function() {
 
 
 $('#vaciarWishlist').live('submit', function() {
-    $.post("ServletWishlist", { limpiar: "y", user: $.getUrlVar('user') });
+    $.post("ServletWishlist", { limpiar: "y", user: usuario });
 	alert("Wishlist vaciada");
-	obtenerWishlist($.getUrlVar('user'));
+	obtenerWishlist(usuario);
 	return false;
 }); 
 
-
-
+$('#conectado').live('submit', function() {
+conectarse(usuario);
+regenerarRoot();
+alert(usuario);
+obtenerWishlist(usuario);
+	$(function() {
+		$( "#tabs" ).tabs();
+}	);
+});
 
 $('#busqueda').live('submit', function() {
 	limpiar();
@@ -151,22 +148,24 @@ $('#busqueda').live('submit', function() {
 
 
 $('.producto').live('click', function() {
-    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: $.getUrlVar('user') });
+    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: usuario });
 	alert("Producto agregado a la wishlist");
-	obtenerWishlist($.getUrlVar('user'));
+	obtenerWishlist(usuario);
 }); 
 
 $('#volverAlIndice').live('submit', function() {
 	regenerarRoot();
-	obtenerWishlist($.getUrlVar('user'));
+	obtenerWishlist(usuario);
 });	 
 
 
-	
-$(document).ready(function(){
-	regenerarRoot();
-	obtenerWishlist($.getUrlVar('user'));
-	$(function() {
-		$( "#tabs" ).tabs();
-	});
+
+$(document).ready(function(){	
+    FB.init({ 
+        appId:'140959625981357', cookie:true, 
+        status:true, xfbml:true 
+     });
+    alert ("facebook init");
+	conectarse(usuario);
+
 });
