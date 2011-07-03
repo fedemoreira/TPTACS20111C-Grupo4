@@ -152,6 +152,7 @@ $('#busqueda').live('submit', function() {
 
 $('.producto').live('click', function() {
     $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: $.getUrlVar('user') });
+	alert("Producto agregado a la wishlist");
 	obtenerWishlist($.getUrlVar('user'));
 }); 
 
