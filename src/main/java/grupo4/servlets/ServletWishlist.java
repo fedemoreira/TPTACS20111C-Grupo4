@@ -12,8 +12,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import main.java.grupo4.autenticacion.Autenticacion;
-
 /**
  * Maneja la persistencia de wishlists.
  */
@@ -29,11 +27,10 @@ public class ServletWishlist extends HttpServlet {
 	 */
 	public ServletWishlist() {
 		super();
-		EntityManagerFact.get().createEntityManager().setFlushMode(FlushModeType.AUTO);
 	}
 
 	/**
-	 * Obtiene la wishlist de un usuario, el ID de usuario viene por par√°metro en el request.
+	 * Obtiene la wishlist de un usuario, el ID de usuario viene por par·metro en el request.
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 * 
@@ -42,29 +39,23 @@ public class ServletWishlist extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		String codigo = request.getParameter("code");
-		String token = new String();
-		if (codigo != null){
-			Autenticacion autenticacion= new Autenticacion();
-			token = autenticacion.requestToFacebook(codigo);
-			//out.println(token);
-		}
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-		out.println(this.wishlistService.obtenerWishlist(request, em).convertirAJson());
+		out.println(this.wishlistService.obtenerWishlistDeUsuario(request, em).convertirAJson());
 		em.close();
 		out.close();
 	}
 
 	/**
-	 * Agrega un producto a la wishlist del usuario, los par√°metros del producto vienen por par√°metros de request.
+	 * Agrega un producto a la wishlist del usuario, los par·metros del producto vienen por par·metros de request.
 	 */
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		response.setContentType("text/x-json;charset=UTF-8");
 		EntityManager em = EntityManagerFact.get().createEntityManager();
-		this.wishlistService.agregarProductoAWishlist(request, em);
+		if(request.getParameter("limpiar") != null)
+			this.wishlistService.limpiarWishlist(request, em);
+		else
+			this.wishlistService.agregarProductoAWishlist(request, em);
 		em.close();
 	}
-    
-	
 }
