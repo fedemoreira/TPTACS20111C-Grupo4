@@ -6,6 +6,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 import com.google.appengine.api.datastore.Key;
+import com.google.gson.annotations.Expose;
 
 
 @Entity
@@ -16,8 +17,10 @@ public class Producto {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Key id;
-    private String nombre;
-	private String link;
+    @Expose
+	private String nombre;
+	@Expose
+    private String link;
 
 	public Producto()
 	{

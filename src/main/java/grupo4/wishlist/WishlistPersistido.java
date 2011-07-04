@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
 
 @Entity
 /**
@@ -22,9 +24,11 @@ import com.google.gson.Gson;
 public class WishlistPersistido {
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Expose
 	private String usuario;
 	
 	@OneToMany(cascade=CascadeType.ALL, fetch=FetchType.EAGER)
+	@Expose
 	private List<Producto> listaDeProductos;
 	
 	public WishlistPersistido()
@@ -67,7 +71,9 @@ public class WishlistPersistido {
 	 * @return
 	 */
 	public String convertirAJson() {
-		return new Gson().toJson(this);
+		GsonBuilder gsonBuilder = new GsonBuilder();
+		gsonBuilder.excludeFieldsWithoutExposeAnnotation();
+		return gsonBuilder.create().toJson(this);
 	}
 
 	
