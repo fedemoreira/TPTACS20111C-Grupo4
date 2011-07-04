@@ -1,4 +1,4 @@
-var usuario;
+
 
 var appendDivAListaCategorias = function(id, name, divDondeAgregar)
 {
@@ -85,7 +85,7 @@ var regenerarRoot = function()
 	{
 		regenerarCategorias(data[2], "#listaDeCategorias");
 	});
-	//obtenerWishlist(usuario.id);
+	obtenerWishlist(usuario);
 };
 
 
@@ -106,15 +106,16 @@ var obtenerProductos = function(idCategoria)
 			});
 };
 
-var conectarse = function(usuario){
+function conectarse(){
 	if(FB.getSession() != null) 
-	{
-		FB.api('/me', function(response) 
+	{   
+		 FB.api('/me', function(response) 
 		{
 			alert("Welcome " + response.name + ": Your UID is " + response.id);
-			usuario=response.id;
+			document.getElementById("conectado").title=response.id;
 	    });
-	};	
+	    
+			}; 	
 };
 
 $(".cat").live('click', function() {   
@@ -135,9 +136,8 @@ $('#vaciarWishlist').live('submit', function() {
 });
 
 $('#conectado').live('submit', function() {
-	conectarse(usuario);
+	usuario= document.getElementById("conectado").title;
 	regenerarRoot();
-	alert(usuario);
 	obtenerWishlist(usuario);
 });
 
@@ -169,14 +169,15 @@ $('#volverAlIndice').live('submit', function() {
 
 
 $(document).ready(function(){	
-    FB.init({ 
+
+	FB.init({ 
         appId:'140959625981357', cookie:true, 
         status:true, xfbml:true 
      });
-	conectarse(usuario);
+	conectarse();
+	alert(document.getElementById("conectado").title);
+	usuario =document.getElementById("conectado").title;
 	regenerarRoot();
-	alert(usuario);
-	obtenerWishlist(usuario);
 	$(function() {
 		$( "#tabs" ).tabs();
 }	);
