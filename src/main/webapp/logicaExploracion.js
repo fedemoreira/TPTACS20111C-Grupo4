@@ -1,23 +1,3 @@
-//  --- Sacado verbatim de http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
-$.extend({
-  getUrlVars: function(){
-    var vars = [], hash;
-    var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
-    for(var i = 0; i < hashes.length; i++)
-    {
-      hash = hashes[i].split('=');
-      vars.push(hash[0]);
-      vars[hash[0]] = hash[1];
-    }
-    return vars;
-  },
-  getUrlVar: function(name){
-    return $.getUrlVars()[name];
-  }
-});
-//  --- Sacado verbatim de http://jquery-howto.blogspot.com/2009/09/get-url-parameters-values-with-jquery.html
-
-
 var usuario;
 
 var appendDivAListaCategorias = function(id, name, divDondeAgregar)
@@ -33,14 +13,16 @@ var appendDivAListaProductos = function(val, divDondeAgregar)
 var regenerarCategorias = function(data, divAUsar)
 {
 	$(divAUsar).empty();
-	$.each(data, function(key, val) {
+	$.each(data, function(key, val) 
+	{
 		appendDivAListaCategorias(val.id, val.name, divAUsar);
 	});
 };
 
 var obtenerWishlist = function(idUsuario)
 {
-	$.getJSON("ServletWishlist?user=" + idUsuario, function(data) {
+	$.getJSON("ServletWishlist?user=" + idUsuario, function(data) 
+	{
 		regenerarWishlist(data.listaDeProductos);
 	});
 };
@@ -48,7 +30,8 @@ var obtenerWishlist = function(idUsuario)
 var regenerarProductos = function(data)
 {
 	$("#productos").empty();
-	$.each(data, function(key, val) {
+	$.each(data, function(key, val) 
+	{
 		appendDivAListaProductos(val, "#productos");
 	});
 };
@@ -56,7 +39,8 @@ var regenerarProductos = function(data)
 var regenerarWishlist = function(data)
 {
 	$("#wishlist").empty();
-	$.each(data, function(key, val) {
+	$.each(data, function(key, val) 
+	{
 		$("<li> <div class=\"productoWishlist\" " + "link=\"" + val.link + "\"> " + val.nombre + "</div></li>").appendTo("#wishlist");
 	});
 };
@@ -97,7 +81,8 @@ var regenerarRoot = function()
 	$("#listaDeCategorias").show();
 	$("#pathToRoot").show();
 	$("#wishlist").show();
-	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) {
+	$.getJSON("https://api.mercadolibre.com/sites/MLA/categories?callback=?", function(data) 
+	{
 		regenerarCategorias(data[2], "#listaDeCategorias");
 	});
 	//obtenerWishlist(usuario.id);
@@ -122,16 +107,16 @@ var obtenerProductos = function(idCategoria)
 };
 
 var conectarse = function(usuario){
-	   
-		if(FB.getSession() != null) {
-	    FB.api('/me', function(response) {
-	        alert ("Welcome " + response.name + ": Your UID is " + response.id);
-	        usuario=response.id;
-	      });
-	      
-	};
-		
-	};
+	if(FB.getSession() != null) 
+	{
+		FB.api('/me', function(response) 
+		{
+			alert("Welcome " + response.name + ": Your UID is " + response.id);
+			usuario=response.id;
+	    });
+	};	
+};
+
 $(".cat").live('click', function() {   
 	toggleCategorias();
 	obtenerCategorias($(this).attr("idCat"));
@@ -141,20 +126,21 @@ $(".cat").live('click', function() {
 
 
 $('#vaciarWishlist').live('submit', function() {
-    $.post("ServletWishlist", { limpiar: "y", user: usuario });
-	alert("Wishlist vaciada");
-	obtenerWishlist(usuario);
+    $.post("ServletWishlist", { limpiar: "y", user: usuario }, function(data)
+		{
+			alert("Wishlist vaciada");
+			obtenerWishlist(usuario);
+		});
 	return false;
-}); 
+});
 
 $('#conectado').live('submit', function() {
-conectarse(usuario);
-regenerarRoot();
-alert (usuario);
-obtenerWishlist(usuario);
-$(function() {
-	$( "#tabs" ).tabs();
+	conectarse(usuario);
+	regenerarRoot();
+	alert(usuario);
+	obtenerWishlist(usuario);
 });
+
 
 $('#busqueda').live('submit', function() {
 	limpiar();
@@ -168,9 +154,11 @@ $('#busqueda').live('submit', function() {
 
 
 $('.producto').live('click', function() {
-    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: usuario });
+    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: usuario }, function(data)
+    {
 	alert("Producto agregado a la wishlist");
 	obtenerWishlist(usuario);
+	});
 }); 
 
 $('#volverAlIndice').live('submit', function() {
@@ -185,7 +173,12 @@ $(document).ready(function(){
         appId:'140959625981357', cookie:true, 
         status:true, xfbml:true 
      });
-    alert ("facebook init");
 	conectarse(usuario);
+	regenerarRoot();
+	alert(usuario);
+	obtenerWishlist(usuario);
+	$(function() {
+		$( "#tabs" ).tabs();
+}	);
 
 });
