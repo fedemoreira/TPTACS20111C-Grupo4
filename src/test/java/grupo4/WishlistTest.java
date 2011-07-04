@@ -1,7 +1,6 @@
 package grupo4;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import grupo4.wishlist.Producto;
 import grupo4.wishlist.WishlistPersistido;
@@ -16,14 +15,17 @@ public class WishlistTest {
 
 	private WishlistPersistido wishlist;
     private Producto productoEjemplo;
+	private WishlistPersistido wishlistVacia;
 	@Before
 	public void condicionesIniciales()
 	{
 		this.wishlist = new WishlistPersistido();
 		this.wishlist.vaciar();
-		this.productoEjemplo = new Producto("Producto", "Link de prueba");
+		this.productoEjemplo = new Producto("Producto", "Link");
 		this.wishlist.aniadirProducto(this.productoEjemplo); 
-	}
+		this.wishlistVacia = new WishlistPersistido();
+		this.wishlistVacia.vaciar();
+}
 	
 	@Test
 	public void agregayQuitaBienUnProducto()
@@ -34,38 +36,16 @@ public class WishlistTest {
 	public void sePasaAJsonYObtieneElUltimoProducto()
 	{
 		this.wishlist = new Gson().fromJson(this.wishlist.convertirAJson(), WishlistPersistido.class);
-		assertEquals("Producto", this.wishlist.dameProducto(0).getNombre());
+		assertEquals("Producto", this.wishlist.getListaDeProductos().get(0).getNombre());
 	}
 	@Test
-	public void detectaCorrectamenteQueUnProductoYaExisteEnWishlist()
+	public void seAgregaCorrectamenteProductoALaWishlist()
 	{
-		assertTrue(this.wishlist.tieneElProducto("Producto"));
+		assertTrue(this.wishlist.getListaDeProductos().get(0).getNombre() == "Producto");
 	}
 	@Test
-	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlist()
+	public void lasWishlistsSeVacianCorrectamente()
 	{
-		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
-	}
-	@Test
-	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlistBuscandoPorProducto()
-	{
-		Producto productoQueEsta = new Producto("Un-", "ProductoQueNoEsta");
-		assertFalse(this.wishlist.tieneElProducto(productoQueEsta.getNombre()));
-	}
-
-
-	@Test
-	public void detectaCorrectamenteQueUnProductoExistenteExisteEnWishlistBuscandoPorProducto()
-	{
-		Producto productoQueEsta = new Producto("Un", "Producto");
-		this.wishlist.aniadirProducto(productoQueEsta);
-		assertTrue(this.wishlist.tieneElProducto(productoQueEsta.getNombre()));
-	}
-	
-	@Test
-	public void detectaCorrectamenteQueUnProductoInexistenteNoExisteEnWishlistVacia()
-	{
-		this.wishlist.vaciar();
-		assertFalse(this.wishlist.tieneElProducto("Producto que ni loco esta"));
+		assertTrue(this.wishlistVacia.getListaDeProductos().size() == 0);
 	}
 }
