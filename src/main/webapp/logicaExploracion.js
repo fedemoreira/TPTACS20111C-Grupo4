@@ -174,9 +174,18 @@ $(document).ready(function(){
         appId:'140959625981357', cookie:true, 
         status:true, xfbml:true 
      });
-	conectarse();
-	alert(document.getElementById("conectado").title);
 	usuario =document.getElementById("conectado").title;
+	conectarse();
+	if(usuario=="notLoggedIn")
+	{
+		$("#login").append("<fb:login-button perms=\"email,user_checkins,publish_stream\">Login with Facebook</fb:login-button>");
+	}
+	else
+	{
+		$("#login").empty();
+		$("#login").append("Loggeado como " + usuario);
+	}
+	alert(document.getElementById("conectado").title);
 	regenerarRoot();
 	$(function() {
 		$( "#tabs" ).tabs();
