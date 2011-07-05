@@ -198,11 +198,16 @@ $('#volverAlIndice').live('submit', function() {
 
 $(document).ready(function(){	
 
-	FB.init({ 
-        appId:'140959625981357', cookie:true, 
-        //appId:'140721799338580', cookie:true,
+	 if (document.URL.substring(0,21) == "http://localhost:8080")	
+	{FB.init({ 
+        appId:'140959625981357', cookie:true, //Para localhost
         status:true, xfbml:true 
-     });
+     });}
+	 else {FB.init({
+	        appId:'140721799338580', cookie:true, //Para GAE
+	        status:true, xfbml:true 
+	 });
+	 };
 	conectarse();
 	usuario =document.getElementById("conectado").title;
 	if(usuario=="notLoggedIn")
