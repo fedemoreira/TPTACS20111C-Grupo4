@@ -222,6 +222,7 @@ $(document).ready(function(){
 		$("#login").empty();
 		$("#login").append("Loggeado como " + usuario);
 	}
+	$("<fb:like href=" + document.URL + "layout=\"standard\" show-faces=\"true\" width=\"450\" action=\"like\" colorscheme=\"light\" />").appendTo('#like')
 	regenerarRoot();
 	$(function() {
 		$( "#tabs" ).tabs();
