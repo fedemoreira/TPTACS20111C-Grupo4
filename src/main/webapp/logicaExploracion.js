@@ -37,14 +37,16 @@ var regenerarProductos = function(data)
 };
 
 var regenerarWishlist = function(data)
-{
+{   
+	$('#vaciarWishlist').appendTo('body');
 	$("#wishlist").empty();
 	$.each(data, function(key, val) 
 	{
 		$("<li> <div class=\"productoWishlist\" " + "link=\"" + val.link + "\"> " + val.nombre + "</div></li>").appendTo("#wishlist");
 	});
+	$('#vaciarWishlist').appendTo('#wishlist');
 };
-
+	
 var toggleCategorias = function()
 {
 	$("#listaDeCategorias").toggle("highlight", 100);
@@ -111,11 +113,24 @@ function conectarse(){
 	{   
 		 FB.api('/me', function(response) 
 		{
-			alert("Welcome " + response.name + ": Your UID is " + response.id);
-			document.getElementById("conectado").title=response.id;
+				document.getElementById("conectado").title=response.id;
 	    });
 	    
 			}; 	
+};
+
+function publicar(body){
+
+	if(FB.getSession() != null) 
+	{   
+		FB.api('/me/feed', 'post', { message: body }, function(response){
+			  if (!response || response.error) {
+				    alert('Error occured');
+				  } else {
+				    alert('Post ID: ' + response.id);
+				  };
+		});
+};
 };
 
 $(".cat").live('click', function() {   
@@ -135,11 +150,10 @@ $('#vaciarWishlist').live('submit', function() {
 	return false;
 });
 
-$('#conectado').live('submit', function() {
-	usuario= document.getElementById("conectado").title;
-	regenerarRoot();
-	obtenerWishlist(usuario);
-});
+$('#contaleAmigos').live('submit', function(){
+		publicar("Estoy disfrutando esta app mirala http://apps.facebook.com/tptacsgrupob/");
+		  return false;}
+);
 
 
 $('#busqueda').live('submit', function() {
@@ -154,16 +168,30 @@ $('#busqueda').live('submit', function() {
 
 
 $('.producto').live('click', function() {
-    $.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: usuario }, function(data)
-    {
-	alert("Producto agregado a la wishlist");
-	obtenerWishlist(usuario);
-	});
-}); 
+    if (usuario!="notLoggedIn" )
+    	{	
+    	$.post("ServletWishlist", { nombre: $(this).html(), link: $(this).attr("link"), user: usuario }, function(data)
+    		{
+    		alert("Producto agregado a la wishlist");
+    		obtenerWishlist(usuario);
+    		return false;
+    		}
+    	);}
+    	else { 
+    		conectarse();
+    		usuario = document.getElementById("conectado").title;
+    		if (FB.getSession() == null)
+    			{
+    				alert(conectate);
+    			};
+    	}
+    return false;}
+); 
 
 $('#volverAlIndice').live('submit', function() {
 	regenerarRoot();
 	obtenerWishlist(usuario);
+	return false;
 });	 
 
 
@@ -172,10 +200,11 @@ $(document).ready(function(){
 
 	FB.init({ 
         appId:'140959625981357', cookie:true, 
+        //appId:'140721799338580', cookie:true,
         status:true, xfbml:true 
      });
-	usuario =document.getElementById("conectado").title;
 	conectarse();
+	usuario =document.getElementById("conectado").title;
 	if(usuario=="notLoggedIn")
 	{
 		$("#login").append("<fb:login-button perms=\"email,user_checkins,publish_stream\">Login with Facebook</fb:login-button>");
@@ -185,7 +214,6 @@ $(document).ready(function(){
 		$("#login").empty();
 		$("#login").append("Loggeado como " + usuario);
 	}
-	alert(document.getElementById("conectado").title);
 	regenerarRoot();
 	$(function() {
 		$( "#tabs" ).tabs();

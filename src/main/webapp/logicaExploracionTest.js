@@ -75,6 +75,23 @@ $(document).ready(function() {
 		ok($("#productos > div").size() == 5 , "Se agregan 5 productos");	
 		$("#productos").empty();
 		});
-		
+	
+	module('facebook');
+	asyncTest("testeo de login a facebook", function(){
+		expect(1);
+		FB.init({ 
+	        appId:'140959625981357', cookie:true, //corriendo en localhost:8080
+	        //appId:'140721799338580', cookie:true, //corriendo en GAE
+	        status:true, xfbml:true 
+	     });
+		FB.login(function(response) {
+			  if (response.session) {
+				   ok(true, "usuario logueado");};});
+		setTimeout(function() 
+				{start();  
+				}, 20000);  //puede tocar aceptar manualmente
+				}); }
 
-});
+
+
+);
