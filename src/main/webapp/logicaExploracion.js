@@ -125,9 +125,9 @@ function publicar(body){
 	{   
 		FB.api('/me/feed', 'post', { message: body }, function(response){
 			  if (!response || response.error) {
-				    alert('Error occured');
+				    alert('No se pudo postear en tu muro');
 				  } else {
-				    alert('Post ID: ' + response.id);
+				    alert('Le contaste a tus amigos (en tu muro)');
 				  };
 		});
 };
@@ -150,8 +150,8 @@ $('#vaciarWishlist').live('submit', function() {
 	return false;
 });
 
-$('#contaleAmigos').live('submit', function(){
-		publicar("Estoy disfrutando esta app mirala http://apps.facebook.com/tptacsgrupob/");
+$('#Amigos').live('submit', function(){
+		publicar("Estoy disfrutando de la app de wishlist del Grupo 4 de TACS, mirala. http://apps.facebook.com/tptacsgrupob/");
 		  return false;}
 );
 
@@ -182,7 +182,7 @@ $('.producto').live('click', function() {
     		usuario = document.getElementById("conectado").title;
     		if (FB.getSession() == null)
     			{
-    				alert(conectate);
+    				alert("No estás conectado a Facebook");
     			};
     	}
     return false;}
