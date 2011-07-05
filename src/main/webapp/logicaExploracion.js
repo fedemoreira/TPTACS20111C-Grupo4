@@ -114,6 +114,8 @@ function conectarse(){
 		 FB.api('/me', function(response) 
 		{
 				document.getElementById("conectado").title=response.id;
+				$("#login").empty();
+				$("#login").append("Loggeado como " + response.name);
 	    });
 	    
 			}; 	
