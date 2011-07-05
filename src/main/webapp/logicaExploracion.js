@@ -112,10 +112,11 @@ function conectarse(){
 	if(FB.getSession() != null) 
 	{   
 		 FB.api('/me', function(response) 
-		{
+		{		if(response && !response.error){
 				document.getElementById("conectado").title=response.id;
 				$("#login").empty();
 				$("#login").append("Loggeado como " + response.name);
+		};
 	    });
 	    
 			}; 	
